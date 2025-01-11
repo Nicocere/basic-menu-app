@@ -1,0 +1,122 @@
+:root {
+    --primary-color: #4e342e; /* Brown */
+    --secondary-color: #d7ccc8; /* Light Brown */
+    --accent-color: #8d6e63; /* Darker Brown */
+    --font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+  }
+  
+  .cartPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .cartItems {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .cartItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .productImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .productDetails {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .productName {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .productPrice {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .removeButton {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .removeButton:hover {
+    background-color: darken(var(--accent-color), 10%);
+  }
+  
+  .total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .orderDetails {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .checkbox {
+    margin-top: 10px;
+  }
+  
+  .payButton, .emptyButton, .continueButton {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .payButton:hover, .emptyButton:hover, .continueButton:hover {
+    background-color: darken(var(--accent-color), 10%);
+  }
+  
+  .emptyCart {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+  }

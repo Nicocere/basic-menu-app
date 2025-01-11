@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import styles from './page.module.css';
@@ -32,6 +32,15 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(savedCart);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const toggleCategory = (category) => {
     setOpenCategories((prev) => ({
