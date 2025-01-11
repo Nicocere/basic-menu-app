@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './AdminHome.module.css';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaCashRegister, FaTruck, FaStore, FaChartBar, FaBoxes, FaPrint, FaMoneyCheckAlt, FaUsers, FaConciergeBell } from 'react-icons/fa';
+import { FaCashRegister, FaTruck, FaStore, FaChartBar, FaBoxes, FaPrint, FaMoneyCheckAlt, FaUsers, FaConciergeBell, FaPaintBrush, FaBoxOpen, FaTags } from 'react-icons/fa';
 
 const AdminHome = () => {
     return (
@@ -14,6 +14,19 @@ const AdminHome = () => {
             </header>
             <main className={styles.main}>
 
+                    <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                <h2 className={styles.subtitle}><FaBoxOpen /> Agregar productos</h2>
+                <Link href="/admin/agregar-productos">
+                    <button className={styles.button}>Ir a Agregar productos</button>
+                </Link>
+            </motion.section>
+            
+            <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                <h2 className={styles.subtitle}><FaTags /> Crear / Editar categorías y subcategorías</h2>
+                <Link href="/admin/crear-editar-categorias">
+                    <button className={styles.button}>Ir a Crear / Editar categorías y subcategorías</button>
+                </Link>
+            </motion.section>
             <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaConciergeBell /> Servicios Autónomos para Clientes</h2>
                     <Link href="/admin/self-service">
@@ -21,19 +34,26 @@ const AdminHome = () => {
                     </Link>
                 </motion.section> 
 
-                <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                        <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                    <h2 className={styles.subtitle}><FaPaintBrush /> Personalizar tu propio sitio</h2>
+                    <Link href="/admin/personalizar-sitio">
+                        <button className={styles.button}>Ir a Personalizar tu propio sitio</button>
+                    </Link>
+                </motion.section>
+
+                {/* <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaCashRegister /> Arqueo de Caja Diario</h2>
                     <Link href="/admin/daily-cash">
                         <button className={styles.button}>Ir a Arqueo de Caja</button>
                     </Link>
-                </motion.section>
+                </motion.section> */}
                 {/* <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaTruck /> Integración con Apps de Delivery</h2>
                     <Link href="/admin/delivery-integration">
                         <button className={styles.button}>Ir a Integración</button>
                     </Link>
                 </motion.section> */}
-                <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                {/* <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaStore /> Tienda Online y Carta QR</h2>
                     <Link href="/admin/online-store">
                         <button className={styles.button}>Ir a Tienda Online</button>
@@ -68,7 +88,7 @@ const AdminHome = () => {
                     <Link href="/admin/users">
                         <button className={styles.button}>Ir a Usuarios y Roles</button>
                     </Link>
-                </motion.section>
+                </motion.section> */}
             
             </main>
             <footer className={styles.footer}>
