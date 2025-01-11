@@ -1,24 +1,52 @@
-.page {
-    background-color: #f0f0f0;
+
+.mainAdmin {
+    background: linear-gradient(to bottom, #835941, #121212);
     color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     font-family: 'Arial', sans-serif;
+    padding-top: 120px;
+}
+
+.page {
+    background: linear-gradient(to bottom, #835941, #121212);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Arial', sans-serif;
+    padding-top: 120px;
 }
 
 .header {
-    background: #333;
-    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px); /* Soporte para Safari */
+    backdrop-filter: blur(10px);
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+    z-index: -1;
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin: 0;
+    position: relative;
+    z-index: 1;
+    color: white;
 }
 
 .main {
@@ -51,18 +79,39 @@
     margin-right: 10px;
 }
 
+
 .button {
-    background-color: #0070f3;
-    color: #fff;
+    background-color: #b06e40;
+    color: #ffffff;
+    cursor: pointer;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .button:hover {
-    background-color: #005bb5;
+    background-color: #ffffff;
+    color: #121212;
     transform: translateY(-2px);
 }
 

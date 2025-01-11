@@ -1,0 +1,172 @@
+/* VistaPreviaCSS.module.css */
+
+.previewContainer {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: -webkit-fill-available;
+    contain: content;
+}
+
+.editText {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgba(22, 40, 173, 0.981);
+    border: none;
+    color: white;
+    padding: 5px;
+    border-radius: 0 0 0 5px;
+    font-size: 13px;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    min-height: 7vh;
+    /* background-color: #fff; */
+}
+
+.navbarDesktop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.navbarDesktop a {
+    padding: 10px;
+    color: var(--text-color, black);
+    text-decoration: none;
+}
+
+
+.logo {
+    flex: 2;
+    object-fit: contain;
+}
+
+.nombreMarca {
+    flex: 2;
+}
+
+.menuButton {
+    background: none;
+    border: none;
+    flex: 1;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.drawerContent {
+    width: 250px;
+    padding: 20px;
+}
+
+.drawerLink {
+    display: block;
+    padding: 10px 0;
+    color: var(--text-color, black);
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+}
+
+/* .drawerLink:hover {
+    background-color: #f0f0f0;
+} */
+
+.welcomeMessage,
+.carousel,
+.products,
+.categories,
+.institutionalMessage,
+.productExample,
+.navbarDesktop,
+.contactInfo,
+.parallaxSection,
+.newValues ,
+.footer {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.parallaxSection,
+.navbarDesktop{
+    margin: 0;
+    padding: 20px 0;
+
+}
+
+.carouselImages {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+}
+
+/* .carouselImages img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+} */
+.imgCarrousel {
+    width: -webkit-fill-available !important;
+    border-radius: 5px;
+}
+
+.productList,
+.categoryList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.carouselItem {
+    width: 215px !important;
+    height: 215px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.product,
+.category,
+.carouselItem {
+    flex: 1 1 calc(50% - 10px);
+    /* Mostrar 2 productos por fila */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    text-align: -webkit-center;
+    /* Centrar el texto */
+}
+
+.product {
+    flex: 1 1 calc(33% - 10px);
+    /* Mostrar 3 productos por fila */
+}
+
+.product img,
+.category img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.footer {
+    text-align: center;
+    border-top: 1px solid #ccc;
+}

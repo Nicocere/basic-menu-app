@@ -1,11 +1,11 @@
-:root {
+.body {
   --primary-color: #2c3e50;
   --secondary-color: #ecf0f1;
   --accent-color: #e74c3c;
   --font-family: 'Roboto', sans-serif;
 }
 
-body {
+.body {
   margin: 0;
   font-family: var(--font-family);
   background-color: var(--secondary-color);
