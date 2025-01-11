@@ -1,0 +1,9 @@
+.contadorCarrito{
+  font-size: medium;
+  transition: font-size 0.5s ease;
+}
+
+.contadorCarrito:hover{
+  font-size: x-large;
+    cursor: pointer;
+  }
