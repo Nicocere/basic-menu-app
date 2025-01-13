@@ -1,0 +1,42 @@
+:root {
+    --primary-color: #4e342e; /* Brown */
+    --secondary-color: #d7ccc8; /* Light Brown */
+    --accent-color: #8d6e63; /* Darker Brown */
+    --font-family: 'Roboto', sans-serif;
+  }
+
+  .text {
+    margin: .5rem;
+  }
+  
+  .footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 40px;
+  }
+  
+  .footerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .footerSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .footerBottom {
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }

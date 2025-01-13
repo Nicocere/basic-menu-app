@@ -1,0 +1,84 @@
+:root {
+    --primary-color: #4e342e; /* Brown */
+    --secondary-color: #d7ccc8; /* Light Brown */
+    --accent-color: #8d6e63; /* Darker Brown */
+    --font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+  }
+  
+  .paymentPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .orderNumber {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .qrCode {
+    margin-bottom: 20px;
+  }
+  
+  .message {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .orderDetails {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .orderItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .productName {
+    font-size: 1.2rem;
+  }
+  
+  .productPrice {
+    font-size: 1.2rem;
+  }
+  
+  .total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .backButton {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .backButton:hover {
+    background-color: darken(var(--accent-color), 10%);
+  }

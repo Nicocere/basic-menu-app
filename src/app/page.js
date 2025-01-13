@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import styles from './page.module.css';
 import { menú } from './fakeData';
 import fakeProduct from '../../public/fakeProduct.jpg';
+import Footer from '@/components/Footer/Footer';
+import { FaTrash } from 'react-icons/fa';
 
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
   <motion.div className={styles['search-results']} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -35,12 +37,10 @@ export default function Home() {
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log(savedCart)
     setCart(savedCart);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
 
   const toggleCategory = (category) => {
     setOpenCategories((prev) => ({
@@ -61,11 +61,15 @@ export default function Home() {
   };
 
   const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const removeFromCart = (product) => {
-    setCart((prev) => prev.filter((item) => item.nombre !== product.nombre));
+    const updatedCart = cart.filter((item) => item.nombre !== product.nombre);
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const filteredMenu = Object.keys(menú.menu).reduce((acc, category) => {
@@ -97,14 +101,21 @@ export default function Home() {
         🛒
       </div>
       {cart.length > 0 && (
-        <div>
+        <div className={styles['container-preview']} >
           <h4 className={styles.cartTitle}>Mi pedido:</h4>
           <div className={styles['search-results']}>
             {cart.map((product) => (
               <div className={styles['preview-list']} key={product.nombre}>
+                 <img
+                  src="/fakeProduct.jpg"
+                  alt={product.nombre}
+                  className={styles['product-image-mini']}
+                />
                 <h4 className={styles['product-name']}>{product.nombre}</h4>
                 <p className={styles['product-price']}>${product.precio}</p>
-                <button onClick={() => removeFromCart(product)} className={styles['remove-button']}>Eliminar</button>
+                <button onClick={() => removeFromCart(product)} className={styles['remove-button']}>
+  <FaTrash />
+</button>
               </div>
             ))}
             <h3 className={styles['total-price']}>Total: ${cart.reduce((acc, product) => acc + product.precio, 0)}</h3>
@@ -136,43 +147,71 @@ export default function Home() {
               </h2>
               {openCategories[category] &&
                 Object.keys(filteredMenu[category]).map((subcategory) => (
-                  <div key={subcategory} className={styles.subcategory}>
-                    <h3
-                      className={styles['subcategory-title']}
-                      onClick={() => toggleSubcategory(subcategory)}
+                  <motion.div 
+                  key={subcategory} 
+                  className={styles.subcategory}
+                  initial={{ opacity: 0, y: -20 }} // Estado inicial al aparecer
+                  animate={{ opacity: 1, y: 0 }}  // Animación al estar visible
+                  exit={{ opacity: 0, y: 20 }}    // Animación al desaparecer
+                  transition={{ duration: 0.3 }}  // Duración de la animación
+                >
+                  <h3
+                    className={styles['subcategory-title']}
+                    onClick={() => toggleSubcategory(subcategory)}
+                  >
+                    {subcategory}
+                  </h3>
+                
+                  {openSubcategories[subcategory] && (
+                    <motion.div
+                      className={styles['product-list']}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.5, ease: 'easeInOut' }}
                     >
-                      {subcategory}
-                    </h3>
-                    {openSubcategories[subcategory] && (
-                      <div className={styles['product-list']}>
-                        {filteredMenu[category][subcategory].map((product) => (
-                          <motion.div key={product.nombre} className={styles['product-card']} whileHover={{ scale: 1.05 }}>
-                            <img
-                              src="/fakeProduct.jpg"
-                              alt={product.nombre}
-                              className={styles['product-image']}
-                            />
-                            <h4 className={styles['product-name']}>{product.nombre}</h4>
-                            <p className={styles['product-description']}>{product.descripcion}</p>
-                            <p className={styles['product-price']}>${product.precio}</p>
-                            <button onClick={() => addToCart(product)} className={styles['add-button']}>Agregar</button>
-                            <button onClick={() => removeFromCart(product)} className={styles['remove-button']}>Eliminar</button>
-                          </motion.div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                      {filteredMenu[category][subcategory].map((product) => (
+                        <motion.div
+                          key={product.nombre}
+                          className={styles['product-card']}
+                          whileHover={{ scale: 1.05 }} // Efecto hover
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <img
+                            src="/fakeProduct.jpg"
+                            alt={product.nombre}
+                            className={styles['product-image']}
+                          />
+                          <h4 className={styles['product-name']}>{product.nombre}</h4>
+                          <p className={styles['product-description']}>{product.descripcion}</p>
+                          <p className={styles['product-price']}>${product.precio}</p>
+                          <button 
+                            onClick={() => addToCart(product)} 
+                            className={styles['add-button']}
+                          >
+                            Agregar
+                          </button>
+                          <button 
+                            onClick={() => removeFromCart(product)} 
+                            className={styles['remove-button']}
+                          >
+                            Eliminar
+                          </button>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </motion.div>
+                
                 ))}
             </div>
           ))}
         </div>
       </main>
-      <footer className={styles.footer}>
-        <p>Restaurante Antonio</p>
-        <p>Dirección: Calle Falsa 123</p>
-        <p>Teléfono: (123) 456-7890</p>
-        <p>Email: contacto@restauranteantonio.com</p>
-      </footer>
+   <Footer />
     </div>
   );
 }

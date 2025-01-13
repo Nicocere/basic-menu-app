@@ -1,4 +1,4 @@
-.body {
+.page {
     --primary-color: #4e342e; /* Brown */
     --secondary-color: #d7ccc8; /* Light Brown */
     --accent-color: #8d6e63; /* Darker Brown */
@@ -39,7 +39,7 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
-    font-size: 50px;
+    font-size: 40px;
     position: fixed;
     z-index: 1;
     margin-top: 1rem;
@@ -59,8 +59,13 @@
     top: -10px;
     right: -10px;
   }
+
+  .container-preview{
+    width: 100%;
+  }
   
   .preview-list {
+    align-items: center;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -155,6 +160,11 @@
     object-fit: cover;
     border-radius: 5px;
     margin-bottom: 10px;
+  }
+
+  .product-image-mini{
+    width: 45px;
+    height: 45px;
   }
   
   .product-name {

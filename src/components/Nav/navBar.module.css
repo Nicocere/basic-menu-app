@@ -1,6 +1,6 @@
-.body {
-  --primary-color: #2c3e50;
-  --secondary-color: #ecf0f1;
+.header {
+  --primary-color: #4e342e;
+  --secondary-color: #d7ccc8;
   --accent-color: #e74c3c;
   --font-family: 'Roboto', sans-serif;
 }
@@ -10,6 +10,12 @@
   font-family: var(--font-family);
   background-color: var(--secondary-color);
   color: var(--primary-color);
+}
+
+.container{
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  padding: 5% 10% 5% 10%;
 }
 
 .header {
