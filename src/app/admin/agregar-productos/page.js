@@ -1,8 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { baseDeDatos, storage } from '@/config/firebaseConfig';
-import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { supabase } from '@/config/supabaseClient';
 import styles from './agregarProductos.module.css';
 import { FaPizzaSlice, FaHamburger, FaBeer, FaCoffee, FaCookie, FaIceCream } from 'react-icons/fa';
 import { GiNoodles, GiFrenchFries, GiWineGlass } from 'react-icons/gi';
@@ -45,24 +43,67 @@ export default function ProductForm({ producto, isEditing }) {
   
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [productos, setProductos] = useState([]);
 
   useEffect(() => {
     if (producto) {
-      setFormData(producto);
+      setFormData({
+        ...producto,
+        precio: producto.precio.toString(),
+        createdAt: producto.createdAt || null
+      });
     }
   }, [producto]);
+
+  useEffect(() => {
+    const fetchProductos = async () => {
+      const { data, error } = await supabase
+        .from('productos')
+        .select('*');
+
+      if (error) {
+        console.error('Error fetching productos:', error);
+      } else {
+        setProductos(data);
+      }
+    };
+
+    fetchProductos();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let imageUrl = formData.img;
-
+      
       if (imageFile) {
-        const imageRef = ref(storage, `productos/${formData.nombre}`);
-        await uploadBytes(imageRef, imageFile);
-        imageUrl = await getDownloadURL(imageRef);
-      }
+        const fileName = formData.nombre
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '') // Remove accents
+          .replace(/\s+/g, '_') // Replace spaces with underscores
+          .replace(/[^\w\-]+/g, ''); // Remove all non-word characters
+        const { data, error } = await supabase.storage
+          .from('productos')
+          .upload(`public/${fileName}`, imageFile);
+  
+        if (error) {
+          throw error;
+        }
 
+        const { data: publicURLData, error: publicURLError } = supabase.storage
+          .from('productos')
+          .getPublicUrl(`public/${fileName}`);
+
+        if (publicURLError) {
+          throw publicURLError;
+        }
+
+        console.log('publicURLData:', publicURLData);
+        console.log('publicURLData.publicUrl:', publicURLData.publicUrl);
+
+        imageUrl = publicURLData.publicUrl;
+      }
+  
       const productoData = {
         ...formData,
         precio: Number(formData.precio),
@@ -70,11 +111,24 @@ export default function ProductForm({ producto, isEditing }) {
         icono: selectedIcon,
         img: imageUrl
       };
-
+  
       if (isEditing) {
-        await updateDoc(doc(baseDeDatos, 'productos', producto.id), productoData);
+        const { error } = await supabase
+          .from('productos')
+          .update(productoData)
+          .eq('id', producto.id);
+  
+        if (error) {
+          throw error;
+        }
       } else {
-        await addDoc(collection(baseDeDatos, 'productos'), productoData);
+        const { error } = await supabase
+          .from('productos')
+          .insert([productoData]);
+  
+        if (error) {
+          throw error;
+        }
       }
       Swal.fire(isEditing ? 'Producto actualizado!' : 'Producto agregado!');
     } catch (error) {
@@ -84,89 +138,112 @@ export default function ProductForm({ producto, isEditing }) {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <select
-        className={styles.select}
-        value={formData.categoria}
-        onChange={(e) => {
-          setFormData({
-            ...formData,
-            categoria: e.target.value,
-            subcategoria: ''
-          });
-          setSelectedIcon(null);
-        }}
-      >
-        <option value="">Seleccione una categoría</option>
-        {Object.keys(CATEGORIAS).map((cat) => (
-          <option key={cat} value={cat}>
-            {CATEGORIAS[cat].nombre}
-          </option>
-        ))}
-      </select>
-
-      {formData.categoria && (
+    <div>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <label htmlFor="categoria">Categoría</label>
         <select
+          id="categoria"
           className={styles.select}
-          value={formData.subcategoria}
-          onChange={(e) => setFormData({...formData, subcategoria: e.target.value})}
+          value={formData.categoria}
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              categoria: e.target.value,
+              subcategoria: ''
+            });
+            setSelectedIcon(null);
+          }}
         >
-          <option value="">Seleccione una subcategoría</option>
-          {CATEGORIAS[formData.categoria].subcategorias.map((sub) => (
-            <option key={sub} value={sub}>
-              {sub.replace(/_/g, ' ')}
+          <option value="">Seleccione una categoría</option>
+          {Object.keys(CATEGORIAS).map((cat) => (
+            <option key={cat} value={cat}>
+              {CATEGORIAS[cat].nombre}
             </option>
           ))}
         </select>
-      )}
 
-      {formData.categoria && (
-        <div className={styles.iconContainer}>
-          {CATEGORIAS[formData.categoria].iconos.map((icono, index) => (
-            <button
-              key={index}
-              type="button"
-              className={`${styles.iconButton} ${selectedIcon === index ? styles.selected : ''}`}
-              onClick={() => setSelectedIcon(index)}
+        {formData.categoria && (
+          <>
+            <label htmlFor="subcategoria">Subcategoría</label>
+            <select
+              id="subcategoria"
+              className={styles.select}
+              value={formData.subcategoria}
+              onChange={(e) => setFormData({ ...formData, subcategoria: e.target.value })}
             >
-              {icono}
-            </button>
+              <option value="">Seleccione una subcategoría</option>
+              {CATEGORIAS[formData.categoria].subcategorias.map((sub) => (
+                <option key={sub} value={sub}>
+                  {sub.replace(/_/g, ' ')}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
+
+        {formData.categoria && (
+          <div className={styles.iconContainer}>
+            {CATEGORIAS[formData.categoria].iconos.map((icono, index) => (
+              <button
+                key={index}
+                type="button"
+                className={`${styles.iconButton} ${selectedIcon === index ? styles.selected : ''}`}
+                onClick={() => setSelectedIcon(index)}
+              >
+                {icono}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Nombre del producto"
+          value={formData.nombre}
+          onChange={(e) => setFormData({...formData, nombre: e.target.value})}
+        />
+
+        <textarea
+          className={styles.textarea}
+          placeholder="Descripción"
+          value={formData.descripcion}
+          onChange={(e) => setFormData({...formData, descripcion: e.target.value})}
+        />
+
+        <input
+          className={styles.input}
+          type="number"
+          placeholder="Precio"
+          value={formData.precio}
+          onChange={(e) => setFormData({...formData, precio: e.target.value})}
+        />
+
+        <input
+          className={styles.fileInput}
+          type="file"
+          title="Seleccione una imagen"
+          onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
+        />
+
+        <button className={styles.button} type="submit">
+          {isEditing ? 'Actualizar Producto' : 'Agregar Producto'}
+        </button>
+      </form>
+
+      <div className={styles.productList}>
+        <h2>Lista de Productos</h2>
+        <ul>
+          {productos.map((producto) => (
+            <li key={producto.id}>
+              <h3>{producto.nombre}</h3>
+              <p>{producto.descripcion}</p>
+              <p>Precio: ${producto.precio}</p>
+              <img src={producto.img} alt={producto.nombre} width="100" />
+            </li>
           ))}
-        </div>
-      )}
-
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="Nombre del producto"
-        value={formData.nombre}
-        onChange={(e) => setFormData({...formData, nombre: e.target.value})}
-      />
-
-      <textarea
-        className={styles.textarea}
-        placeholder="Descripción"
-        value={formData.descripcion}
-        onChange={(e) => setFormData({...formData, descripcion: e.target.value})}
-      />
-
-      <input
-        className={styles.input}
-        type="number"
-        placeholder="Precio"
-        value={formData.precio}
-        onChange={(e) => setFormData({...formData, precio: e.target.value})}
-      />
-
-      <input
-        className={styles.fileInput}
-        type="file"
-        onChange={(e) => setImageFile(e.target.files[0])}
-      />
-
-      <button className={styles.button} type="submit">
-        {isEditing ? 'Actualizar Producto' : 'Agregar Producto'}
-      </button>
-    </form>
+        </ul>
+      </div>
+    </div>
   );
 }

@@ -7,6 +7,10 @@ import styles from './page.module.css';
 import { menú } from './fakeData';
 import fakeProduct from '../../public/fakeProduct.jpg';
 
+// SUPABASE
+import { supabase } from '@/config/supabaseClient';
+
+
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
   <motion.div className={styles['search-results']} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
     {results.map((product) => (
@@ -26,12 +30,39 @@ const SearchResults = ({ results, addToCart, removeFromCart }) => (
   </motion.div>
 );
 
-export default function Home() {
+export default function Home({ producto, isEditing }) {
   const [openCategories, setOpenCategories] = useState({});
   const [openSubcategories, setOpenSubcategories] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState([]);
   const router = useRouter();
+  const [productos, setProductos] = useState([]);
+
+    useEffect(() => {
+      if (producto) {
+        setFormData({
+          ...producto,
+          precio: producto.precio.toString(),
+          createdAt: producto.createdAt || null
+        });
+      }
+    }, [producto]);
+  
+    useEffect(() => {
+      const fetchProductos = async () => {
+        const { data, error } = await supabase
+          .from('productos')
+          .select('*');
+  
+        if (error) {
+          console.error('Error fetching productos:', error);
+        } else {
+          setProductos(data);
+        }
+      };
+  
+      fetchProductos();
+    }, []);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -68,6 +99,10 @@ export default function Home() {
     setCart((prev) => prev.filter((item) => item.nombre !== product.nombre));
   };
 
+  console.log("menu:", menú);
+  console.log('productos:', productos);
+
+
   const filteredMenu = Object.keys(menú.menu).reduce((acc, category) => {
     const subcategories = Object.keys(menú.menu[category]).reduce((subAcc, subcategory) => {
       const products = Array.isArray(menú.menu[category][subcategory])
@@ -85,6 +120,7 @@ export default function Home() {
     }
     return acc;
   }, {});
+
 
   const searchResults = Object.values(filteredMenu).flatMap((subcategories) =>
     Object.values(subcategories).flat()

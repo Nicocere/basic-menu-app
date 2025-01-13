@@ -4,13 +4,7 @@ import React, { useContext, useRef, useState } from 'react';
 import { ContenidoEcommerceContext } from '../../../context/ContenidoEcommerceContext';
 import styles from './personalizarSitio.module.css';
 import { HiMenuAlt1, HiMenuAlt2, HiMenuAlt3, HiMenuAlt4 } from 'react-icons/hi';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import { Autoplay } from 'swiper/modules';
-// import 'swiper/css';
-// import 'swiper/css/autoplay';
 import { Skeleton, SwipeableDrawer } from '@mui/material';
-// import Footer from '../Footer/Footer';
-// import ParallaxComponent from '../ParallaxComponent/ParallaxComponent';
 
 const VistaPreviaCSS = () => {
     const contenidoContext = useContext(ContenidoEcommerceContext);
