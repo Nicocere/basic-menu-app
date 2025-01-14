@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Fab, useMediaQuery } from '@mui/material';
-import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import style from './CartWidget.module.css';
 import { FiShoppingCart } from "react-icons/fi";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
