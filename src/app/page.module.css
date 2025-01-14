@@ -116,7 +116,7 @@
   .subcategory-title {
     font-size: 1.5rem;
     cursor: pointer;
-    margin: 0;
+    margin: 1rem;
     text-align: center;
     padding: 8px;
     background-color: var(--primary-color);
