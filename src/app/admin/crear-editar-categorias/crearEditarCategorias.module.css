@@ -1,0 +1,175 @@
+.container {
+  padding: 2.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+}
+
+.container h2 {
+  font-size: 1.8rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.container h3 {
+  font-size: 1.2rem;
+  color: #718096;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.section {
+  margin-bottom: 3rem;
+  transition: all 0.3s ease;
+}
+
+.input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.8rem 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  background: #f8fafc;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3182ce;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #2c5282;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.divList {
+  padding: 1.5rem;
+  background: #ffffff;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  padding: 1rem;
+  border-bottom: 1px solid #edf2f7;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  color: #4a5568;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItem:hover {
+  background-color: #f7fafc;
+  transform: translateX(5px);
+  color: #2b6cb0;
+}
+
+/* Efectos de animación para elementos que aparecen/desaparecen */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .input {
+    max-width: 100%;
+  }
+
+  .button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Efecto de loading para botones */
+.button:disabled {
+  background-color: #cbd5e0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Estilo para categoría seleccionada */
+.listItem.selected {
+  background-color: #ebf8ff;
+  border-left: 4px solid #3182ce;
+  font-weight: 500;
+}
+
+/* Tooltip para elementos interactivos */
+.listItem:hover::after {
+  content: 'Click para ver las subcategorías';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background: #2d3748;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.2s ease-out forwards;
+}

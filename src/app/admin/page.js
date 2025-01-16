@@ -37,7 +37,7 @@ const AdminHome = () => {
                         <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaPaintBrush /> Personalizar tu propio sitio</h2>
                     <Link href="/admin/personalizar-sitio">
-                        <button className={styles.button}>Ir a Personalizar tu propio sitio</button>
+                        <button className={styles.buttonDisabled} disabled>Proximamente...</button>
                     </Link>
                 </motion.section>
 

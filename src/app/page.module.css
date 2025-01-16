@@ -219,6 +219,21 @@
     border-radius: 10px;
   }
   
+
+  .adminLink{
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    margin: 50px 0 40px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+.adminLink:hover {
+    background-color: darken(var(--accent-color), 10%);
+  }
+
   @media (max-width: 768px) {
     .product-card {
       width: 100%;

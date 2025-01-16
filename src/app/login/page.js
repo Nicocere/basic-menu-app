@@ -26,11 +26,13 @@ export default function LoginForm() {
       });
       if (error) throw error;
 
+      console.log("user", user);
+
       Swal.fire('¡Bienvenido!', 'Has iniciado sesión correctamente.', 'success');
       console.log('Usuario autenticado:', user);
 
       // Redirigir al usuario si el email es "spazio.digitalsolutions@gmail.com"
-      if (user.email === 'spazio.digitalsolutions@gmail.com') {
+      if (email === 'spazio.digitalsolutions@gmail.com') {
         router.push('/admin');
       }
     } catch (error) {
@@ -41,17 +43,21 @@ export default function LoginForm() {
     }
   };
 
+  const handleGoToProfile = () => {
+    router.push('/admin');
+  };
+
   return (
     <div className={styles.divContainer}>
-
-{!user ? (
-      <div className={styles.login}>
-        <h1 className={styles.title}>No has iniciado sesión</h1>
-        </div> ) : (
+      {!user ? (
         <div className={styles.login}>
-        <h1 className={styles.title}>¡Bienvenido de nuevo!</h1>
+          <h1 className={styles.title}>No has iniciado sesión</h1>
         </div>
-        )}
+      ) : (
+        <div className={styles.login}>
+          <h1 className={styles.title}>¡Bienvenido de nuevo!</h1>
+        </div>
+      )}
 
       <form className={styles.form} onSubmit={handleLogin}>
         <input
@@ -83,6 +89,12 @@ export default function LoginForm() {
           {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
         </button>
       </form>
+
+      {user && (
+        <button className={styles.profileButton} onClick={handleGoToProfile}>
+          Ir a mi perfil
+        </button>
+      )}
     </div>
   );
 }

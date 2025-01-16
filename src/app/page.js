@@ -11,6 +11,8 @@ import { FaTrash } from 'react-icons/fa';
 
 // SUPABASE
 import { supabase } from '@/config/supabaseClient';
+import Link from 'next/link';
+import { useAuth } from '@/context/AuthUserContext';
 
 
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
@@ -32,39 +34,52 @@ const SearchResults = ({ results, addToCart, removeFromCart }) => (
   </motion.div>
 );
 
-export default function Home({ producto, isEditing }) {
+export default function Home() {
+
+  const { user } = useAuth();
   const [openCategories, setOpenCategories] = useState({});
   const [openSubcategories, setOpenSubcategories] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState([]);
   const router = useRouter();
   const [productos, setProductos] = useState([]);
+  const [formData, setFormData] = useState({
+    nombre: '',
+    descripcion: '',
+    precio: '',
+    categoria: '',
+    subcategoria: '',
+    icono: '',
+    img: '',
+    createdAt: null
+  });
 
-    useEffect(() => {
-      if (producto) {
-        setFormData({
-          ...producto,
-          precio: producto.precio.toString(),
-          createdAt: producto.createdAt || null
-        });
+  useEffect(() => {
+    if (productos) {
+      setFormData({
+        ...productos,
+        precio: productos.precio,
+        createdAt: productos.createdAt || null
+      });
+    }
+  }, [productos]);
+
+  useEffect(() => {
+    const fetchProductos = async () => {
+      const { data, error } = await supabase
+        .from('productos')
+        .select('*');
+
+      console.log("data", data);
+      if (error) {
+        console.error('Error fetching productos:', error);
+      } else {
+        setProductos(data);
       }
-    }, [producto]);
-  
-    useEffect(() => {
-      const fetchProductos = async () => {
-        const { data, error } = await supabase
-          .from('productos')
-          .select('*');
-  
-        if (error) {
-          console.error('Error fetching productos:', error);
-        } else {
-          setProductos(data);
-        }
-      };
-  
-      fetchProductos();
-    }, []);
+    };
+
+    fetchProductos();
+  }, []);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -103,7 +118,7 @@ export default function Home({ producto, isEditing }) {
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  console.log("menu:", menú);
+  // console.log("menu:", menú);
   console.log('productos:', productos);
 
 
@@ -111,8 +126,8 @@ export default function Home({ producto, isEditing }) {
     const subcategories = Object.keys(menú.menu[category]).reduce((subAcc, subcategory) => {
       const products = Array.isArray(menú.menu[category][subcategory])
         ? menú.menu[category][subcategory].filter((product) =>
-            product.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-          )
+          product.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        )
         : [];
       if (products.length > 0) {
         subAcc[subcategory] = products;
@@ -142,7 +157,7 @@ export default function Home({ producto, isEditing }) {
           <div className={styles['search-results']}>
             {cart.map((product) => (
               <div className={styles['preview-list']} key={product.nombre}>
-                 <img
+                <img
                   src="/fakeProduct.jpg"
                   alt={product.nombre}
                   className={styles['product-image-mini']}
@@ -150,8 +165,8 @@ export default function Home({ producto, isEditing }) {
                 <h4 className={styles['product-name']}>{product.nombre}</h4>
                 <p className={styles['product-price']}>${product.precio}</p>
                 <button onClick={() => removeFromCart(product)} className={styles['remove-button']}>
-  <FaTrash />
-</button>
+                  <FaTrash />
+                </button>
               </div>
             ))}
             <h3 className={styles['total-price']}>Total: ${cart.reduce((acc, product) => acc + product.precio, 0)}</h3>
@@ -183,71 +198,83 @@ export default function Home({ producto, isEditing }) {
               </h2>
               {openCategories[category] &&
                 Object.keys(filteredMenu[category]).map((subcategory) => (
-                  <motion.div 
-                  key={subcategory} 
-                  className={styles.subcategory}
-                  initial={{ opacity: 0, y: -20 }} // Estado inicial al aparecer
-                  animate={{ opacity: 1, y: 0 }}  // Animación al estar visible
-                  exit={{ opacity: 0, y: 20 }}    // Animación al desaparecer
-                  transition={{ duration: 0.3 }}  // Duración de la animación
-                >
-                  <h3
-                    className={styles['subcategory-title']}
-                    onClick={() => toggleSubcategory(subcategory)}
+                  <motion.div
+                    key={subcategory}
+                    className={styles.subcategory}
+                    initial={{ opacity: 0, y: -20 }} // Estado inicial al aparecer
+                    animate={{ opacity: 1, y: 0 }}  // Animación al estar visible
+                    exit={{ opacity: 0, y: 20 }}    // Animación al desaparecer
+                    transition={{ duration: 0.3 }}  // Duración de la animación
                   >
-                    {subcategory}
-                  </h3>
-                
-                  {openSubcategories[subcategory] && (
-                    <motion.div
-                      className={styles['product-list']}
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.5, ease: 'easeInOut' }}
+                    <h3
+                      className={styles['subcategory-title']}
+                      onClick={() => toggleSubcategory(subcategory)}
                     >
-                      {filteredMenu[category][subcategory].map((product) => (
-                        <motion.div
-                          key={product.nombre}
-                          className={styles['product-card']}
-                          whileHover={{ scale: 1.05 }} // Efecto hover
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <img
-                            src="/fakeProduct.jpg"
-                            alt={product.nombre}
-                            className={styles['product-image']}
-                          />
-                          <h4 className={styles['product-name']}>{product.nombre}</h4>
-                          <p className={styles['product-description']}>{product.descripcion}</p>
-                          <p className={styles['product-price']}>${product.precio}</p>
-                          <button 
-                            onClick={() => addToCart(product)} 
-                            className={styles['add-button']}
+                      {subcategory}
+                    </h3>
+
+                    {openSubcategories[subcategory] && (
+                      <motion.div
+                        className={styles['product-list']}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.5, ease: 'easeInOut' }}
+                      >
+                        {filteredMenu[category][subcategory].map((product) => (
+                          <motion.div
+                            key={product.nombre}
+                            className={styles['product-card']}
+                            whileHover={{ scale: 1.05 }} // Efecto hover
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 20 }}
+                            transition={{ duration: 0.3 }}
                           >
-                            Agregar
-                          </button>
-                          <button 
-                            onClick={() => removeFromCart(product)} 
-                            className={styles['remove-button']}
-                          >
-                            Eliminar
-                          </button>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-                </motion.div>
-                
+                            <img
+                              src="/fakeProduct.jpg"
+                              alt={product.nombre}
+                              className={styles['product-image']}
+                            />
+                            <h4 className={styles['product-name']}>{product.nombre}</h4>
+                            <p className={styles['product-description']}>{product.descripcion}</p>
+                            <p className={styles['product-price']}>${product.precio}</p>
+                            <button
+                              onClick={() => addToCart(product)}
+                              className={styles['add-button']}
+                            >
+                              Agregar
+                            </button>
+                            <button
+                              onClick={() => removeFromCart(product)}
+                              className={styles['remove-button']}
+                            >
+                              Eliminar
+                            </button>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </motion.div>
+
                 ))}
             </div>
           ))}
         </div>
       </main>
-   <Footer />
+      <Footer />
+
+      {
+        user ? (
+          <Link href="/admin" className={styles.adminLink}>
+            Perfil Admin
+          </Link>
+        ) : (
+          <Link href="/login" className={styles.adminLink} >Iniciar Sesión
+          </Link>
+        )
+      }
+
     </div>
   );
 }
