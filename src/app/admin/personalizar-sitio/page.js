@@ -317,7 +317,6 @@ const VistaPreviaCSS = () => {
                 <Skeleton sx={{ backgroundColor: 'grey' }} width={200} height={150} src={contenido?.imagen} alt="Imagen adicional" />
             </section> */}
 
-            {/* Footer */}
             <footer
                 className={styles.footer}
                 onMouseEnter={() => handleMouseEnter('footer')}
@@ -325,7 +324,6 @@ const VistaPreviaCSS = () => {
             >
                 {editableSection === 'footer' && <span className={styles.editText}>EDITAR</span>}
                 <p>{contenido?.paginaInicio?.footer}</p>
-                {/* <Footer /> */}
             </footer>
         </div>
     );

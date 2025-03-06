@@ -34,7 +34,7 @@ export default function ProductForm() {
     if (productos) {
       setFormData({
         ...productos,
-        precio: productos.precio.toString(),
+        precio: productos.precio,
         createdAt: productos.createdAt || null
       });
     }

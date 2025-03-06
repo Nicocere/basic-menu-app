@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './payment.module.css';
-import Footer from '@/components/Footer/Footer';
 import { motion } from 'framer-motion';
 import { FaCheck, FaShare, FaDownload, FaReceipt } from 'react-icons/fa';
 import { QRCodeSVG } from 'qrcode.react';
@@ -119,7 +118,6 @@ export default function Payment() {
           Volver al Menú
         </button>
       </motion.div>
-      <Footer/>
     </div>
   );
 }

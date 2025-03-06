@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './cart.module.css';
-import Footer from '@/components/Footer/Footer';
-import NavBar from '@/components/Nav/NavBar';
+import MercadoPagoButton from '@/components/MercadoPago/MercadoPago';
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const [tableNumber, setTableNumber] = useState('');
   const [name, setName] = useState('');
-  const [cellphone, setcellphone] = useState('');
+  const [cellphone, setCellphone] = useState('');
   const [pickup, setPickup] = useState(false);
+  const [showValidationErrors, setShowValidationErrors] = useState(false);
+  const [showPaymentButton, setShowPaymentButton] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -25,15 +26,6 @@ export default function Cart() {
     setTableNumber(savedTableNumber);
   }, []);
 
-  const handlePayment = () => {
-    // Implement Mercado Pago payment integration here
-    alert('Pago realizado con éxito');
-    localStorage.setItem('name', name);
-    localStorage.setItem('pickup', JSON.stringify(pickup));
-    localStorage.setItem('tableNumber', tableNumber);
-    router.push('/payment');
-  };
-
   const handleTableNumberChange = (event) => {
     setTableNumber(event.target.value);
   };
@@ -43,7 +35,7 @@ export default function Cart() {
   };
 
   const handleCellPhone = (event) => {
-    setcellphone(event.target.value);
+    setCellphone(event.target.value);
   };
 
   const handlePickupChange = () => {
@@ -65,6 +57,49 @@ export default function Cart() {
     router.push('/');
   };
 
+  // Calcular el total del carrito una vez para reutilizarlo
+  const cartTotal = cart.reduce((acc, product) => acc + product.precio, 0);
+
+  // Validación de campos
+  const formIsValid = useMemo(() => {
+    if (!name.trim() || !cellphone.trim()) {
+      return false;
+    }
+    
+    // Si no es retiro en barra, el número de mesa es obligatorio
+    if (!pickup && !tableNumber.trim()) {
+      return false;
+    }
+    
+    return true;
+  }, [name, cellphone, tableNumber, pickup]);
+  
+  const handleShowPaymentOptions = async (e) => {
+    e.preventDefault();
+    setShowValidationErrors(true);
+
+    
+    // Solo mostrar el botón de pago si todos los campos son válidos
+    if (formIsValid) {
+      const order = {
+        tableNumber,
+        name,
+        cellphone,
+        pickup,
+        total: cartTotal,
+        products: cart
+      };
+
+      localStorage.setItem('order', JSON.stringify(order));
+      setShowPaymentButton(true);
+    } else {
+      // Si hay campos inválidos, mostrar la animación de "shake" en el botón
+      const button = document.querySelector(`.${styles.validationButton}`);
+      button.classList.add(styles.shake);
+      setTimeout(() => button.classList.remove(styles.shake), 500);
+    }
+  };
+
   return (
     <div className={styles.cartPage}>
       <h1 className={styles.title}>Tu pedido</h1>
@@ -81,18 +116,21 @@ export default function Cart() {
             </div>
           ))}
           <div className={styles.total}>
-            <h3>Total: ${cart.reduce((acc, product) => acc + product.precio, 0)}</h3>
+            <h3>Total: ${cartTotal}</h3>
           </div>
           <div className={styles.orderDetails}>
-            <label>
+            <label className={!pickup && showValidationErrors && !tableNumber.trim() ? styles.errorLabel : ''}>
               Número de Mesa:
               <input
                 type="text"
                 value={tableNumber}
                 onChange={handleTableNumberChange}
-                className={styles.input}
+                className={`${styles.input} ${!pickup && showValidationErrors && !tableNumber.trim() ? styles.errorInput : ''}`}
                 disabled={pickup}
               />
+              {!pickup && showValidationErrors && !tableNumber.trim() && 
+                <span className={styles.errorMessage}>Ingrese número de mesa</span>
+              }
             </label>
             <label>
               <input
@@ -103,29 +141,51 @@ export default function Cart() {
               />
               Retirar por barra
             </label>
-            <label>
+            <label className={showValidationErrors && !name.trim() ? styles.errorLabel : ''}>
               Nombre:
               <input
                 type="text"
                 value={name}
                 onChange={handleName}
-                className={styles.input}
+                className={`${styles.input} ${showValidationErrors && !name.trim() ? styles.errorInput : ''}`}
               />
+              {showValidationErrors && !name.trim() && 
+                <span className={styles.errorMessage}>Ingrese su nombre</span>
+              }
             </label>
-            <label>
+            <label className={showValidationErrors && !cellphone.trim() ? styles.errorLabel : ''}>
               Teléfono:
               <input
                 type="text"
                 value={cellphone}
                 onChange={handleCellPhone}
-                className={styles.input}
+                className={`${styles.input} ${showValidationErrors && !cellphone.trim() ? styles.errorInput : ''}`}
               />
+              {showValidationErrors && !cellphone.trim() && 
+                <span className={styles.errorMessage}>Ingrese su teléfono</span>
+              }
             </label>
           </div>
-         <div className={styles.buttons}>
-         <button className={styles.payButton} onClick={handlePayment}>Pagar con Mercado Pago</button>
-          <button className={styles.emptyButton} onClick={emptyCart}>Vaciar Carrito</button>
-          <button className={styles.continueButton} onClick={continueShopping}>Seguir Comprando</button>
+          <div className={styles.buttons}>
+            {showPaymentButton ? (
+              <MercadoPagoButton 
+                products={cart}
+                tableNumber={tableNumber}
+                customerName={name}
+                customerPhone={cellphone}
+                pickup={pickup}
+                total={cartTotal}
+              />
+            ) : (
+              <button 
+                className={styles.validationButton} 
+                onClick={handleShowPaymentOptions}
+              >
+                Continuar al pago
+              </button>
+            )}
+            <button className={styles.emptyButton} onClick={emptyCart}>Vaciar Carrito</button>
+            <button className={styles.continueButton} onClick={continueShopping}>Seguir Comprando</button>
           </div>
         </div>
       ) : (
@@ -133,9 +193,7 @@ export default function Cart() {
         <p className={styles.emptyCart}>El pedido está vacío</p>
         <button className={styles.continueButton} onClick={continueShopping}>Volver al Menú</button>
         </>
-        
       )}
-      <Footer />
     </div>
   );
 }

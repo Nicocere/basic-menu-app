@@ -7,7 +7,6 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Skeleton, SwipeableDrawer } from '@mui/material';
-import Footer from '../Footer/Footer';
 import ParallaxComponent from '../ParallaxComponent/ParallaxComponent';
 
 const VistaPreviaCSS = () => {
@@ -351,7 +350,6 @@ const VistaPreviaCSS = () => {
             >
                 {editableSection === 'footer' && <span className={styles.editText}>EDITAR</span>}
                 <p>{contenido?.paginaInicio?.footer}</p>
-                <Footer />
             </footer>
         </div>
     );

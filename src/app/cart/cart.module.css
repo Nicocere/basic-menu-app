@@ -133,11 +133,14 @@
   top: 2rem;
   box-shadow: var(--shadow-md);
 }
-
+.total{
+  color: black !important;
+}
 .orderDetails {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  color: black;
 }
 
 .input {
@@ -216,6 +219,67 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Estilos para la validación de formulario */
+.errorLabel {
+  color: #e53e3e;
+}
+
+.errorInput {
+  border: 2px solid #e53e3e !important;
+  background-color: rgba(229, 62, 62, 0.05) !important;
+}
+
+.errorMessage {
+  display: block;
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.validationButton {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #c8a25c, #b08c4f);
+  color: #0c0c0f;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(200, 162, 92, 0.3);
+}
+
+.validationButton:hover {
+  background: linear-gradient(135deg, #d4ae69, #c8a25c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(200, 162, 92, 0.4);
+}
+
+.validationButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(200, 162, 92, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+.errorInput:focus {
+  animation: shake 0.5s ease-in-out;
+}
 @media (max-width: 968px) {
   .cartItems {
     grid-template-columns: 1fr;

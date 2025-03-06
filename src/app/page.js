@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import styles from './page.module.css';
 import { menú } from './fakeData';
 import fakeProduct from '../../public/fakeProduct.jpg';
-import Footer from '@/components/Footer/Footer';
 import { FaTrash } from 'react-icons/fa';
 // Add to imports
 import Swal from 'sweetalert2';
@@ -353,7 +352,6 @@ const handleQuantityChange = (productId, change) => {
           ))}
         </div>
       </main>
-      <Footer />
 
       {
         user ? (
