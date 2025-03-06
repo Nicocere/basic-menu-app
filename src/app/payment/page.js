@@ -3,7 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './payment.module.css';
-// import QRCode from 'qrcode.react';
+import Footer from '@/components/Footer/Footer';
+import { motion } from 'framer-motion';
+import { FaCheck, FaShare, FaDownload, FaReceipt } from 'react-icons/fa';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function Payment() {
   const [orderNumber, setOrderNumber] = useState('');
@@ -33,25 +36,90 @@ export default function Payment() {
 
   return (
     <div className={styles.paymentPage}>
-      <h1 className={styles.title}>¡Gracias, {name}!</h1>
-      <p className={styles.orderNumber}>Número de Orden: {orderNumber}</p>
-      {/* <QRCode value={orderNumber} className={styles.qrCode} /> */}
-      {pickup ? (
-        <p className={styles.message}>Por favor, muestra este código para retirar tu pedido en la barra.</p>
-      ) : (
-        <p className={styles.message}>Tu pedido será entregado en la mesa {tableNumber}.</p>
-      )}
-      <div className={styles.orderDetails}>
-        <h2>Detalles del Pedido:</h2>
-        {cart.map((product) => (
-          <div key={product.nombre} className={styles.orderItem}>
-            <p className={styles.productName}>{product.nombre}</p>
-            <p className={styles.productPrice}>${product.precio}</p>
+      <motion.div 
+        className={styles.successIcon}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <FaCheck />
+      </motion.div>
+
+      <motion.div
+        className={styles.contentContainer}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <h1 className={styles.title}>¡Gracias, {name}!</h1>
+        <div className={styles.orderCard}>
+          <div className={styles.orderHeader}>
+            <div className={styles.orderInfo}>
+              <h2 className={styles.orderNumber}>#{orderNumber}</h2>
+              <span className={styles.orderStatus}>Pedido Confirmado</span>
+            </div>
+            <QRCodeSVG 
+              value={orderNumber} 
+              className={styles.qrCode}
+              size={200}
+              level="H"
+              includeMargin={true}
+              bgColor="#ffffff"
+              fgColor="#4e342e"
+/>
           </div>
-        ))}
-        <h3 className={styles.total}>Total: ${cart.reduce((acc, product) => acc + product.precio, 0)}</h3>
-      </div>
-      <button className={styles.backButton} onClick={handleBackToMenu}>Volver al Menú</button>
+
+          <div className={styles.deliveryInfo}>
+            {pickup ? (
+              <div className={styles.pickupInfo}>
+                <h3>Retirar por Barra</h3>
+                <p>Muestra el código QR en la barra para retirar tu pedido</p>
+              </div>
+            ) : (
+              <div className={styles.tableInfo}>
+                <h3>Entrega en Mesa</h3>
+                <p>Tu pedido será entregado en la mesa {tableNumber}</p>
+              </div>
+            )}
+          </div>
+
+          <div className={styles.orderDetails}>
+            <h3>Detalles del Pedido</h3>
+            {cart.map((product) => (
+              <motion.div 
+                key={product.nombre} 
+                className={styles.orderItem}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+              >
+                <p className={styles.productName}>{product.nombre}</p>
+                <p className={styles.productPrice}>${product.precio}</p>
+              </motion.div>
+            ))}
+            <div className={styles.total}>
+              <span>Total</span>
+              <span>${cart.reduce((acc, product) => acc + product.precio, 0)}</span>
+            </div>
+          </div>
+
+          <div className={styles.actions}>
+            <button className={styles.actionButton}>
+              <FaShare /> Compartir
+            </button>
+            <button className={styles.actionButton}>
+              <FaDownload /> Guardar
+            </button>
+            <button className={styles.actionButton}>
+              <FaReceipt /> Recibo
+            </button>
+          </div>
+        </div>
+
+        <button className={styles.backButton} onClick={handleBackToMenu}>
+          Volver al Menú
+        </button>
+      </motion.div>
+      <Footer/>
     </div>
   );
 }

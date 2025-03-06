@@ -1,9 +1,130 @@
-.contadorCarrito{
-  font-size: medium;
-  transition: font-size 0.5s ease;
+.cartWidgetContainer {
+  position: relative;
+  z-index: 1000;
 }
 
-.contadorCarrito:hover{
-  font-size: x-large;
-    cursor: pointer;
+.cartButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cartIcon {
+  transition: transform 0.3s ease;
+}
+
+.cartButton:hover .cartIcon {
+  transform: scale(1.1);
+}
+
+.badge {
+  transition: transform 0.3s ease;
+}
+
+.badge:hover {
+  transform: scale(1.1);
+}
+
+.cartInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.cartTotal {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.cartPreview {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 280px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-top: 8px;
+  animation: slideIn 0.3s ease;
+}
+
+.previewItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.previewTotal {
+  margin-top: 12px;
+  text-align: right;
+  font-size: 1.1em;
+}
+
+.pulse {
+  animation: pulse 0.8s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 650px) {
+  .cartPreview {
+    width: 240px;
+    right: -10px;
+  }
+  
+  .cartButton {
+    padding: 8px;
+  }
+}
+
+/* Dark mode styles */
+[data-theme='dark'] .cartPreview {
+  background: rgba(47, 26, 15, 0.95);
+  color: #fcf5f0;
+}
+
+/* Ripple effect */
+.cartButton::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cartButton:active::after {
+  opacity: 1;
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  from { transform: scale(0.8); opacity: 1; }
+  to { transform: scale(2); opacity: 0; }
+}

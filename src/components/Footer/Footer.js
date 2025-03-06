@@ -1,34 +1,77 @@
 import styles from './footer.module.css';
-import { FaWhatsapp, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { 
+  FaWhatsapp, 
+  FaMapMarkerAlt, 
+  FaClock, 
+  FaInstagram, 
+  FaFacebook, 
+  FaPhone,
+  FaEnvelope,
+  FaCalendarAlt
+} from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function Footer() {
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/5491144478490', '_blank');
+  };
+
+  const handleMapClick = () => {
+    window.open('https://goo.gl/maps/yourLocation', '_blank');
+  };
+
   return (
     <footer className={styles.footer}>
-      <div className={styles.footerContent}>
-        <div className={styles.footerSection}>
-          <FaWhatsapp className={styles.icon} />
-          <p className={styles.text}>Compartí el menú por Whatsapp</p>
-          <p className={styles.text}>+54 911 4447 8490</p>
+      <div className={styles.footerGrid}>
+        <div className={`${styles.footerSection} ${styles.contact}`}>
+          <h3 className={styles.sectionTitle}>Contacto</h3>
+          <div className={styles.contactItem} onClick={handleWhatsAppClick}>
+            <FaWhatsapp className={styles.icon} />
+            <div className={styles.contactInfo}>
+              <p className={styles.text}>Pedidos por WhatsApp</p>
+              <p className={styles.highlight}>+54 911 4447 8490</p>
+            </div>
+          </div>
+          <div className={styles.contactItem} onClick={handleMapClick}>
+            <FaMapMarkerAlt className={styles.icon} />
+            <div className={styles.contactInfo}>
+              <p className={styles.text}>Av. del Libertador 8888</p>
+              <p className={styles.text}>Nuñez, CABA</p>
+            </div>
+          </div>
         </div>
-        <div className={styles.footerSection}>
-          <FaMapMarkerAlt className={styles.icon} />
-          <p className={styles.text}>Cómo llegar</p>
-          <p className={styles.text}>Contactanos por Whatsapp</p>
-          <p className={styles.text}>Podés hacer tu reserva o pedido para Take Away</p>
+
+        <div className={`${styles.footerSection} ${styles.hours}`}>
+          <h3 className={styles.sectionTitle}>Horarios</h3>
+          <div className={styles.scheduleItem}>
+            <FaClock className={styles.icon} />
+            <div>
+              <p className={styles.text}>Abierto todos los días</p>
+              <p className={styles.highlight}>8:00 AM - 2:00 AM</p>
+            </div>
+          </div>
+          <button className={styles.reserveButton} onClick={handleWhatsAppClick}>
+            <FaCalendarAlt className={styles.buttonIcon} />
+            Hacer una reserva
+          </button>
         </div>
-        <div className={styles.footerSection}>
-          <FaClock className={styles.icon} />
-          <p className={styles.text}>Horario:</p>
-          <p className={styles.text}>Todos los días</p>
-          <p className={styles.text}>8 AM a 2AM</p>
-          <p className={styles.text}>Av. del Libertador 8888</p>
-          <p className={styles.text}>Nuñez</p>
-          <p className={styles.text}>Ciudad de Buenos Aires</p>
-          <p className={styles.text}>Argentina</p>
+
+        <div className={`${styles.footerSection} ${styles.social}`}>
+          <h3 className={styles.sectionTitle}>Seguinos</h3>
+          <div className={styles.socialLinks}>
+            <a href="#" className={styles.socialIcon}><FaInstagram /></a>
+            <a href="#" className={styles.socialIcon}><FaFacebook /></a>
+            <a href="#" className={styles.socialIcon}><FaEnvelope /></a>
+          </div>
+          <div className={styles.newsletter}>
+            <input type="email" placeholder="Suscribite al newsletter" className={styles.emailInput} />
+            <button className={styles.subscribeButton}>Suscribirse</button>
+          </div>
         </div>
       </div>
+
       <div className={styles.footerBottom}>
-        <p className={styles.text}>© Powered by RestoMenuQR - 2020</p>
+        <p className={styles.text}>© {new Date().getFullYear()} RestoMenuQR - Todos los derechos reservados</p>
       </div>
     </footer>
   );

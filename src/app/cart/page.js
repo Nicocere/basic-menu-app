@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './cart.module.css';
 import Footer from '@/components/Footer/Footer';
+import NavBar from '@/components/Nav/NavBar';
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
