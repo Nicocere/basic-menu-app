@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './AdminHome.module.css';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaCashRegister, FaTruck, FaStore, FaChartBar, FaBoxes, FaPrint, FaMoneyCheckAlt, FaUsers, FaConciergeBell, FaPaintBrush, FaBoxOpen, FaTags } from 'react-icons/fa';
+import { FaCashRegister, FaTruck, FaStore, FaChartBar, FaBoxes, FaPrint, FaMoneyCheckAlt, FaUsers, FaConciergeBell, FaPaintBrush, FaBoxOpen, FaTags, FaClipboardList } from 'react-icons/fa';
 import { QrCode2Outlined } from '@mui/icons-material';
 
 const AdminHome = () => {
@@ -17,36 +17,36 @@ const AdminHome = () => {
             <main className={styles.main}>
 
                 <motion.section className={styles.featuredSection} whileHover={{ scale: 1.05 }}>
-                <h2 className={styles.subtitle}><FaBoxOpen /> Ver Órdenes</h2>
-                <p className={styles.description}>Consulta todas las órdenes recibidas, su estado actual y detalles completos para mantener un seguimiento efectivo de tus ventas.</p>
-                <Link href="/admin/ver-ordenes">
-                    <button className={styles.button}>Órdenes</button>
-                </Link>
-            </motion.section>
-                    <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
-                <h2 className={styles.subtitle}><FaBoxOpen /> Agregar productos</h2>
-                <p className={styles.description}>Añade nuevos productos a tu menú. Completa información como nombre, descripción, precio, categoría e imagen para mantener tu carta actualizada.</p>
-                <Link href="/admin/agregar-productos">
-                    <button className={styles.button}>Agregar productos</button>
-                </Link>
-            </motion.section>
-            
-            <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
-                <h2 className={styles.subtitle}><FaTags /> Crear / Editar categorías y subcategorías</h2>
-                <p className={styles.description}>Organiza tu menú creando y modificando categorías y subcategorías. Una estructura clara facilita a tus clientes encontrar lo que buscan.</p>
-                <Link href="/admin/crear-editar-categorias">
-                    <button className={styles.button}>Crear / Editar categorías y subcategorías</button>
-                </Link>
-            </motion.section>
-            <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                    <h2 className={styles.subtitle}><FaClipboardList /> Ver Órdenes</h2>
+                    <p className={styles.description}>Consulta todas las órdenes recibidas, su estado actual y detalles completos para mantener un seguimiento efectivo de tus ventas.</p>
+                    <Link href="/admin/ver-ordenes">
+                        <button className={styles.button}>Órdenes</button>
+                    </Link>
+                </motion.section>
+                <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                    <h2 className={styles.subtitle}><FaBoxOpen /> Agregar productos</h2>
+                    <p className={styles.description}>Añade nuevos productos a tu menú. Completa información como nombre, descripción, precio, categoría e imagen para mantener tu carta actualizada.</p>
+                    <Link href="/admin/agregar-productos">
+                        <button className={styles.button}>Agregar productos</button>
+                    </Link>
+                </motion.section>
+
+                <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                    <h2 className={styles.subtitle}><FaTags /> Crear / Editar categorías y subcategorías</h2>
+                    <p className={styles.description}>Organiza tu menú creando y modificando categorías y subcategorías. Una estructura clara facilita a tus clientes encontrar lo que buscan.</p>
+                    <Link href="/admin/crear-editar-categorias">
+                        <button className={styles.button}>Crear / Editar categorías y subcategorías</button>
+                    </Link>
+                </motion.section>
+                <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaConciergeBell /> Servicios Autónomos para Clientes</h2>
                     <p className={styles.description}>Configura opciones de autoservicio para tus clientes, como pedidos desde la mesa o reservas online, mejorando su experiencia y optimizando tus operaciones.</p>
                     <Link href="/admin/self-service">
                         <button className={styles.button}>Servicios Autónomos</button>
                     </Link>
-                </motion.section> 
+                </motion.section>
 
-                        <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
+                <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
                     <h2 className={styles.subtitle}><FaPaintBrush /> Personalizar tu propio sitio</h2>
                     <p className={styles.description}>Próximamente podrás personalizar la apariencia de tu menú digital con colores, fuentes y diseños que reflejen la identidad de tu negocio.</p>
                     <Link href="/admin/personalizar-sitio">
@@ -55,7 +55,7 @@ const AdminHome = () => {
                 </motion.section>
 
                 <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
-                    <h2 className={styles.subtitle}><QrCode2Outlined/> Prueba de Lector QR</h2>
+                    <h2 className={styles.subtitle}><QrCode2Outlined /> Prueba de Lector QR</h2>
                     <p className={styles.description}>Prueba la funcionalidad del lector de códigos QR para escanear y procesar información. Verifica que la lectura de códigos funcione correctamente.</p>
                     <Link href="/admin/test-qrcode">
                         <button className={styles.button}>Testear QR </button>
@@ -110,7 +110,7 @@ const AdminHome = () => {
                         <button className={styles.button}>Usuarios y Roles</button>
                     </Link>
                 </motion.section> */}
-            
+
             </main>
             <footer className={styles.footer}>
             </footer>

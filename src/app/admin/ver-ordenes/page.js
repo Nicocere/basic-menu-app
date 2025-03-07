@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/config/supabaseClient';
 import styles from './verOrdenes.module.css';
-import { FaCheck, FaEye, FaSearch, FaFilter, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
+import { FaCheck, FaEye, FaSearch, FaFilter, FaSortAmountDown, FaSortAmountUp, FaTrash } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import Swal from 'sweetalert2';
 
 export default function OrdersView() {
   const [orders, setOrders] = useState([]);
@@ -102,6 +103,90 @@ export default function OrdersView() {
     }
   };
 
+  
+  // Eliminar un pedido
+  const deleteOrder = async (orderId) => {
+    // Confirmar antes de eliminar
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas eliminar este pedido? Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#c8a25c', // Color accent-primary (dorado whisky)
+      cancelButtonColor: '#9b4e33', // Color accent-secondary (caoba bourbon)
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      iconColor: '#c8a25c', // Color accent-primary
+      background: '#1c1c24', // Color surface-1
+      color: '#ffffff', // Color text-primary
+      customClass: {
+        popup: 'swal-premium-popup',
+        title: 'swal-premium-title',
+        confirmButton: 'swal-premium-confirm',
+        cancelButton: 'swal-premium-cancel'
+      },
+      backdrop: `rgba(12, 12, 15, 0.8)`, // Color bg-primary con transparencia
+      borderRadius: '12px', // --radius-md
+      focusConfirm: false
+    });
+  
+    if (!result.isConfirmed) {
+      return;
+    }
+  
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .delete()
+        .eq('id', orderId);
+      
+      if (error) throw error;
+      
+      // Actualizar estado local
+      setOrders(orders.filter(order => order.id !== orderId));
+      
+      // Si la orden seleccionada es la que se eliminó, cerrar el modal
+      if (selectedOrder && selectedOrder.id === orderId) {
+        setSelectedOrder(null);
+      }
+  
+      Swal.fire({
+        title: '¡Eliminado!',
+        text: 'Pedido eliminado con éxito',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false,
+        iconColor: '#4caf50', // Color success
+        background: '#1c1c24', // Color surface-1
+        color: '#ffffff', // Color text-primary
+        customClass: {
+          popup: 'swal-premium-popup',
+          title: 'swal-premium-title'
+        },
+        backdrop: `rgba(12, 12, 15, 0.8)` // Color bg-primary con transparencia
+      });
+    } catch (error) {
+      console.error('Error al eliminar pedido:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo eliminar el pedido. Intenta de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        iconColor: '#f44336', // Color error
+        confirmButtonColor: '#c8a25c', // Color accent-primary
+        background: '#1c1c24', // Color surface-1
+        color: '#ffffff', // Color text-primary
+        customClass: {
+          popup: 'swal-premium-popup',
+          title: 'swal-premium-title',
+          confirmButton: 'swal-premium-confirm'
+        },
+        backdrop: `rgba(12, 12, 15, 0.8)` // Color bg-primary con transparencia
+      });
+    }
+  };
+  
+
   // Renderizar detalles de una orden
   const renderOrderDetails = () => {
     if (!selectedOrder) return null;
@@ -163,16 +248,27 @@ export default function OrdersView() {
                 {format(new Date(selectedOrder.created_at), 'dd/MM/yyyy HH:mm', { locale: es })}
               </p>
               
-              {!selectedOrder.delivered && (
+              <div className={styles.actionsContainer}>
+                {!selectedOrder.delivered && (
+                  <button 
+                    className={styles.deliverButton}
+                    onClick={() => {
+                      markAsDelivered(selectedOrder.id);
+                    }}
+                  >
+                    <FaCheck /> Marcar como Entregado
+                  </button>
+                )}
+                
                 <button 
-                  className={styles.deliverButton}
+                  className={styles.deleteButton}
                   onClick={() => {
-                    markAsDelivered(selectedOrder.id);
+                    deleteOrder(selectedOrder.id);
                   }}
                 >
-                  <FaCheck /> Marcar como Entregado
+                  <FaTrash /> Eliminar Pedido
                 </button>
-              )}
+              </div>
             </div>
           </div>
         </div>
@@ -305,6 +401,12 @@ export default function OrdersView() {
                           <FaCheck /> Entregar
                         </button>
                       )}
+                      <button
+                        className={styles.deleteButton}
+                        onClick={() => deleteOrder(order.id)}
+                      >
+                        <FaTrash />
+                      </button>
                     </div>
                   </div>
                 </div>

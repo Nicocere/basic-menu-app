@@ -132,6 +132,29 @@ a {
   border-color: var(--color-accent-primary-transparent) !important;
 }
 
+/* Estilos para SweetAlert personalizado */
+.swal-premium-popup {
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--color-surface-3);
+}
+
+.swal-premium-title {
+  font-family: var(--font-heading);
+  color: var(--color-text-accent) !important;
+}
+
+.swal-premium-confirm, .swal-premium-cancel {
+  font-family: var(--font-body);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.2rem;
+  font-weight: 500;
+}
+
+.swal-premium-confirm:focus, .swal-premium-cancel:focus {
+  box-shadow: 0 0 0 3px rgba(200, 162, 92, 0.3);
+}
+
+
 @media (max-width: 480px) {
   #qr-reader__dashboard {
     flex-direction: column;

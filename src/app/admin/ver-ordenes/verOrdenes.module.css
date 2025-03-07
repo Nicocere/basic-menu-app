@@ -469,6 +469,54 @@
   font-size: 1.1rem;
 }
 
+/* Estilos para el botón de eliminar */
+.deleteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #f44336;
+}
+
+.deleteButton:hover {
+  background-color: rgba(244, 67, 54, 0.25);
+}
+
+/* En el panel de acciones cuando el botón solo tiene icono */
+.actionsContainer .deleteButton {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* En el modal de detalles necesita más espacio */
+.orderActionsFooter .deleteButton {
+  padding: 0.5rem 1rem;
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.2);
+}
+
+.orderActionsFooter .deleteButton:hover {
+  background-color: rgba(244, 67, 54, 0.2);
+}
+
+/* Focus state para accesibilidad */
+.deleteButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px rgba(244, 67, 54, 0.5);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
