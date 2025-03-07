@@ -14,6 +14,8 @@ import { FaMinus, FaPlus } from 'react-icons/fa';
 import { supabase } from '@/config/supabaseClient';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthUserContext';
+import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
 
 
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
@@ -36,6 +38,9 @@ const SearchResults = ({ results, addToCart, removeFromCart }) => (
 );
 
 export default function Home() {
+
+  const { isDarkMode, handleThemeChange } = useThemeContext();
+
 
   const { user } = useAuth();
   const [openCategories, setOpenCategories] = useState({});
@@ -168,10 +173,9 @@ const handleQuantityChange = (productId, change) => {
   );
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`}>
       <div className={styles.cartIcon} onClick={() => router.push('/cart')}>
-        <span className={styles.cartCount}>{cart.length}</span>
-        🛒
+        <PiShoppingCartSimpleFill />
       </div>
       {cart.length > 0 && (
         <div className={styles['container-preview']} >

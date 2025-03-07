@@ -6,6 +6,7 @@ import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { useCartContext } from '@/context/CartContext';
 import { useSpring, animated } from 'react-spring';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
 
 const CartWidget = () => {
   const { cart } = useCartContext();

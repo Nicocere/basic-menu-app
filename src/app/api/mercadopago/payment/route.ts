@@ -41,7 +41,7 @@ export async function POST(request: Request) {
             binary_mode: true,
             items: mappedProducts,
             back_urls: {
-                success: `http://localhost:3000/compras/mp-pago-exitoso`, 
+                success: `https://barapp.vercel.app/compras/mp-pago-exitoso`, 
                 failure: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/pago-fallido`,
                 pending: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/pago-pendiente`,
             },

@@ -10,8 +10,11 @@ import { supabase } from "@/config/supabaseClient";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import Swal from "sweetalert2";
+import { useMediaQuery } from "@mui/material";
 
 export default function Payment() {
+  const isMobileScreen = useMediaQuery("(max-width:768px)");
+
   const [orderNumber, setOrderNumber] = useState("");
   const [cart, setCart] = useState([]);
   const [name, setName] = useState("");
@@ -300,8 +303,8 @@ export default function Payment() {
                 paymentMethod: "Mercado Pago",
               })}
               className={styles.qrCode}
-              size={200}
-              level="L"
+              size={isMobileScreen ? 400 : 300}
+              level={isMobileScreen ? "M" : "H"}
               marginSize={10}
               bgColor="#ffffff"
               fgColor="#4e342e"
@@ -318,6 +321,13 @@ export default function Payment() {
               <div className={styles.tableInfo}>
                 <h3>Entrega en Mesa</h3>
                 <p>Tu pedido será entregado en la mesa {tableNumber}</p>
+                {
+                  phoneCostumer &&
+                  <small className={styles.customerPhone}>
+                    Si no te encuentras en la mesa, es posible que te llamemos al n°: {phoneCostumer}
+                  </small>
+
+                }
               </div>
             )}
           </div>
