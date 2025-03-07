@@ -92,7 +92,7 @@ const MercadoPagoButton = ({
         localStorage.setItem('orderDetails', JSON.stringify(bodyMP));
         
   
-        window.location.href = `/compras/mp-pago-exitoso`;
+        // window.location.href = `/compras/mp-pago-exitoso`;
         return data.preferenceId;
       } else {
         throw new Error('No se recibió ID de preferencia');
