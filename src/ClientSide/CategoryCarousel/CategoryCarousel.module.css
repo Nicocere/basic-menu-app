@@ -1,0 +1,294 @@
+/* Variables principales */
+.categoryCarouselContainer {
+    --primary-color: #8D4E31;
+  --accent-color: #F3A950;
+  --accent-light: #FFD599;
+  --text-dark: #2D2926;
+  --text-light: #777;
+  --background-light: #FFFFFF;
+  --background-hover: #FFF8F0;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --border-radius: 12px;
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Contenedor principal - limitado a 400px o ancho de pantalla */
+.categoryCarouselContainer {
+  width: 100%;
+  max-width: min(400px, 100%);
+  margin: 0 auto;
+  padding: 1rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estilos para el título */
+.title, 
+.subtitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+/* Estilos para Swiper */
+.swiperContainer {
+  width: 100%;
+  padding: 8px 0 24px;
+  overflow: visible !important; /* Para mostrar sombras */
+}
+
+/* Modificación de los controles de Swiper para que sean más elegantes */
+.swiperContainer :global(.swiper-button-next),
+.swiperContainer :global(.swiper-button-prev) {
+  width: 32px;
+  height: 32px;
+  background: var(--background-light);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: var(--primary-color);
+  transition: var(--transition-base);
+}
+
+.swiperContainer :global(.swiper-button-next:hover),
+.swiperContainer :global(.swiper-button-prev:hover) {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Ajustar el tamaño de las flechas */
+.swiperContainer :global(.swiper-button-next::after),
+.swiperContainer :global(.swiper-button-prev::after) {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Estilos para la paginación */
+.swiperContainer :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: var(--text-light);
+  opacity: 0.5;
+  transition: var(--transition-base);
+}
+
+.swiperContainer :global(.swiper-pagination-bullet-active) {
+  background: var(--accent-color);
+  opacity: 1;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Tarjetas de categoría */
+.categoryItem, 
+.subcategoryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  cursor: pointer;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.categoryItem:hover, 
+.subcategoryItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: var(--background-hover);
+}
+
+/* Efecto para categoría seleccionada */
+.selected {
+  border: 2px solid var(--accent-color);
+  background: var(--background-hover);
+  box-shadow: 0 0 0 2px rgba(243, 169, 80, 0.3);
+}
+
+.selected::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 24px 24px 0;
+  border-color: transparent var(--accent-color) transparent transparent;
+}
+
+/* Imágenes de categoría y subcategoría */
+.categoryImage, 
+.subcategoryImage {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  transition: var(--transition-base);
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.selected .categoryImage {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Nombres de categoría y subcategoría */
+.categoryName, 
+.subcategoryName {
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-top: 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected .categoryName {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Contenedor de subcategorías */
+.subcategoriesContainer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+/* Estados de carga y error */
+.loadingSpinner,
+.errorMessage,
+.noCategories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--background-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.loadingSpinner {
+  position: relative;
+}
+
+.loadingSpinner::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--accent-color);
+  animation: spin 1s linear infinite;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+
+/* Animación para el spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorMessage {
+  background-color: #FFF0F0;
+  color: #E53935;
+  border: 1px solid rgba(229, 57, 53, 0.3);
+}
+
+/* Media queries para responsive design */
+@media (max-width: 640px) {
+  .swiperContainer :global(.swiper-button-next),
+  .swiperContainer :global(.swiper-button-prev) {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .categoryImage, 
+  .subcategoryImage {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .categoryName, 
+  .subcategoryName {
+    font-size: 0.8rem;
+  }
+  
+  .title {
+    font-size: 1.15rem;
+  }
+  
+  .subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+/* Optimización para tablets y desktop más grande */
+@media (min-width: 768px) {
+  .categoryCarouselContainer {
+    max-width: 650px; /* Más ancho en desktop pero manteniendo un límite */
+  }
+  
+  .categoryItem, 
+  .subcategoryItem {
+    padding: 16px 10px;
+  }
+  
+  .categoryImage, 
+  .subcategoryImage {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 359px) {
+  .categoryImage, 
+  .subcategoryImage {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .categoryName, 
+  .subcategoryName {
+    font-size: 0.75rem;
+  }
+}
+
+
+
+/* Estilos para focus - mejoras de accesibilidad */
+.categoryItem:focus-visible,
+.subcategoryItem:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}

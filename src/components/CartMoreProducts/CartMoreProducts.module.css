@@ -1,0 +1,242 @@
+.dark {
+    --background: #2f1a0f;
+    --secondary-background: #ffffff;
+    --color: #fcf5f0;
+    --color2: #D4AF37;
+}
+.light {
+    --background: #fcf5f0;
+    --secondary-background: #2f1a0f;
+    --color: #2f1a0f;
+    --color2: #D4AF37;
+}
+
+
+.container {
+    width: -webkit-fill-available !important;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    padding: 2rem 0;
+    position: relative;
+
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.carouselTrack {
+    display: flex;
+    gap: 1rem;
+    overflow: hidden;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.productCard {
+    flex: 0 0 calc(33.333% - 1rem);
+    background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+
+.productCard:hover {
+    transform: translateY(-5px);
+}
+
+.imageContainer {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.productInfo {
+    text-align: center;
+}
+
+.productInfo h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.productInfo p {
+    font-size: 0.9rem;
+    color: #666;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.navButton {
+    background: rgba(212, 175, 55, 0.1);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #D4AF37;
+    transition: all 0.3s ease;
+}
+
+.navButton:hover {
+    background: rgba(212, 175, 55, 0.2);
+}
+
+.optionsModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+}
+
+.modalContent {
+    background: var(--background);
+    padding: 2rem;
+    color: #2f1a0f;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.optionsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.optionCard {
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.optionImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.optionInfo p {
+    margin: 0.5rem 0;
+}
+
+.descrOpt {
+    font-size: 0.9rem;
+    color: var(--color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.5s ease, color 0.5s ease;
+    max-height: 3rem; /* Ajusta según la altura de dos líneas de texto */
+}
+
+
+
+.descrOpt:hover::before {
+    opacity: 0;
+}
+
+.descrOpt:hover {
+    color: var(--color2);
+    display: -webkit-box;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    -webkit-box-orient: vertical;
+    max-height: 100rem; /* Un valor grande para permitir la expansión completa */
+}
+
+.price {
+    color: #D4AF37;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.addButton {
+    background: #D4AF37;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.addButton:hover {
+    background: #b38e2e;
+}
+
+@media (max-width: 768px) {
+    .carouselTrack {
+        gap: 0.5rem;
+    }
+
+    .productCard {
+        flex: 0 0 calc(100% - 1rem);
+    }
+
+    .optionsGrid {
+        grid-template-columns: 1fr;
+    }
+}

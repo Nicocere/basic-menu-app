@@ -1,0 +1,130 @@
+.userGuide {
+  width: 100%;
+  padding: 2rem 1rem;
+  background:  linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.guideContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.guideTitle {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--text-primary, #2d3436);
+  letter-spacing: -0.02em;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem;
+  max-height: 220px;
+  overflow: auto;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stepIcon {
+  position: relative;
+  font-size: 1.5rem;
+  color: var(--accent-color, #f59e0b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.stepNumber {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--accent-color, #f59e0b);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepContent h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary, #2d3436);
+  margin-bottom: 0.5rem;
+}
+
+.stepContent p {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #636e72);
+  line-height: 1.4;
+}
+
+/* Dark mode */
+:global(.darkMode) .userGuide {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+}
+
+:global(.darkMode) .step {
+  background: rgba(45, 52, 54, 0.8);
+}
+
+:global(.darkMode) .stepContent h3 {
+  color: #f8f9fa;
+}
+
+:global(.darkMode) .stepContent p {
+  color: #ced4da;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .userGuide {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .step {
+    padding: 1rem;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .step {
+    transition: none;
+  }
+}
+
+.step:focus-within {
+  outline: 2px solid var(--accent-color, #f59e0b);
+  outline-offset: 2px;
+}

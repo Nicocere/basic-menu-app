@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './cart.module.css';
 import MercadoPagoButton from '@/components/MercadoPago/MercadoPago';
+import CartMoreProducts from '@/components/CartMoreProducts/CartMoreProducts';
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
@@ -166,6 +167,7 @@ export default function Cart() {
               }
             </label>
           </div>
+            <CartMoreProducts />
           <div className={styles.buttons}>
             {showPaymentButton ? (
               <MercadoPagoButton 
@@ -187,13 +189,16 @@ export default function Cart() {
             <button className={styles.emptyButton} onClick={emptyCart}>Vaciar Carrito</button>
             <button className={styles.continueButton} onClick={continueShopping}>Seguir Comprando</button>
           </div>
+
         </div>
       ) : (
         <>
         <p className={styles.emptyCart}>El pedido está vacío</p>
+        <CartMoreProducts />
         <button className={styles.continueButton} onClick={continueShopping}>Volver al Menú</button>
         </>
       )}
+
     </div>
   );
 }
