@@ -1,12 +1,11 @@
-"use client";
 
-import { motion } from 'framer-motion';
 import styles from './page.module.css';
-// Add to imports
-// SUPABASE
+
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthUserContext';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
+
+//client side
 import ProductsHome from '@/ClientSide/ProductsHome/ProductsHome';
 import CartHome from '@/ClientSide/CartHome/CartHome';
 import GuideHome from '@/ClientSide/GuideHome/GuideHome';
@@ -21,13 +20,10 @@ export default function Home() {
 
   return (
     <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`}>
-  <CartHome />
-    
-    <CategoryCarousel />
+      <CartHome />
+      <CategoryCarousel />
       <ProductsHome />
-
-  
-    <GuideHome />
+      <GuideHome />
       {
         user ? (
           <Link href="/admin" className={styles.adminLink}>
