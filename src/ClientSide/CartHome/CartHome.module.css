@@ -179,4 +179,36 @@
 .add-button {
   width: 100%;
   padding: 0.75rem;
-  background:
+  background: var(--cart-accent);
+  color: var(--cart-bg);
+  border: none;
+  border-radius: var(--cart-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--cart-transition);
+}
+
+.add-button:hover {
+  background: #bf9b30;
+  transform: scale(1.05);
+}
+
+/* Botón cerrar */
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--cart-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #bf9b30;
+}
+
+
