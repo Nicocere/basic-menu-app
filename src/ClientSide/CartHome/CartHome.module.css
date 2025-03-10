@@ -487,27 +487,27 @@
 }
 
 /* Estilo para el modal de SweetAlert */
-:global(.swal2-popup) {
+.swal2-popup {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-:global(.quantity-selector) {
+.quantity-selector {
   text-align: center;
 }
 
-:global(.quantity-input) {
+.quantity-input {
   margin: 15px 0;
 }
 
-:global(.darkMode) .quantityControl {
+.darkMode .quantityControl {
   background: #333;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-:global(.darkMode) .quantityButton {
+.darkMode .quantityButton {
   color: #e0e0e0;
 }
 
-:global(.darkMode) .quantityButton:hover {
+.darkMode .quantityButton:hover {
   background: rgba(255, 255, 255, 0.1);
 }
