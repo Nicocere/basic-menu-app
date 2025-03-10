@@ -1,0 +1,327 @@
+/* CarouselHeader.module.css */
+
+/* Variables para consistencia */
+.carouselContainer {
+    --primary-color: #424242;
+  --accent-color: #8D4E31;
+  --background-light: #ffffff;
+  --text-dark: #333;
+  --text-light: #757575;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --transition-base: 0.3s ease;
+  --border-radius: 12px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+}
+
+/* Contenedor principal - limitado a 400px */
+.carouselContainer {
+  width: 100%;
+  max-width: min(400px, 100%);
+  margin: 0 auto;
+  padding: var(--spacing-md) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Título del carrusel */
+.title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  padding: 0 var(--spacing-md);
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+}
+
+.title::before {
+  content: "";
+  width: 3px;
+  height: 14px;
+  background-color: var(--accent-color);
+  margin-right: var(--spacing-sm);
+  border-radius: 6px;
+}
+
+/* Wrapper para el Swiper */
+.swiperWrapper {
+  position: relative;
+  padding: 0 var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+/* Personalización de Swiper */
+.swiperContainer {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Slide - flexibilidad para contenido interno */
+.slide {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tarjeta para cada elemento */
+.itemCard {
+  width: 100%;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.itemCard:hover,
+.itemCard:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Contenedor de imagen */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 70%; /* Proporción de aspecto 10:7 */
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  overflow: hidden;
+  background-color: #f8f8f8;
+}
+
+/* Imagen */
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.itemCard:hover .image {
+  transform: scale(1.05);
+}
+
+/* Información de producto/categoría */
+.itemInfo {
+  padding: var(--spacing-md);
+}
+
+.itemName {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemDescription {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+  height: 2.6em;
+}
+
+/* Botones de navegación */
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  z-index: 10;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.prevButton {
+  left: 5px;
+}
+
+.nextButton {
+  right: 5px;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background-color: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.buttonIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-dark);
+}
+
+/* Personalización del paginador */
+.swiperContainer :global(.swiper-pagination) {
+  position: relative;
+  bottom: 0;
+  margin-top: var(--spacing-md);
+}
+
+.swiperContainer :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: #ccc;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.swiperContainer :global(.swiper-pagination-bullet-active) {
+  background: var(--accent-color);
+  opacity: 1;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* Estados de carga */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 100%;
+}
+
+.loadingSpinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--accent-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorMessage,
+.noItems {
+  text-align: center;
+  padding: var(--spacing-md);
+  color: var(--text-light);
+  background-color: #f8f8f8;
+  border-radius: var(--border-radius);
+  margin: var(--spacing-md);
+}
+
+.itemPrice {
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.itemInfo {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.itemDescription {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+  flex-grow: 1;
+  min-height: 2.6em;
+}
+
+/* Ajustes específicos para tarjetas de productos */
+.itemCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 250px;
+}
+
+/* Indicador de categoría */
+.categoryTag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .carouselContainer {
+    max-width: 100%;
+  }
+  
+  .title {
+    font-size: 1.3rem;
+  }
+  
+  .itemName {
+    font-size: 1.1rem;
+  }
+  
+  .itemDescription {
+    font-size: 0.9rem;
+  }
+}
+
+/* Optimizaciones para pantallas pequeñas */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.1rem;
+  }
+  
+  .prevButton,
+  .nextButton {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .buttonIcon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .itemInfo {
+    padding: var(--spacing-sm);
+  }
+}

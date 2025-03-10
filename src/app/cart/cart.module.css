@@ -219,6 +219,16 @@
   box-shadow: var(--shadow-sm);
 }
 
+.emptyCart p{
+  margin: 20px 0;
+  font-weight: 800;
+}
+
+.spanEmptyCart {
+  color: var(--accent-color);
+  font-size: smaller;
+}
+
 /* Estilos para la validación de formulario */
 .errorLabel {
   color: #e53e3e;
@@ -289,6 +299,9 @@
     position: relative;
     top: 0;
     margin-top: 2rem;
+  }
+  .emptyCart{
+    padding: 3rem 0;
   }
 }
 

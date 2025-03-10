@@ -189,7 +189,7 @@ const CartMoreProducts = () => {
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                 >
-                    {isInView && "¡Añade más a tu pedido!".split("").map((char, index) => (
+                    {isInView && "¿Quieres añadir algo más?".split("").map((char, index) => (
                         <motion.span
                             key={index}
                             initial={{ opacity: 0, y: 20 }}

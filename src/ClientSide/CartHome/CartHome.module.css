@@ -22,8 +22,7 @@
 
 /* Icono del carrito */
 .cartIcon {
-  background: linear-gradient(135deg, #d4af37d5, #a78727e0 );
-    border: 2px solid #2f1037;
+  background: #d4af37;
   color: var(--cart-bg);
   width: 3.5rem;
   height: 3.5rem;

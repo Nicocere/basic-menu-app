@@ -192,11 +192,13 @@ export default function Cart() {
 
         </div>
       ) : (
-        <>
-        <p className={styles.emptyCart}>El pedido está vacío</p>
+        <div className={styles.emptyCart}>
+        <p >¡Ups! Tu carrito está vacío :(</p>
+          <span className={styles.spanEmptyCart}>¡Vuelve al inicio para agregar algo delicioso! 🍔</span>
+        
         <CartMoreProducts />
         <button className={styles.continueButton} onClick={continueShopping}>Volver al Menú</button>
-        </>
+        </div>
       )}
 
     </div>

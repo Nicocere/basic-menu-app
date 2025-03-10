@@ -75,7 +75,7 @@
 /* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   .propinaButton {
-    background-color: #8d6e63;
+    background-color: #d4af37;
     color: #e0e0e0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
