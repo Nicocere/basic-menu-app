@@ -19,43 +19,35 @@ export default function PropinasButton() {
   const buttonVariants = {
     initial: {
       scale: 1,
-      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)"
-    },
-    pulse: {
-      scale: [1, 1.05, 1],
-      boxShadow: ["0px 4px 8px rgba(0, 0, 0, 0.15)", "0px 8px 16px rgba(0, 0, 0, 0.2)", "0px 4px 8px rgba(0, 0, 0, 0.15)"],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "loop"
-      }
+      boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)"
     },
     hover: {
-      scale: 1.1,
-      boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.25)",
+      scale: 1.05,
+      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
       transition: {
         type: "spring",
-        stiffness: 400,
-        damping: 10
+        stiffness: 300,
+        damping: 15
       }
     },
     tap: {
       scale: 0.95,
-      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)"
+      boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1)"
     }
   };
 
-  // Variantes para el texto
-  const textVariants = {
-    hidden: { opacity: 0, y: 20, width: 0 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      width: "auto",
+  // Nueva animación sutil del icono
+  const iconVariants = {
+    initial: { y: 0, rotate: 0 },
+    animate: {
+      y: [0, -5, 0],
+      rotate: [0, -5, 0, 5, 0],
       transition: {
-        type: "spring",
-        stiffness: 500,
-        damping: 20
+        duration: 0.6,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.4, 0.6, 1],
+        repeat: Infinity,
+        repeatDelay: 4.4 // Esperar 4.4s + 0.6s de animación = 5s entre repeticiones
       }
     }
   };
@@ -68,29 +60,18 @@ export default function PropinasButton() {
       onMouseLeave={() => setIsHovered(false)}
       variants={buttonVariants}
       initial="initial"
-      animate={isHovered ? "hover" : "pulse"}
+      animate={isHovered ? "hover" : "initial"}
       whileTap="tap"
       aria-label="Dar propina"
     >
-        <motion.div 
-        className={styles.iconContainer}    
-        initial={{x: 0 }}
-        animate={{ x: 5 }}
-        whileTap="tap"
-        >
-      <PiTipJarBold className={styles.icon} />
-      
-        </motion.div>   
-
-
-      <motion.span 
-        className={styles.buttonText}
-        variants={textVariants}
-        initial="hidden"
-        animate={isHovered ? "visible" : "hidden"}
+      <motion.div 
+        className={styles.iconContainer}
+        variants={iconVariants}
+        initial="initial"
+        animate="animate"
       >
-        Propina
-      </motion.span>
+        <PiTipJarBold className={styles.icon} />
+      </motion.div>
     </motion.button>
   );
 }

@@ -203,7 +203,7 @@
 .headerShape svg {
   width: 100%;
   height: 180px;
-  fill: var(--background-light);
+  fill: #f8f9fa !important;
 }
 
 /* Animaciones */
