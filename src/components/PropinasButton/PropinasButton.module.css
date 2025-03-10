@@ -1,0 +1,94 @@
+/* PropinasButton.module.css */
+
+.propinaButton {
+  position: fixed;
+  bottom: 4rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #8d6e63;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 1000;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 3px solid  #d4af37;
+}
+
+.propinaButton:hover {
+  width: 140px;
+  border-radius: 28px;
+  padding-left: 16px;
+  padding-right: 16px;
+  justify-content: flex-start;
+  background-color: #f8f8f8;
+}
+
+.icon {
+  font-size: 2em;
+  min-width: 2em;
+  color: #555;
+  transition: transform 0.3s ease;
+}
+
+.propinaButton:hover .icon {
+  color: #444;
+}
+
+.buttonText {
+  margin-left: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+  color: #555;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .propinaButton {
+    bottom: 7rem;
+    right: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+
+}
+
+/* Para garantizar mejor accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .propinaButton, .icon {
+    transition: none;
+  }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .propinaButton {
+    background-color: #8d6e63;
+    color: #e0e0e0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .propinaButton:hover {
+    background-color: #8d6e63;
+  }
+  
+  .icon {
+    color: #e0e0e0;
+  }
+  
+  .buttonText {
+    color: #e0e0e0;
+  }
+}

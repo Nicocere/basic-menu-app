@@ -1,0 +1,193 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.title {
+  font-size: 1.8rem;
+  color: #8D4E31;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.subtitle {
+  text-align: center;
+  color: #6c757d;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.icon {
+  margin-right: 0.5rem;
+  color: #8D4E31;
+}
+
+.input, .select, .customInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #fff;
+}
+
+.input:focus, .select:focus, .customInput:focus {
+  border-color: #F3A950;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(243, 169, 80, 0.25);
+}
+
+.amountButtons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.amountButton {
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #495057;
+}
+
+.amountButton:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.amountButton.selected {
+  background-color: #F3A950;
+  color: white;
+  border-color: #F3A950;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.customAmount {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dollarSign {
+  position: absolute;
+  left: 12px;
+  font-weight: 600;
+  color: #495057;
+}
+
+.customInput {
+  padding-left: 24px;
+}
+
+.infoText {
+  background-color: rgba(243, 169, 80, 0.1);
+  border-left: 4px solid #F3A950;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.payButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.875rem;
+  background-color: #00b1ea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payButton:hover {
+  background-color: #009bcd;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.payButton.disabled {
+  background-color: #ced4da;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cardIcon {
+  margin-right: 0.5rem;
+}
+
+.thanksContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  min-height: 300px;
+}
+
+.heartIcon {
+  color: #e74c3c;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+.camareroThanks {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #8D4E31;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .amountButtons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+}

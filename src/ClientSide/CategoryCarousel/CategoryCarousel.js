@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/config/supabaseClient';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -23,6 +25,7 @@ const CategoryCarousel = ({ onCategorySelect }) => {
 		  .select('*')
 		  .order('nombre');
 		
+      console.log("DATA DE CATEGORIAS ", data);
 		if (error) throw error;
 		setCategories(data || []);
 	  } catch (error) {
