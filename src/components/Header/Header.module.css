@@ -1,0 +1,279 @@
+/* Header.module.css */
+.header {
+  --header-height: 85vh;
+  --primary-color: #424242;
+  --accent-color: #d4af37;
+  --background-light: #ffffff;
+  --text-light: #ffffff;
+  --text-dark: #333333;
+  --text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  width: 100%;
+  height: var(--header-height);
+  color: var(--text-light);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Contenedor del banner con efecto parallax */
+.bannerContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bannerImage {
+  position: absolute;
+  top: -50px;
+  /* Extra espacio para el efecto parallax */
+  left: 0;
+  width: 100%;
+  height: calc(100% + 100px);
+  /* Extra altura para el efecto parallax */
+  background-size: cover;
+  background-position: center center;
+  transition: transform 0.05s ease-out;
+  /* Suavizado para efecto parallax */
+  will-change: transform;
+  /* Optimización de rendimiento */
+}
+
+/* Overlay con gradiente dinámico */
+.bannerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.632), rgba(0, 0, 0, 0.516));
+  z-index: 1;
+}
+
+/* Contenido principal del header */
+.headerContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 4rem 2rem;
+  max-width: -webkit-fill-available;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.headerTop {
+  margin-top: 2rem;
+}
+
+.restaurantName {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-shadow: var(--text-shadow);
+  animation: fadeSlideUp 0.8s 0.4s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.tagline {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  margin: 1rem 0 2rem;
+  max-width: 600px;
+  text-shadow: var(--text-shadow);
+  animation: fadeSlideUp 0.8s 0.6s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Contenedor del botón CTA */
+.ctaContainer {
+  margin-top: 2rem;
+  animation: fadeSlideUp 0.8s 0.8s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.ctaButton {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 0.9rem 2.5rem;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Parte inferior del header */
+.headerBottom {
+  margin-top: auto;
+  animation: fadeSlideUp 0.8s 1s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.infoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  text-shadow: var(--text-shadow);
+
+  margin-bottom: 0.75rem;
+}
+
+.infoIcon {
+  margin-right: 0.75rem;
+  color: var(--accent-color);
+}
+
+/* Indicador de scroll */
+.scrollIndicator {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards;
+}
+
+.scrollIndicator span {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-shadow: var(--text-shadow);
+}
+
+.scrollIcon {
+  animation: bounce 2s infinite;
+}
+
+/* Forma decorativa en la parte inferior */
+.headerShape {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  line-height: 0;
+}
+
+.headerShape svg {
+  width: 100%;
+  height: 180px;
+  fill: var(--background-light);
+}
+
+/* Animaciones */
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Modo oscuro */
+.darkMode .headerShape svg {
+  fill: #121212;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+  .header {
+    --header-height: 90vh;
+  }
+  .headerBottom{
+    margin-top: 1rem;
+  }
+
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+  }
+
+  .headerContent {
+    padding: 2rem 1.5rem;
+  }
+
+  .infoContainer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .headerTop {
+    margin-top: 1rem;
+  }
+
+  .scrollIndicator {
+    bottom: 100px;
+  }
+}

@@ -6,9 +6,10 @@ import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa';
 import { menú } from '@/app/fakeData';
 import styles from './CarouselHeader.module.css';
+import { useCart } from '@/context/CartContext';
 
 const CarouselHeader = ({ title = "Productos Destacados" }) => {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,9 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
   const [domLoaded, setDomLoaded] = useState(false);
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
+  
+  // Usar el contexto del carrito
+  const { addToCart } = useCart();
 
   // Extraer productos destacados de fakeData
   useEffect(() => {
@@ -65,13 +69,20 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
   useEffect(() => {
     setDomLoaded(true);
   }, []);
+  
+  // Función para agregar producto al carrito
+  const handleAddToCart = (e, product) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product, 1);
+  };
 
   if (loading) {
     return (
       <div className={styles.carouselContainer}>
         <h2 className={styles.title}>{title}</h2>
         <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner}></div>
+          <div className={styles.loadingPulse}></div>
         </div>
       </div>
     );
@@ -94,9 +105,9 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
       
       {domLoaded && (
         <div className={styles.swiperWrapper}>
-          <div ref={navigationPrevRef} className={styles.prevButton} aria-label="Anterior">
-            <FaChevronLeft className={styles.buttonIcon} />
-          </div>
+          <button ref={navigationPrevRef} className={styles.navButton + ' ' + styles.prevButton} aria-label="Anterior">
+            <FaChevronLeft aria-hidden="true" />
+          </button>
           
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
@@ -105,7 +116,7 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
             centeredSlides={false}
             loop={featuredItems.length > 3}
             autoplay={{
-              delay: 4000,
+              delay: 5000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
@@ -133,9 +144,9 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
             {featuredItems.map((item, index) => (
               <SwiperSlide key={`${item.nombre}-${index}`} className={styles.slide}>
                 <div className={styles.itemCard}>
-                  <div className={styles.tagContainer}>
-                    <span className={styles.tag}>Destacado</span>
-                  </div>
+                  {item.subcategory && (
+                    <span className={styles.categoryTag}>{item.subcategory}</span>
+                  )}
                   <div className={styles.imageContainer}>
                     <img
                       src={"/fakeProduct.jpg"}
@@ -149,18 +160,26 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
                       {item.descripcion?.substring(0, 60) || `${item.category} - ${item.subcategory || ''}`}
                       {item.descripcion?.length > 60 ? "..." : ""}
                     </p>
-                    <div className={styles.itemPrice}>${item.precio}</div>
+                    <div className={styles.itemFooter}>
+                      <span className={styles.itemPrice}>${item.precio}</span>
+                      <button 
+                        className={styles.addButton}
+                        onClick={(e) => handleAddToCart(e, item)}
+                        aria-label={`Agregar ${item.nombre} al carrito`}
+                      >
+                        <span className={styles.addButtonText}>Agregar</span>
+                        <FaPlus className={styles.addIcon} aria-hidden="true" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>
-            )
-            
-            )}
+            ))}
           </Swiper>
           
-          <div ref={navigationNextRef} className={styles.nextButton} aria-label="Siguiente">
-            <FaChevronRight className={styles.buttonIcon} />
-          </div>
+          <button ref={navigationNextRef} className={styles.navButton + ' ' + styles.nextButton} aria-label="Siguiente">
+            <FaChevronRight aria-hidden="true" />
+          </button>
         </div>
       )}
     </div>

@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from './ProductsHome.module.css';
 import { menú } from '@/app/fakeData';
-import Swal from 'sweetalert2';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { supabase } from '@/config/supabaseClient';
+import { useCart } from '@/context/CartContext';
 
 // Componente para mostrar resultados de búsqueda
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
@@ -21,7 +21,7 @@ const SearchResults = ({ results, addToCart, removeFromCart }) => (
                 <h4 className={styles['product-name']}>{product.nombre}</h4>
                 <p className={styles['product-description']}>{product.descripcion}</p>
                 <p className={styles['product-price']}>${product.precio}</p>
-                <button onClick={() => addToCart(product)} className={styles['add-button']}>Agregar</button>
+                <button onClick={() => addToCart(product, 1)} className={styles['add-button']}>Agregar</button>
                 <button onClick={() => removeFromCart(product)} className={styles['remove-button']}>Eliminar</button>
             </motion.div>
         ))}
@@ -75,11 +75,13 @@ const ProductCard = ({ product, quantity, onQuantityChange, onAddToCart }) => (
 );
 
 export default function ProductsHome() {
-    // Estados principales
+    // Estados locales
     const [quantities, setQuantities] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
-    const [cart, setCart] = useState([]);
     const [productos, setProductos] = useState([]);
+    
+    // Usar el contexto del carrito
+    const { cart, addToCart, removeFromCart } = useCart();
     
     // Cargar productos desde Supabase
     useEffect(() => {
@@ -98,12 +100,6 @@ export default function ProductsHome() {
         fetchProductos();
     }, []);
 
-    // Cargar carrito desde localStorage
-    useEffect(() => {
-        const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        setCart(savedCart);
-    }, []);
-
     // Manejadores de eventos
     const handleQuantityChange = (productId, change) => {
         setQuantities(prev => ({
@@ -116,28 +112,13 @@ export default function ProductsHome() {
         setSearchTerm(event.target.value);
     };
 
-    const addToCart = (product) => {
+    const handleAddToCart = (product) => {
         const quantity = quantities[product.nombre] || 1;
-        const itemsToAdd = Array(quantity).fill(product);
-        const updatedCart = [...cart, ...itemsToAdd];
-        setCart(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-        Swal.fire({
-            title: '¡Agregado!',
-            text: `${quantity} ${product.nombre} agregado al carrito`,
-            icon: 'success',
-            timer: 1500,
-            showConfirmButton: false,
-            position: 'top-end',
-            toast: true
-        });
+        addToCart(product, quantity);
     };
 
-    const removeFromCart = (product) => {
-        const updatedCart = cart.filter((item) => item.nombre !== product.nombre);
-        setCart(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    const handleRemoveFromCart = (product) => {
+        removeFromCart(product, product.quantity); // Eliminar todas las unidades
     };
 
     // Filtrar menú por término de búsqueda
@@ -193,13 +174,12 @@ export default function ProductsHome() {
                     {searchTerm.length > 0 && (
                         <SearchResults 
                             results={searchResults} 
-                            addToCart={addToCart} 
-                            removeFromCart={removeFromCart} 
+                            addToCart={handleAddToCart} 
+                            removeFromCart={handleRemoveFromCart} 
                         />
                     )}
                 </header>
                 
-                {/* Mostrar todas las categorías y subcategorías sin botones para mostrar/ocultar */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
@@ -224,7 +204,7 @@ export default function ProductsHome() {
                                                 product={product}
                                                 quantity={quantities[product.nombre] || 1}
                                                 onQuantityChange={handleQuantityChange}
-                                                onAddToCart={addToCart}
+                                                onAddToCart={handleAddToCart}
                                             />
                                         ))}
                                     </div>

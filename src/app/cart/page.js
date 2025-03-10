@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import styles from './cart.module.css';
 import MercadoPagoButton from '@/components/MercadoPago/MercadoPago';
 import CartMoreProducts from '@/components/CartMoreProducts/CartMoreProducts';
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
@@ -66,20 +69,20 @@ export default function Cart() {
     if (!name.trim() || !cellphone.trim()) {
       return false;
     }
-    
+
     // Si no es retiro en barra, el número de mesa es obligatorio
     if (!pickup && !tableNumber.trim()) {
       return false;
     }
-    
+
     return true;
   }, [name, cellphone, tableNumber, pickup]);
-  
+
   const handleShowPaymentOptions = async (e) => {
     e.preventDefault();
     setShowValidationErrors(true);
 
-    
+
     // Solo mostrar el botón de pago si todos los campos son válidos
     if (formIsValid) {
       const order = {
@@ -106,13 +109,26 @@ export default function Cart() {
       <h1 className={styles.title}>Tu pedido</h1>
       {cart.length > 0 ? (
         <div className={styles.cartItems}>
-          {cart.map((product) => (
-            <div key={product.nombre} className={styles.cartItem}>
+          {cart.map((product, idx) => (
+            <div key={idx} className={styles.cartItem}>
               <img src="/fakeProduct.jpg" alt={product.nombre} className={styles.productImage} />
               <div className={styles.productDetails}>
                 <h4 className={styles.productName}>{product.nombre}</h4>
                 <p className={styles.productPrice}>${product.precio}</p>
-                <button onClick={() => removeFromCart(product)} className={styles.removeButton}>Eliminar</button>
+              </div>
+
+              <div className={styles.removeButton} >
+                <IconButton
+                  onClick={() => removeFromCart(product)}
+                  aria-label="Eliminar producto"
+                  size="large"
+                  sx={{
+                    backgroundColor: '#f4000012',
+                  }}
+
+                >
+                  <DeleteIcon sx={{ color: 'red' }} />
+                </IconButton>
               </div>
             </div>
           ))}
@@ -129,7 +145,7 @@ export default function Cart() {
                 className={`${styles.input} ${!pickup && showValidationErrors && !tableNumber.trim() ? styles.errorInput : ''}`}
                 disabled={pickup}
               />
-              {!pickup && showValidationErrors && !tableNumber.trim() && 
+              {!pickup && showValidationErrors && !tableNumber.trim() &&
                 <span className={styles.errorMessage}>Ingrese número de mesa</span>
               }
             </label>
@@ -150,7 +166,7 @@ export default function Cart() {
                 onChange={handleName}
                 className={`${styles.input} ${showValidationErrors && !name.trim() ? styles.errorInput : ''}`}
               />
-              {showValidationErrors && !name.trim() && 
+              {showValidationErrors && !name.trim() &&
                 <span className={styles.errorMessage}>Ingrese su nombre</span>
               }
             </label>
@@ -162,15 +178,15 @@ export default function Cart() {
                 onChange={handleCellPhone}
                 className={`${styles.input} ${showValidationErrors && !cellphone.trim() ? styles.errorInput : ''}`}
               />
-              {showValidationErrors && !cellphone.trim() && 
+              {showValidationErrors && !cellphone.trim() &&
                 <span className={styles.errorMessage}>Ingrese su teléfono</span>
               }
             </label>
           </div>
-            <CartMoreProducts />
+          <CartMoreProducts />
           <div className={styles.buttons}>
             {showPaymentButton ? (
-              <MercadoPagoButton 
+              <MercadoPagoButton
                 products={cart}
                 tableNumber={tableNumber}
                 customerName={name}
@@ -179,8 +195,8 @@ export default function Cart() {
                 total={cartTotal}
               />
             ) : (
-              <button 
-                className={styles.validationButton} 
+              <button
+                className={styles.validationButton}
                 onClick={handleShowPaymentOptions}
               >
                 Continuar al pago
@@ -193,11 +209,11 @@ export default function Cart() {
         </div>
       ) : (
         <div className={styles.emptyCart}>
-        <p >¡Ups! Tu carrito está vacío :(</p>
+          <p >¡Ups! Tu carrito está vacío :(</p>
           <span className={styles.spanEmptyCart}>¡Vuelve al inicio para agregar algo delicioso! 🍔</span>
-        
-        <CartMoreProducts />
-        <button className={styles.continueButton} onClick={continueShopping}>Volver al Menú</button>
+
+          <CartMoreProducts />
+          <button className={styles.continueButton} onClick={continueShopping}>Volver al Menú</button>
         </div>
       )}
 

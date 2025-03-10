@@ -12,6 +12,8 @@ import GuideHome from '@/ClientSide/GuideHome/GuideHome';
 import CategoryCarousel from '@/ClientSide/CategoryCarousel/CategoryCarousel';
 import PropinasButton from '@/components/PropinasButton/PropinasButton';
 import CarouselHeader from '@/components/CarouselHeader/CarouselHeader';
+import Header from '@/components/Header/Header';
+
 
 export default function Home() {
 
@@ -20,6 +22,7 @@ export default function Home() {
 
   return (
     <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`}>
+      <Header />
       <CartHome />
       <PropinasButton />
       <CarouselHeader title="Nuestros Destacados" />

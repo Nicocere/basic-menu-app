@@ -25,6 +25,8 @@ const MercadoPagoButton = ({
   const [tipAmount, setTipAmount] = useState(0);
   const [tipPercentage, setTipPercentage] = useState(0);
   const [totalWithTip, setTotalWithTip] = useState(total);
+  const [isCustomTip, setIsCustomTip] = useState(false);
+  const [customTipValue, setCustomTipValue] = useState("");
 
   // Actualizar el total cuando cambia la propina
   useEffect(() => {
@@ -33,9 +35,46 @@ const MercadoPagoButton = ({
 
   // Función para manejar el cambio de porcentaje de propina
   const handleTipChange = (percentage) => {
+    setIsCustomTip(false);
     setTipPercentage(percentage);
     const calculatedTip = Math.round(Number(total) * (percentage / 100));
     setTipAmount(calculatedTip);
+    setCustomTipValue("");
+  };
+
+  // Función para activar el modo de propina personalizada
+  const handleCustomTipMode = () => {
+    setIsCustomTip(true);
+    setTipPercentage(-1); // -1 indica propina personalizada
+    setCustomTipValue(tipAmount > 0 ? tipAmount.toString() : "");
+  };
+
+  // Función para manejar el cambio de valor en la propina personalizada
+  const handleCustomTipChange = (e) => {
+    const value = e.target.value;
+    
+    // Solo permitir números y punto decimal
+    if (value === "" || /^\d+(\.\d{0,2})?$/.test(value)) {
+      setCustomTipValue(value);
+      
+      if (value === "") {
+        setTipAmount(0);
+      } else {
+        const numericValue = Math.round(parseFloat(value));
+        setTipAmount(numericValue);
+      }
+    }
+  };
+
+  // Función para aplicar propina personalizada
+  const applyCustomTip = () => {
+    if (customTipValue === "" || isNaN(parseFloat(customTipValue))) {
+      setTipAmount(0);
+      return;
+    }
+    
+    const numericValue = Math.round(parseFloat(customTipValue));
+    setTipAmount(numericValue);
   };
 
   // Mapear productos para Mercado Pago (incluyendo la propina si existe)
@@ -52,7 +91,7 @@ const MercadoPagoButton = ({
     items.push({
       id: 'tip',
       title: 'Propina',
-      description: `Propina ${tipPercentage}%`,
+      description: isCustomTip ? 'Propina personalizada' : `Propina ${tipPercentage}%`,
       quantity: 1,
       unit_price: Number(tipAmount)
     });
@@ -161,7 +200,7 @@ const MercadoPagoButton = ({
         <h4>¿Deseas agregar una propina?</h4>
         <div className="tip-buttons">
           <button 
-            className={`tip-button ${tipPercentage === 0 ? 'active' : ''}`} 
+            className={`tip-button ${tipPercentage === 0 && !isCustomTip ? 'active' : ''}`} 
             onClick={() => handleTipChange(0)}
           >
             Sin propina
@@ -184,7 +223,36 @@ const MercadoPagoButton = ({
           >
             20% (${Math.round(Number(total) * 0.2)})
           </button>
+          <button 
+            className={`tip-button ${isCustomTip ? 'active' : ''}`}
+            onClick={handleCustomTipMode}
+          >
+            Personalizada
+          </button>
         </div>
+        
+        {/* Campo para propina personalizada */}
+        {isCustomTip && (
+          <div className="custom-tip-input">
+            <div className="input-wrapper">
+              <span className="currency-symbol">$</span>
+              <input
+                type="text"
+                value={customTipValue}
+                onChange={handleCustomTipChange}
+                placeholder="Ingresa el monto"
+                autoFocus
+                onBlur={applyCustomTip}
+              />
+            </div>
+            <button 
+              className="apply-tip-button"
+              onClick={applyCustomTip}
+            >
+              Aplicar
+            </button>
+          </div>
+        )}
         
         {tipAmount > 0 && (
           <div className="tip-summary">

@@ -197,8 +197,8 @@
   background:  linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   font-family: var(--font-family);
   color: var(--primary-color);
-  padding-top: 50px;
-  border-radius: 100px 100px 0 0;
+  /* padding-top: 50px;
+  border-radius: 100px 100px 0 0; */
 }
 
 /* Header y búsqueda */
