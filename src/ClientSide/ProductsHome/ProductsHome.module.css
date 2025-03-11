@@ -24,6 +24,8 @@
 
 .darkMode .menu{
   background-color: #1a1a1a;
+  border-top: 3px solid var(--dark-card);
+  transition: all 0.5s ease;
 
 }
 
@@ -36,7 +38,10 @@
   background-color: #3d3d3d;
   border-bottom-color: #4a4a4a;
 }
-
+.darkMode .product-card-search {
+  background-color: #3d3d3d;
+  border-bottom-color: #4a4a4a;
+}
 .darkMode .product-name {
   color: #e0e0e0;
 }
@@ -108,7 +113,9 @@
   flex-direction: column;
   gap: var(--space-lg);
   padding: 20px 10px;
-  border-radius: 30;
+  border-radius: 60px;
+  border: 1px solid #d4af37;
+  transition: all 0.5s ease;
 }
 
 /* Título del menú - Modernizado */
@@ -182,6 +189,11 @@
   gap: var(--space-md);
 }
 
+.darkMode .search-results {
+  background-color: #2d2d2d;
+}
+
+
 /* Categorías - Diseño mejorado */
 .category {
   margin-bottom: var(--space-lg);
@@ -210,6 +222,12 @@
   background-color: var(--white);
   transform: translateY(-1px);
   box-shadow: var(--shadow-hover);
+}
+
+.darkMode .category-title:hover {
+  background-color: #111111;
+  color: var(--dark-text);
+  border-left-color: var(--accent-light);
 }
 
 .category-title::after {
@@ -362,6 +380,22 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  border-bottom: 1px dashed #e0e0e0;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  will-change: transform;
+}
+
+.product-card-search{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   background: #fff;
   border-radius: 8px;
   padding: 0.75rem;

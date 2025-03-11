@@ -69,7 +69,6 @@ export const ContenidoEcommerceProvider = ({ children }) => {
             fontFamily: 'Arial, sans-serif',
             colorTexto: '#000000',
             colorSubtexto: '#000000',
-            backdropFilter: 'blur(10px)',
         }],
         parallax:{
             posicionTextoParallax:'center',

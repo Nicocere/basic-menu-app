@@ -63,7 +63,6 @@ const CartWidget = () => {
             right: isSmallScreen ? '15px' : '40px',
             color: isDarkMode ? '#2f1a0f' : '#fcf5f0',
             backgroundColor: isDarkMode ? 'rgba(47, 26, 15, 0.1)' : 'rgba(252, 245, 240, 0.1)',
-            backdropFilter: 'blur(8px)',
             boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
             fontWeight: '600',
             transition: 'all 0.3s ease-in-out',

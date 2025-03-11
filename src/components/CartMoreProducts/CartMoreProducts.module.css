@@ -290,8 +290,6 @@
   justify-content: center;
   z-index: 3000;
   padding: 1rem;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 .modalContent {

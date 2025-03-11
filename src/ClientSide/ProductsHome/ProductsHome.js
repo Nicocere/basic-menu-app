@@ -14,7 +14,7 @@ import { useThemeContext } from '@/context/ThemeSwitchContext';
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
     <motion.div className={styles['search-results']} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         {results.map((product) => (
-            <motion.div key={product.nombre} className={styles['product-card']} whileHover={{ scale: 1.05 }}>
+            <motion.div key={product.nombre} className={styles['product-card-search']} whileHover={{ scale: 1.05 }}>
                 <img
                     src="/fakeProduct.jpg"
                     alt={product.nombre}
@@ -24,7 +24,6 @@ const SearchResults = ({ results, addToCart, removeFromCart }) => (
                 <p className={styles['product-description']}>{product.descripcion}</p>
                 <p className={styles['product-price']}>${product.precio}</p>
                 <button onClick={() => addToCart(product, 1)} className={styles['add-button']}>Agregar</button>
-                <button onClick={() => removeFromCart(product)} className={styles['remove-button']}>Eliminar</button>
             </motion.div>
         ))}
     </motion.div>
