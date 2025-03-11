@@ -118,14 +118,23 @@ body {
   background:  linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-h1, h2, h3, h4, h5, h6, button {
+/* h1, h2, h3, h4, h5, h6, button {
   font-family: 'Syne', sans-serif;
 }
 
 p, span, a, label, input {
   font-family: 'Inter', sans-serif;
+} */
+
+
+/* Y modificar estas referencias para usar tus variables CSS personalizadas: */
+h1, h2, h3, h4, h5, h6, button {
+  font-family: var(--font-syne), sans-serif !important;
 }
 
+p, span, a, label, input {
+  font-family: var(--font-inter), sans-serif !important;
+}
 body {
   /* padding-top: 50px; */
   color: var(--foreground);

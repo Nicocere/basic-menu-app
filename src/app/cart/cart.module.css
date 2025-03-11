@@ -1,407 +1,732 @@
-/* Variables de diseño para consistencia */
+/* ===== SISTEMA DE VARIABLES ===== */
 .cartPage {
-  --primary-color: #4e342e; /* Brown */
-  --secondary-color: #d7ccc8; /* Light Brown */
-  --accent-color: #8d6e63; /* Darker Brown */
-  --font-family: 'Roboto', sans-serif;
-  --success-color: #4caf50;
-  --error-color: #f44336;
-  --background: linear-gradient(135deg, #fcf5f0 0%, #fff 100%);
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  
-  /* Nuevos colores minimalistas */
-  --card-bg: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-accent: #8d6e63;
-  --separator: rgba(0, 0, 0, 0.08);
-  --button-bg: #f2f2f2;
-  --button-hover: #e5e5e5;
-  --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  /* Duración de animaciones y transiciones */
+  --transition-duration: 300ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Estilo general para la página de carrito */
+/* Variables para tema claro */
 .cartPage {
+  /* Colores base */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f9f9f9;
+  
+  /* Textos */
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  
+  /* Colores de acento */
+  --accent-color: #8D4E31;
+  --accent-hover: #6b3b25;
+  --accent-light: #F3D9C8;
+  
+  /* Bordes y sombras */
+  --border-color: #e2e2e2;
+  --shadow-sm: 0 2px 5px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.07);
+  --shadow-hover: 0 5px 15px rgba(0,0,0,0.1);
+  
+  /* Estados y feedback */
+  --error-color: #e53e3e;
+  --error-bg: #fed7d7;
+  --success-color: #38a169;
+  --success-bg: #c6f6d5;
+  
+  /* Controles de formulario */
+  --input-bg: #ffffff;
+  
+  /* Botones */
+  --button-primary: #d4af37;
+  --button-primary-hover: #b38e2e;
+  --button-secondary: #f1f1f1;
+  --button-secondary-hover: #e4e4e4;
+  --button-danger: #e53e3e;
+  --button-danger-hover: #c53030;
+  --button-text: #ffffff;
+  
+  /* Iconos */
+  --icon-color: #8D4E31;
+  --icon-hover: #6b3b25;
+}
+
+/* Variables para tema oscuro */
+.darkMode {
+  /* Colores base */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-card: #242424;
+  --bg-card-hover: #2a2a2a;
+  
+  /* Textos */
+  --text-primary: #f0f0f0;
+  --text-secondary: #cccccc;
+  --text-muted: #999999;
+  
+  /* Colores de acento */
+  --accent-color: #F3A950;
+  --accent-hover: #f8c181;
+  --accent-light: #553723;
+  
+  /* Bordes y sombras */
+  --border-color: #333333;
+  --shadow-sm: 0 2px 5px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-hover: 0 6px 16px rgba(0,0,0,0.4);
+  
+  /* Estados y feedback */
+  --error-color: #fc8181;
+  --error-bg: #3b1818;
+  --success-color: #68d391;
+  --success-bg: #1c4532;
+  
+  /* Controles de formulario */
+  --input-bg: #2d2d2d;
+  
+  /* Botones */
+  --button-primary: #F3A950;
+  --button-primary-hover: #f8c181;
+  --button-secondary: #3a3a3a;
+  --button-secondary-hover: #2d2d2d;
+  --button-danger: #fc8181;
+  --button-danger-hover: #e53e3e;
+  --button-text: #121212;
+  
+  /* Iconos */
+  --icon-color: #F3A950;
+  --icon-hover: #f8c181;
+}
+
+/* ===== ESTILOS GENERALES ===== */
+.cartPage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem 5rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   min-height: 100vh;
-  background: var(--background);
-  padding: 2rem 1rem;
-  font-family: 'Inter', sans-serif;
+  transition-property: background-color, color;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
 }
 
 .title {
-  font-size: 2rem;
-  color: var(--primary-color);
+  font-size: 1.75rem;
   text-align: center;
-  margin-bottom: 2rem;
-  font-weight: 600;
+  margin-bottom: 1.75rem;
+  color: var(--text-primary);
+  font-weight: 700;
+  transition: color var(--transition-duration) var(--transition-timing);
 }
 
+/* ===== ESTILOS PARA LOS ITEMS DEL CARRITO ===== */
 .cartItems {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 2rem;
-  padding: 0 1rem;
-}
-/* ---- NUEVO DISEÑO PARA CART ITEM - VERSIÓN MÓVIL Y DESKTOP ---- */
-.cartItem {
-  background: var(--card-bg);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  margin-bottom: 12px;
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
-  flex-direction: row; /* Cambio a fila también en móvil */
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cartItem {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
   align-items: center;
-  padding: 10px;
-  height: auto;
+  overflow: hidden;
+  will-change: box-shadow;
+  transition: box-shadow var(--transition-duration) var(--transition-timing);
 }
 
 .cartItem:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-hover);
 }
 
 .productImage {
-  width: 70px; /* Imagen más pequeña para móvil */
-  height: 70px; /* Imagen más pequeña para móvil */
-  object-fit: cover;
+  width: 60px;
+  height: 60px;
   border-radius: 8px;
-  flex-shrink: 0;
+  object-fit: cover;
+  grid-row: span 2;
+  overflow: hidden;
 }
 
 .productDetails {
-  padding: 0 12px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  flex: 1;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .productName {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  margin: 0 0 0.25rem 0;
   color: var(--text-primary);
-  margin: 0;
-  line-height: 1.2;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px;
+  white-space: nowrap;
+  line-height: 1.3;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.productQuantity {
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: background-color var(--transition-duration) var(--transition-timing);
 }
 
 .productPrice {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-accent);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
   margin: 0;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.productTotalPrice {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-top: 0.25rem;
+  transition: color var(--transition-duration) var(--transition-timing);
 }
 
 .removeButton {
-  width: 28px;
-  height: 28px;
-  background: var(--button-bg);
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 16px;
-  color: #888;
-  transition: all 0.2s ease;
+  align-self: center;
   margin-left: auto;
-  flex-shrink: 0;
 }
 
-.removeButton:hover {
-  background: #f5f5f5;
-  color: var(--error-color);
+.deleteIconButton {
+  color: var(--text-muted) !important;
+  padding: 0.25rem !important;
+  transition: color var(--transition-duration) var(--transition-timing), 
+              background-color var(--transition-duration) var(--transition-timing) !important;
 }
 
-
-/* Versión Desktop - refinamientos adicionales */
-@media (min-width: 768px) {
-  .cartItem {
-    padding: 12px 16px;
-    height: auto;
-  }
-  
-  .productImage {
-    width: 90px;
-    height: 90px;
-    border-radius: 10px;
-  }
-  
-  .productDetails {
-    flex-direction: row;
-    align-items: center;
-    padding: 0 16px;
-  }
-  
-  .productName {
-    font-size: 1rem;
-    max-width: 200px;
-  }
-  
-  .productPrice {
-    font-size: 1.1rem;
-    margin-left: auto;
-    margin-right: 16px;
-  }
-  
-  .removeButton {
-    position: static;
-    width: 32px;
-    height: 32px;
-    background: var(--button-bg);
-    box-shadow: none;
-  }
+.deleteIconButton:hover {
+  color: var(--button-danger) !important;
+  background-color: rgba(229, 62, 62, 0.1) !important;
 }
 
-/* Animaciones */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.deleteIcon {
+  font-size: 1.2rem !important;
 }
 
-.cartItem {
-  animation: slideIn 0.2s ease forwards;
+/* ===== ANIMACIONES OPTIMIZADAS ===== */
+/* Versiones separadas para mejor rendimiento */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
-/* Resto de estilos */
-.quantityControl {
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(20px); }
+}
+
+.cartItem.removing {
+  animation: fadeOut var(--transition-duration) forwards;
+}
+
+.cartItem.sliding {
+  animation: slideOut var(--transition-duration) forwards;
+}
+
+.cartItem:hover {
+  /* Animación de elevación sin usar transform */
+  box-shadow: var(--shadow-hover);
+}
+
+/* ===== TOTALES Y RESUMEN ===== */
+.total {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  text-align: right;
+  box-shadow: var(--shadow-sm);
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+}
+
+.total h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.total span {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  font-weight: 700;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+/* ===== DETALLES DEL PEDIDO ===== */
+.orderDetails {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.label {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin: 1rem 0;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color var(--transition-duration) var(--transition-timing);
 }
 
-.quantityButton {
-  background: var(--secondary-color);
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.labelIcon {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  transition: color var(--transition-duration) var(--transition-timing);
 }
 
-.quantityButton:hover {
-  background: var(--accent-color);
-  color: white;
-}
-
-.orderSummary {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  position: sticky;
-  top: 2rem;
-  box-shadow: var(--shadow-md);
-}
-
-.total{
-  color: black !important;
-}
-
-.orderDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  color: black;
-}
-
-.input {
+.select, .input {
   width: 100%;
-  padding: 1rem;
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  background: var(--secondary-color);
-  transition: all 0.3s ease;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
   font-size: 1rem;
+  transition-property: border-color, background-color, color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
 }
 
-.input:focus {
+.select:focus, .input:focus {
   outline: none;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+.select:disabled, .input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.select::placeholder, .input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* ===== CHECKBOX PERSONALIZADO ===== */
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
 }
 
 .checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkboxLabel {
   position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.checkboxLabel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 20px;
   height: 20px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
   border-radius: 4px;
+  transition-property: background-color, border-color;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+}
+
+.checkbox:checked + .checkboxLabel::before {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.checkbox:checked + .checkboxLabel::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  /* Usamos rotate como única propiedad de transformación */
+  transform: rotate(45deg);
+}
+
+/* ===== INDICADOR DE CARGA ===== */
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.spinner {
+  /* Optimización: usar solo una propiedad de transformación */
+  animation: spinnerRotate 1s linear infinite;
   margin-right: 0.5rem;
 }
 
-.total {
-  margin: 2rem 0;
-  padding-top: 1rem;
-  border-top: 2px solid rgba(45, 24, 16, 0.1);
+@keyframes spinnerRotate {
+  to { transform: rotate(360deg); }
 }
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* ===== MENSAJES DE ERROR ===== */
+.errorMessage {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+  transition: color var(--transition-duration) var(--transition-timing);
 }
 
-.payButton, .emptyButton, .continueButton {
-  width: 100%;
-  padding: 1rem;
-  border: none;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.payButton {
-  background: var(--accent-color);
-  color: white;
-}
-
-.payButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-}
-
-.emptyButton {
-  background: var(--error-color);
-  color: white;
-}
-
-.continueButton {
-  background: var(--primary-color);
-  color: white;
-}
-
-.emptyCart {
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.2rem;
-  color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-.emptyCart p{
-  margin: 20px 0;
-  font-weight: 800;
-}
-
-.spanEmptyCart {
-  color: var(--accent-color);
-  font-size: smaller;
-}
-
-/* Estilos para la validación de formulario */
 .errorLabel {
-  color: #e53e3e;
+  color: var(--error-color) !important;
 }
 
 .errorInput {
-  border: 2px solid #e53e3e !important;
-  background-color: rgba(229, 62, 62, 0.05) !important;
+  border-color: var(--error-color) !important;
+  background-color: var(--error-bg) !important;
 }
 
-.errorMessage {
-  display: block;
-  color: #e53e3e;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-  animation: fadeIn 0.3s ease-in-out;
+/* ===== RESUMEN DEL PEDIDO ===== */
+.orderSummary {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--accent-color);
+  transition-property: background-color, border-left-color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+}
+
+.orderSummary h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.summaryDetails {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summaryLabel {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.summaryValue {
+  color: var(--text-primary);
+  font-weight: 600;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+/* ===== BOTONES ===== */
+.buttons {
+  margin-top: 2rem;
 }
 
 .validationButton {
-  display: block;
   width: 100%;
-  padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, #c8a25c, #b08c4f);
-  color: #0c0c0f;
+  padding: 1rem;
   border: none;
   border-radius: 8px;
+  background-color: var(--button-primary);
+  color: white;
   font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
+  font-size: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 4px 12px rgba(200, 162, 92, 0.3);
+  box-shadow: var(--shadow-sm);
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+  will-change: background-color, box-shadow;
 }
 
 .validationButton:hover {
-  background: linear-gradient(135deg, #d4ae69, #c8a25c);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(200, 162, 92, 0.4);
+  background-color: var(--button-primary-hover);
+  box-shadow: var(--shadow-md);
 }
 
-.validationButton:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(200, 162, 92, 0.3);
+.secondaryButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+.emptyButton, .continueButton {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition-property: background-color;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+  will-change: background-color;
 }
 
-@keyframes shake {
+.emptyButton {
+  background-color: var(--button-danger);
+  color: white;
+}
+
+.emptyButton:hover {
+  background-color: var(--button-danger-hover);
+}
+
+.continueButton {
+  background-color: var(--button-secondary);
+  color: var(--text-primary);
+}
+
+.continueButton:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+.buttonIcon {
+  font-size: 0.9rem;
+}
+
+/* ===== CARRITO VACÍO ===== */
+.emptyCart {
+  text-align: center;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+}
+
+.emptyCartIcon {
+  font-size: 4rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.emptyCart p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.spanEmptyCart {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  display: block;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+/* ===== ANIMACIÓN DE SHAKE PARA VALIDACIÓN ===== */
+/* Optimización: animar solo una propiedad */
+@keyframes shakeX {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
+  20%, 60% { transform: translateX(5px); }
+  40%, 80% { transform: translateX(-5px); }
 }
 
-.errorInput:focus {
-  animation: shake 0.5s ease-in-out;
+.shake {
+  animation: shakeX 0.5s ease;
+  will-change: transform;
 }
 
-@media (max-width: 968px) {
-  .cartItems {
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .cartPage {
+    padding: 100px 0.75rem 4rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Optimización específica para móviles */
+  .cartItem {
+    padding: 0.75rem;
+    grid-template-columns: 50px 1fr auto;
+    gap: 0.5rem;
+  }
+
+  .productImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+  }
+  
+  .productName {
+    font-size: 0.85rem;
+  }
+  
+  .productInfo {
+    font-size: 0.75rem;
+  }
+  
+  .productTotalPrice {
+    font-size: 0.85rem;
+  }
+  
+  .deleteIcon {
+    font-size: 1rem !important;
+  }
+  
+  .orderDetails, .orderSummary, .total {
+    padding: 1.25rem;
+  }
+  
+  .secondaryButtons {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
   
-  .orderSummary {
-    position: relative;
-    top: 0;
-    margin-top: 2rem;
+  .validationButton, .emptyButton, .continueButton {
+    padding: 0.85rem;
+    font-size: 0.95rem;
   }
   
-  .emptyCart{
-    padding: 3rem 0;
+  .checkboxLabel {
+    font-size: 0.9rem;
+  }
+  
+  .select, .input {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.95rem;
   }
 }
 
-/* Animations */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* ===== TABLET ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cartPage {
+    padding: 1.5rem 1rem 4rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .cartItems {
+    gap: 1rem;
+  }
+  
+  .orderDetails, .orderSummary, .total {
+    padding: 1.25rem;
   }
 }
 
-.cartItem {
-  animation: slideIn 0.3s ease forwards;
+/* ===== UTILIDADES DE ACCESIBILIDAD ===== */
+.select:focus, 
+.input:focus, 
+.checkbox:focus + .checkboxLabel::before, 
+.validationButton:focus,
+.emptyButton:focus, 
+.continueButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Estado sin imagen */
+.noImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .noImage {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
 }

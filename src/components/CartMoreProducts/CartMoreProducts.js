@@ -170,8 +170,7 @@ const CartMoreProducts = () => {
     };
 
     return (
-        <motion.div
-            className={`${style.container} ${!isDarkMode ? style.dark : style.light}`}
+        <motion.div className={`${style.container} ${isDarkMode ? style.dark : style.light}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -185,7 +184,6 @@ const CartMoreProducts = () => {
             >
                 <motion.h2
                     className={style.title}
-                    style={{ color: isDarkMode ? '#2f1a0f' : '#333' }}
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -209,7 +207,7 @@ const CartMoreProducts = () => {
                 <motion.h4
                     ref={subtitleRef}
                     className={style.subtitle}
-                    style={{ color: isDarkMode ? '#2f1a0f' : '#333', maxWidth:'40ch', placeSelf:'center', textAlign:'center' }}
+                    style={{  maxWidth:'40ch', placeSelf:'center', textAlign:'center' }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={isSubtitleInView ? 
                         { opacity: 1, x: 0 } : 
@@ -229,7 +227,7 @@ const CartMoreProducts = () => {
 
                 <div className={style.carouselTrack}>
                     <AnimatePresence mode='sync'>
-                        {products.slice(currentIndex, currentIndex + (isMobileScreen ? 1 : 3)).map((product, idx) => (
+                        {products.slice(currentIndex, currentIndex + (isMobileScreen ? 1.5 : 3.5)).map((product, idx) => (
                             <motion.div
                                 key={product.id || idx}
                                 className={style.productCard}
