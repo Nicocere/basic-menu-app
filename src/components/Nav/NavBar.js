@@ -82,7 +82,6 @@ export default function NavBar() {
               {isDarkMode ? <FaSun /> : <FaMoon />}
             </button>
             
-        
           </div>
         </div>
       </header>
