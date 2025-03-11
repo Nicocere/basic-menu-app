@@ -24,7 +24,10 @@
 
 .darkMode .menu{
   background-color: #1a1a1a;
-  border-top: 3px solid var(--dark-card);
+  border-top: 8px solid var(--dark-card);
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-bottom: 3px solid var(--dark-card);
   transition: all 0.5s ease;
 
 }
@@ -113,8 +116,9 @@
   flex-direction: column;
   gap: var(--space-lg);
   padding: 20px 10px;
-  border-radius: 60px;
+  border-radius: 60px 60px 0 0;
   border: 1px solid #d4af37;
+  border-top: 4px solid #d4af37;
   transition: all 0.5s ease;
 }
 
