@@ -1,178 +1,340 @@
+/* Variables principales - tema claro por defecto */
 .footer {
-  --primary-color: #4e342e;
-  --secondary-color: #fff;
-  --accent-color: #fff;
-  --highlight-color: #fff;
-  --font-family: 'Roboto', sans-serif;
+  /* Colores en modo claro */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #f1f3f5;
+  --bg-accent: #8D4E31;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-muted: #888;
+  --accent-primary: #8D4E31;
+  --accent-hover: #6b3b25;
+  --accent-light: #F3D9C8;
+  --input-bg: #fff;
+  --border-color: rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.05);
   
-  background: linear-gradient(to bottom, var(--primary-color), #2d1810);
-  color: var(--secondary-color);
-  padding: 3rem 1.5rem;
-  margin-top: 40px;
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+  /* Variables comunes */
+  --border-radius-sm: 8px; 
+  --border-radius-md: 12px;
+  --border-radius-lg: 24px;
+  --transition-fast: 200ms ease;
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Fuente */
+  --font-family: 'Inter', 'Roboto', sans-serif;
+  
+  /* Colores del footer específicos */
+  --footer-bg: #f8f9fa;
+  --footer-text: #333;
+  --footer-link: #8D4E31;
+  --footer-link-hover: #6b3b25;
+  --footer-border: rgba(0,0,0,0.1);
+  --footer-button: #8D4E31;
+  --footer-button-text: #fff;
+  --footer-button-hover: #6b3b25;
+  --footer-input-bg: #fff;
+  --footer-input-text: #333;
+  --footer-input-placeholder: #888;
 }
 
+/* Variables para modo oscuro */
+.darkMode {
+  --bg-primary: #121212;
+  --bg-secondary: #1a1a1a;
+  --bg-accent: #F3A950;
+  --text-primary: #f5f5f5;
+  --text-secondary: #bbb;
+  --text-muted: #999;
+  --accent-primary: #F3A950;
+  --accent-hover: #f8c181;
+  --accent-light: #553723;
+  --input-bg: #2a2a2a;
+  --border-color: rgba(255,255,255,0.1);
+  
+  /* Colores del footer específicos en modo oscuro */
+  --footer-bg: #1a1a1a;
+  --footer-text: #f5f5f5;
+  --footer-link: #F3A950;
+  --footer-link-hover: #f8c181;
+  --footer-border: rgba(255,255,255,0.1);
+  --footer-button: #F3A950;
+  --footer-button-text: #121212;
+  --footer-button-hover: #f8c181;
+  --footer-input-bg: #2a2a2a;
+  --footer-input-text: #f5f5f5;
+  --footer-input-placeholder: #999;
+}
+
+/* Estilos base del footer */
+.footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 2.5rem 1rem;
+  font-family: var(--font-family);
+  position: relative;
+  margin-top: 0rem;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+  transition: background-color var(--transition-normal),
+              color var(--transition-normal);
+}
+
+/* Grid del footer - mobile first */
 .footerGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Secciones del footer */
 .footerSection {
-  padding: 1rem;
-  justify-self: center;
-  transition: transform 0.3s ease;
+  padding: 0.5rem;
+  transition: transform var(--transition-normal);
 }
 
-.footerSection:hover {
-  transform: translateY(-5px);
-}
-
+/* Títulos de sección */
 .sectionTitle {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: var(--highlight-color);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: var(--accent-primary);
   position: relative;
+  padding-bottom: 0.5rem;
+  transition: color var(--transition-normal);
+  letter-spacing: -0.01em;
 }
 
 .sectionTitle::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -5px;
-  width: 50px;
+  bottom: 0;
+  width: 40px;
   height: 2px;
-  background-color: var(--highlight-color);
+  background-color: var(--accent-primary);
+  transition: background-color var(--transition-normal);
 }
 
+/* Items de contacto */
 .contactItem {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  padding: 0.8rem;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg-secondary);
+  transition: all var(--transition-normal);
+  border: 1px solid transparent;
 }
 
 .contactItem:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Iconos */
 .icon {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-right: 1rem;
-  color: var(--highlight-color);
+  color: var(--accent-primary);
+  transition: color var(--transition-normal);
+}
+
+/* Info de contacto */
+.contactInfo {
+  flex: 1;
+}
+
+/* Estilos de texto */
+.text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
 }
 
 .highlight {
-  color: var(--highlight-color);
+  color: var(--text-primary);
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  margin: 0.3rem 0 0;
+  transition: color var(--transition-normal);
 }
 
+/* Item de horario */
+.scheduleItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding: 0.8rem;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg-secondary);
+}
+
+/* Links sociales */
 .socialLinks {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   margin-bottom: 1.5rem;
+  justify-content: flex-start;
 }
 
 .socialIcon {
-  font-size: 1.8rem;
-  color: var(--secondary-color);
-  transition: all 0.3s ease;
+  font-size: 1.6rem;
+  color: var(--accent-primary);
+  transition: all var(--transition-normal);
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .socialIcon:hover {
-  color: var(--highlight-color);
-  transform: translateY(-3px);
+  color: var(--accent-hover);
 }
 
+/* Botón de reserva */
 .reserveButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background-color: var(--highlight-color);
-  color: #2d1810;
+  gap: 0.8rem;
+  background-color: var(--footer-button);
+  color: var(--footer-button-text);
   border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--border-radius-lg);
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  transition: all var(--transition-normal);
   margin-top: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
 }
 
 .reserveButton:hover {
-  background-color: #f57c00;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255,152,0,0.3);
+  background-color: var(--footer-button-hover);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
+.buttonIcon {
+  font-size: 1rem;
+}
+
+/* Formulario newsletter */
 .newsletter {
   margin-top: 1.5rem;
 }
 
 .emailInput {
   width: 100%;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 25px;
-  background-color: rgba(255,255,255,0.1);
-  color: #2d1810;
-  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--footer-input-bg);
+  color: var(--footer-input-text);
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  transition: all var(--transition-normal);
+}
+
+.emailInput::placeholder {
+  color: var(--footer-input-placeholder);
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-light);
 }
 
 .subscribeButton {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.9rem;
   border: none;
-  border-radius: 25px;
-  background-color: var(--highlight-color);
-  color: #2d1810;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--footer-button);
+  color: var(--footer-button-text);
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .subscribeButton:hover {
-  background-color: #f57c00;
-  transform: translateY(-2px);
+  background-color: var(--footer-button-hover);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
+.subscribed {
+  background-color: #4CAF50 !important;
+}
+
+/* Sección inferior del footer */
 .footerBottom {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid var(--footer-border);
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-@media (max-width: 768px) {
-  .footer {
-    padding: 2rem 1rem;
-  }
-
+/* Media queries para responsive */
+@media (min-width: 768px) {
   .footerGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
 
-  .footerSection {
-    text-align: center;
+  .footer {
+    padding: 3rem 2rem;
   }
-
+  
   .sectionTitle::after {
-    left: 50%;
-    transform: translateX(-50%);
+    width: 60px;
   }
+}
 
-  .contactItem {
-    justify-content: center;
+/* Para móviles pequeños */
+@media (max-width: 320px) {
+  .footer {
+    padding: 2rem 0.8rem;
   }
+  
+  .contactItem, .scheduleItem {
+    padding: 0.6rem;
+  }
+  
+  .icon {
+    font-size: 1.2rem;
+  }
+}
 
-  .socialLinks {
-    justify-content: center;
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .footer, .footerSection, .contactItem, .icon, .highlight, 
+  .text, .socialIcon, .reserveButton, .subscribeButton {
+    transition: none !important;
+  }
+}
+
+/* Soporte hover en dispositivos que lo permiten */
+@media (hover: hover) {
+  .reserveButton:hover {
+    transform: translateY(-2px);
+  }
+  
+  .contactItem:hover .icon {
+    color: var(--accent-hover);
   }
 }

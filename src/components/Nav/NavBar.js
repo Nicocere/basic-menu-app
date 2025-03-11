@@ -45,8 +45,8 @@ export default function NavBar() {
   const menuItems = [
     { name: 'Inicio', icon: <FaHome />, path: '/' },
     { name: 'Menú', icon: <FaUtensils />, path: '/menu' },
-    { name: 'Nosotros', icon: <FaInfoCircle />, path: '/about' },
-    { name: 'Contacto', icon: <FaEnvelope />, path: '/contact' }
+    // { name: 'Nosotros', icon: <FaInfoCircle />, path: '/about' },
+    { name: 'Contacto', icon: <FaEnvelope />, path: '#contact' }
   ];
 
   return (
@@ -82,14 +82,7 @@ export default function NavBar() {
               {isDarkMode ? <FaSun /> : <FaMoon />}
             </button>
             
-            <button 
-              onClick={toggleLanguage} 
-              className={styles.iconButton}
-              aria-label="Cambiar idioma"
-            >
-              <FaGlobe />
-              <span className={styles.langLabel}>{language}</span>
-            </button>
+        
           </div>
         </div>
       </header>
@@ -146,12 +139,6 @@ export default function NavBar() {
                   </motion.li>
                 ))}
               </ul>
-              
-              <div className={styles.sidebarFooter}>
-                <p className={styles.sidebarFooterText}>
-                  © {new Date().getFullYear()} ANTONIO resto
-                </p>
-              </div>
             </motion.nav>
           </>
         )}

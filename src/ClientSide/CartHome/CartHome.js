@@ -3,9 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './CartHome.module.css';
-import { FaTrash, FaArrowRight, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaTrash, FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
-import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { useCart } from '@/context/CartContext';
 
 export default function CartHome() {
@@ -30,7 +29,7 @@ export default function CartHome() {
   // Cerrar la vista previa cuando se hace clic fuera del componente
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (showPreview && !e.target.closest(`.${styles.page}`)) {
+      if (showPreview && !e.target.closest(`.${styles.cartContent}`)) {
         setShowPreview(false);
       }
     };
@@ -39,7 +38,7 @@ export default function CartHome() {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [showPreview, styles.page]);
+  }, [showPreview, styles.cartContent]);
 
   // Manejador para cambiar cantidad (con stopPropagation)
   const handleChangeQuantity = (e, product, amount) => {
@@ -64,33 +63,44 @@ export default function CartHome() {
   const total = getTotal();
   const totalItems = getTotalItems();
 
+  if (totalItems === 0) return null; // No mostrar la barra si no hay productos
+
   return (
-    <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`}>
-      <div className={styles.cartIcon} onClick={togglePreview}>
-        <span className={styles.cartCount}>
-          {totalItems}
-        </span>
-        <PiShoppingCartSimpleFill />
+    <div className={`${styles.cartBar} ${isDarkMode ? styles.darkMode : ''}`}>
+      <div className={styles.cartSummary}>
+        <div className={styles.cartInfo}>
+          <span className={styles.itemCount}>
+            {totalItems} {totalItems === 1 ? 'producto' : 'productos'}
+          </span>
+          <span className={styles.totalPrice}>${total.toFixed(2)}</span>
+        </div>
+        
+        <button 
+          className={styles.viewCartButton} 
+          onClick={togglePreview}
+        >
+          <FaShoppingCart /> Ver Carrito
+        </button>
       </div>
 
-      {showPreview && cart.length > 0 && (
+      {showPreview && (
         <div 
-          className={styles['container-preview']} 
+          className={styles.cartContent}
           onClick={(e) => e.stopPropagation()}
         >
           <h4 className={styles.cartTitle}>Mi pedido ({totalItems} {totalItems === 1 ? 'producto' : 'productos'})</h4>
           
-          <div className={styles['search-results']}>
+          <div className={styles.productsList}>
             {cart.map((product, index) => (
-              <div className={styles['preview-list']} key={`${product.nombre}-${index}`}>
+              <div className={styles.productItem} key={`${product.nombre}-${index}`}>
                 <img
                   src="/fakeProduct.jpg"
                   alt={product.nombre}
-                  className={styles['product-image-mini']}
+                  className={styles.productImage}
                 />
-                <div className={styles['product-info']}>
-                  <h4 className={styles['product-name']}>{product.nombre}</h4>
-                  <p className={styles['product-price']}>
+                <div className={styles.productInfo}>
+                  <h4 className={styles.productName}>{product.nombre}</h4>
+                  <p className={styles.productPrice}>
                     ${product.precio} {product.quantity > 1 ? `x${product.quantity}` : ''}
                   </p>
                   
@@ -115,21 +125,18 @@ export default function CartHome() {
                 
                 <button 
                   onClick={(e) => handleRemoveFromCart(e, product)} 
-                  className={styles['remove-button']}
+                  className={styles.removeButton}
                   aria-label="Eliminar producto"
                 >
-                  <FaTrash style={{color: 'darkred', fontSize:'larger'}}/>
+                  <FaTrash />
                 </button>
               </div>
             ))}
           </div>
           
-          <div className={styles['cart-footer']}>
-            <div className={styles['total-price']}>${total.toFixed(2)}</div>
-            <button className={styles['add-button']} onClick={goToCart}>
-              Ir a pagar <FaArrowRight />
-            </button>
-          </div>
+          <button className={styles.checkoutButton} onClick={goToCart}>
+            Ir a pagar (${total.toFixed(2)})
+          </button>
         </div>
       )}
     </div>

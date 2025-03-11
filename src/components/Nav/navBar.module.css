@@ -46,6 +46,14 @@
   margin: 0 auto;
 }
 
+.darkMode .headerContent {
+  color: var(--text-light);
+}
+
+.darkMode .headerSubtitle {
+  color: var(--text-light);
+}
+
 /* Logo y título */
 .logoContainer {
   display: flex;

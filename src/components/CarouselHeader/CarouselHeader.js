@@ -10,6 +10,7 @@ import { FaChevronLeft, FaChevronRight, FaPlus } from 'react-icons/fa';
 import { menú } from '@/app/fakeData';
 import styles from './CarouselHeader.module.css';
 import { useCart } from '@/context/CartContext';
+import { useThemeContext } from '@/context/ThemeSwitchContext';
 
 const CarouselHeader = ({ title = "Productos Destacados" }) => {
   const [loading, setLoading] = useState(true);
@@ -17,6 +18,7 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
   const [domLoaded, setDomLoaded] = useState(false);
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
+  const { isDarkMode } = useThemeContext();
   
   // Usar el contexto del carrito
   const { addToCart } = useCart();
@@ -79,7 +81,7 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
 
   if (loading) {
     return (
-      <div className={styles.carouselContainer}>
+      <div className={`${styles.carouselContainer} ${isDarkMode ? styles.darkMode : ''}`}>
         <h2 className={styles.title}>{title}</h2>
         <div className={styles.loadingContainer}>
           <div className={styles.loadingPulse}></div>
@@ -90,7 +92,7 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
 
   if (!featuredItems || featuredItems.length === 0) {
     return (
-      <div className={styles.carouselContainer}>
+      <div className={`${styles.carouselContainer} ${isDarkMode ? styles.darkMode : ''}`}>
         <h2 className={styles.title}>{title}</h2>
         <div className={styles.noItems}>
           No hay elementos destacados disponibles
@@ -100,7 +102,7 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
   }
 
   return (
-    <div className={styles.carouselContainer}>
+    <div className={`${styles.carouselContainer} ${isDarkMode ? styles.darkMode : ''}`}>
       <h2 className={styles.title}>{title}</h2>
       
       {domLoaded && (
@@ -129,8 +131,8 @@ const CarouselHeader = ({ title = "Productos Destacados" }) => {
               dynamicBullets: true,
             }}
             breakpoints={{
-              320: { slidesPerView: 1.2, spaceBetween: 12 },
-              480: { slidesPerView: 1.5, spaceBetween: 16 },
+              320: { slidesPerView: 2.2, spaceBetween: 12 },
+              480: { slidesPerView: 2.5, spaceBetween: 16 },
               640: { slidesPerView: 2.2, spaceBetween: 20 },
               768: { slidesPerView: 3, spaceBetween: 20 },
               1024: { slidesPerView: 3.5, spaceBetween: 24 },

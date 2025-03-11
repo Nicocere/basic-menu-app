@@ -123,7 +123,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 150px;
   height: 100%;
   object-fit: cover;
   transition: opacity var(--transition-base);
@@ -368,4 +368,20 @@
     font-size: 0.8rem;
     margin: 0;
   }
+}
+
+
+/* DARK MODE */
+
+.darkMode .title{
+  color: #fff;
+}
+
+.darkMode .itemCard {
+  border: 1px solid #d4af37;
+}
+
+.darkMode .itemCard:hover,
+.darkMode .itemCard:focus-within {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.3);
 }

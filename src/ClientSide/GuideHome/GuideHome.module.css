@@ -1,7 +1,26 @@
+/* Variables CSS para mejor gestión de temas */
+.userGuide {
+  --bg-gradient-light: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --bg-gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+  --card-bg-light: rgba(255, 255, 255, 0.8);
+  --card-bg-dark: rgba(45, 52, 54, 0.8);
+  --text-primary-light: #2d3436;
+  --text-primary-dark: #f8f9fa;
+  --text-secondary-light: #636e72;
+  --text-secondary-dark: #ced4da;
+  --accent-color: #f59e0b;
+  --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --inset-shadow-light: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  --inset-shadow-dark: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos base - Light Mode */
 .userGuide {
   width: 100%;
   padding: 2rem 1rem;
-  background:  linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: var(--bg-gradient-light);
+  transition: background 0.3s ease;
 }
 
 .guideContainer {
@@ -14,37 +33,40 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 3rem;
-  color: var(--text-primary, #2d3436);
+  color: var(--text-primary-light);
   letter-spacing: -0.02em;
+  transition: color 0.3s ease;
 }
 
 .stepsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
-  padding: 0.5rem;
-  max-height: 220px;
+  padding: 1.5rem;
+  max-height: 100%;
   overflow: auto;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--inset-shadow-light);
   border-radius: 16px;
+  transition: box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .step {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--card-bg-light);
   backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
 }
 
 .stepIcon {
   position: relative;
   font-size: 1.5rem;
-  color: var(--accent-color, #f59e0b);
+  color: var(--accent-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +77,7 @@
   position: absolute;
   top: -8px;
   right: -8px;
-  background: var(--accent-color, #f59e0b);
+  background: var(--accent-color);
   color: white;
   width: 22px;
   height: 22px;
@@ -74,31 +96,80 @@
 .stepContent h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-primary, #2d3436);
+  color: var(--text-primary-light);
   margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .stepContent p {
   font-size: 0.9rem;
-  color: var(--text-secondary, #636e72);
+  color: var(--text-secondary-light);
   line-height: 1.4;
+  transition: color 0.3s ease;
 }
 
 /* Dark mode */
-:global(.darkMode) .userGuide {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+.darkMode .userGuide {
+  background: var(--bg-gradient-dark);
 }
 
-:global(.darkMode) .step {
-  background: rgba(45, 52, 54, 0.8);
+.darkMode .guideTitle {
+  color: var(--text-primary-dark);
 }
 
-:global(.darkMode) .stepContent h3 {
-  color: #f8f9fa;
+.darkMode .stepsGrid {
+  box-shadow: var(--inset-shadow-dark);
+  background: rgba(0, 0, 0, 0.15);
 }
 
-:global(.darkMode) .stepContent p {
-  color: #ced4da;
+.darkMode .step {
+  background: var(--card-bg-dark);
+  box-shadow: var(--shadow-dark);
+}
+
+.darkMode .stepContent h3 {
+  color: var(--text-primary-dark);
+}
+
+.darkMode .stepContent p {
+  color: var(--text-secondary-dark);
+}
+
+/* Soporte para versión anterior con :global */
+.darkMode .userGuide {
+  background: var(--bg-gradient-dark);
+}
+
+.darkMode .guideTitle {
+  color: var(--text-primary-dark);
+}
+
+.darkMode .stepsGrid {
+  box-shadow: var(--inset-shadow-dark);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.darkMode .step {
+  background: var(--card-bg-dark);
+  box-shadow: var(--shadow-dark);
+}
+
+.darkMode .stepContent h3 {
+  color: var(--text-primary-dark);
+}
+
+.darkMode .stepContent p {
+  color: var(--text-secondary-dark);
+}
+
+/* Hover effects */
+.step:hover {
+  box-shadow: 0 6px 10px -1px rgba(0, 0, 0, 0.15);
+}
+
+.darkMode .step:hover,
+.darkMode .step:hover {
+  box-shadow: 0 6px 10px -1px rgba(0, 0, 0, 0.35);
 }
 
 /* Responsive */
@@ -110,6 +181,7 @@
   .stepsGrid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    padding: 1rem;
   }
   
   .step {
@@ -119,12 +191,16 @@
 
 /* Mejoras de accesibilidad */
 @media (prefers-reduced-motion: reduce) {
-  .step {
+  .step,
+  .userGuide,
+  .guideTitle,
+  .stepContent h3,
+  .stepContent p {
     transition: none;
   }
 }
 
 .step:focus-within {
-  outline: 2px solid var(--accent-color, #f59e0b);
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }

@@ -26,7 +26,6 @@ export default function Home() {
       <CartHome />
       <PropinasButton />
       <CarouselHeader title="Nuestros Destacados" />
-      <CategoryCarousel />
       <ProductsHome />
       <GuideHome />
       {
