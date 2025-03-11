@@ -23,7 +23,7 @@
 }
 
 /* Mejoras para el botón de Mercado Pago */
-:global(.mercadopago-button) {
+.mercadopago-button {
   width: 100% !important;
   padding: 12px !important;
   font-weight: 600 !important;
