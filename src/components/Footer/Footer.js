@@ -15,8 +15,10 @@ import {
 } from 'react-icons/fa';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
+  const logo = "https://firebasestorage.googleapis.com/v0/b/empativa-psicologia.appspot.com/o/develops%2Fspazio-logo-dark.png?alt=media&token=cb764ca3-75fd-4796-9eef-8eea5bfc8b0c";
   const { isDarkMode } = useThemeContext();
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -176,8 +178,43 @@ export default function Footer() {
       </motion.div>
 
       <div className={styles.footerBottom}>
-        <p className={styles.text}>© {new Date().getFullYear()} RestoMenuQR - Todos los derechos reservados</p>
-      </div>
+                <div className={styles.legalSection}>
+                    <p className={styles.copyright}>
+                        Bar App © {new Date().getFullYear()}
+                    </p>
+                    <p className={styles.credits}>
+                        Desarrollado por 
+                        <motion.span 
+                            whileHover={{ color: "#6b6b6b" }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <a 
+                                href="https://spaziodigitalsolutions.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Spazio Digital Solutions
+                            </a>
+                        </motion.span>
+                    </p>
+                </div>
+                
+                <motion.div 
+                    className={styles.logoSection}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <Link href={'https://spaziodigitalsolutions.com'}>
+                        <Image 
+                            src={logo} 
+                            alt="Spazio Digital Solutions" 
+                            width={120} 
+                            height={30} 
+                            className={styles.logo}
+                        />
+                    </Link>
+                </motion.div>
+            </div>
     </footer>
   );
 }

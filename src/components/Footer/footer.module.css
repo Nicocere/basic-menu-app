@@ -279,14 +279,110 @@
   background-color: #4CAF50 !important;
 }
 
-/* Sección inferior del footer */
+/* Estilos para la parte inferior del footer */
 .footerBottom {
-  margin-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--footer-border);
-  text-align: center;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.legalSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.copyright {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.credits {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.credits a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding-left: 0.5rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.credits a:hover {
+  color: var(--accent-color);
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0.95);
+  transition: filter 0.3s ease;
+}
+
+.logo:hover {
+  filter: brightness(1.1);
+}
+
+/* Estilos específicos para modo oscuro */
+.darkMode .footerBottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.darkMode .logo {
+  filter: brightness(0.9) invert(1);
+}
+
+.darkMode .logo:hover {
+  filter: brightness(1.1) invert(1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footerBottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .legalSection {
+    order: 2;
+  }
+  
+  .logoSection {
+    order: 1;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .credits a {
+    padding-left: 0;
+  }
 }
 
 /* Media queries para responsive */
