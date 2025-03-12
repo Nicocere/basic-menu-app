@@ -9,7 +9,9 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { supabase } from '@/config/supabaseClient';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
-import { FaSpinner, FaChair, FaUserTie, FaShoppingBasket, FaTrashAlt, FaArrowLeft } from 'react-icons/fa';
+import { FaSpinner, FaChair, FaUserTie, FaShoppingBasket, FaTrashAlt, FaArrowLeft, FaCreditCard, FaMoneyBillWave, FaArrowRight } from 'react-icons/fa';
+
+import PagoEnEfectivo from '@/components/PagoEnEfectivo/PagoEnEfectivo';
 
 export default function Cart() {
   const { isDarkMode } = useThemeContext();
@@ -21,6 +23,10 @@ export default function Cart() {
   const [knowsWaiter, setKnowsWaiter] = useState(false);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [showPaymentButton, setShowPaymentButton] = useState(false);
+
+    // Agregar después de los estados existentes
+  const [showPaymentSelection, setShowPaymentSelection] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState(''); // 'cash' o 'mercadopago'
 
   // Estados para Supabase
   const [mesas, setMesas] = useState([]);
@@ -173,16 +179,16 @@ export default function Cart() {
   }, [name, cellphone, tableNumber, camareroId, pickup, knowsWaiter]);
 
 
-  const handleShowPaymentOptions = async (e) => {
+  const handleShowPaymentOptions = (e) => {
     e.preventDefault();
     setShowValidationErrors(true);
-
-    // Solo mostrar el botón de pago si todos los campos son válidos
+  
+    // Solo mostrar las opciones de pago si todos los campos son válidos
     if (formIsValid) {
       const selectedMesa = mesas.find(m => m.id.toString() === tableNumber);
       const selectedCamarero = knowsWaiter && camareroId ? 
         camareros.find(c => c.id.toString() === camareroId) : null;
-
+  
       const order = {
         tableNumber: selectedMesa ? selectedMesa.name : '',
         tableId: tableNumber,
@@ -194,15 +200,27 @@ export default function Cart() {
         total: cartTotal,
         products: cart
       };
-
+  
       localStorage.setItem('order', JSON.stringify(order));
-      setShowPaymentButton(true);
+      setShowPaymentSelection(true); // Mostrar selección de método de pago
     } else {
       // Si hay campos inválidos, mostrar la animación de "shake" en el botón
       const button = document.querySelector(`.${styles.validationButton}`);
       button.classList.add(styles.shake);
       setTimeout(() => button.classList.remove(styles.shake), 500);
     }
+  };
+  
+  const handleSelectPaymentMethod = (method) => {
+    setPaymentMethod(method);
+    if (method === 'mercadopago') {
+      setShowPaymentButton(true);
+    }
+  };
+  
+  const handleBackToPaymentSelection = () => {
+    setPaymentMethod('');
+    setShowPaymentButton(false);
   };
 
   // Obtener el nombre de la mesa seleccionada si existe
