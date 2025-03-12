@@ -12,19 +12,21 @@ import { useThemeContext } from "@/context/ThemeSwitchContext";
 
 export default function Propinas() {
 
-    const {isDarkMode } = useThemeContext();
- 
+  const { isDarkMode } = useThemeContext();
+
 
   return (
-    <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`} style={{paddingTop: '100px'}}>
+    <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`} style={{ paddingTop: '100px' }}>
 
-<CartHome />
+      <h2 className={styles.title}>Menú</h2>
+
+      <CartHome />
       <PropinasButton />
       <CarouselHeader title="Nuestros Destacados" />
       <ProductsHome />
-      <GuideHome /> 
-      
+      <GuideHome />
+
     </div>
-       );
+  );
 
 }

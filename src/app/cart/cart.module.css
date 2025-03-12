@@ -608,6 +608,54 @@
   will-change: transform;
 }
 
+/* Estilo básico para los checkboxes */
+.checkbox {
+  accent-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 2px solid var(--color-border-strong);
+}
+
+/* Estilo específico para cada checkbox */
+#pickup-checkbox {
+  accent-color: var(--color-secondary);
+}
+
+#knows-waiter-checkbox {
+  accent-color: var(--color-primary);
+}
+
+/* Contenedor del checkbox y etiqueta */
+.checkboxContainer {
+  display: flex;
+  padding: 20px 0;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  align-items: center;
+  margin: var(--space-sm) 0;
+}
+
+.checkboxLabel {
+  cursor: pointer;
+  margin-left: 5px;
+  color: var(--color-text-secondary);
+}
+
+/* Ajustes para modo oscuro */
+.darkMode .checkbox {
+  border-color: var(--color-border);
+}
+
+.darkMode #pickup-checkbox {
+  accent-color: var(--color-secondary-light);
+}
+
+.darkMode #knows-waiter-checkbox {
+  accent-color: var(--color-primary-light);
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .cartPage {

@@ -18,6 +18,7 @@ export default function Cart() {
   const [name, setName] = useState('');
   const [cellphone, setCellphone] = useState('');
   const [pickup, setPickup] = useState(false);
+  const [knowsWaiter, setKnowsWaiter] = useState(false);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [showPaymentButton, setShowPaymentButton] = useState(false);
 
@@ -29,6 +30,7 @@ export default function Cart() {
   const [loadingCamareros, setLoadingCamareros] = useState(true);
   const [error, setError] = useState(null);
 
+
   const router = useRouter();
 
   // Cargar el carrito y preferencias guardadas
@@ -38,12 +40,14 @@ export default function Cart() {
     const savedPickup = JSON.parse(localStorage.getItem('pickup')) || false;
     const savedTableNumber = localStorage.getItem('tableNumber') || '';
     const savedCamareroId = localStorage.getItem('camareroId') || '';
+    const savedKnowsWaiter = JSON.parse(localStorage.getItem('knowsWaiter')) || false;
 
     setCart(savedCart);
     setName(savedName);
     setPickup(savedPickup);
     setTableNumber(savedTableNumber);
     setCamareroId(savedCamareroId);
+    setKnowsWaiter(savedKnowsWaiter);
   }, []);
 
   // Cargar mesas desde Supabase
@@ -93,6 +97,19 @@ export default function Cart() {
     fetchCamareros();
   }, []);
 
+  const handleKnowsWaiterChange = () => {
+    const newKnowsWaiter = !knowsWaiter;
+    setKnowsWaiter(newKnowsWaiter);
+    localStorage.setItem('knowsWaiter', JSON.stringify(newKnowsWaiter));
+    
+    // Si ya no conoce al camarero, limpiar el camareroId
+    if (!newKnowsWaiter) {
+      setCamareroId('');
+      localStorage.removeItem('camareroId');
+    }
+  };
+
+
   const handleTableNumberChange = (event) => {
     setTableNumber(event.target.value);
     localStorage.setItem('tableNumber', event.target.value);
@@ -138,7 +155,7 @@ export default function Cart() {
 
   // Validación de campos
   const formIsValid = useMemo(() => {
-    if (!name.trim() || !cellphone.trim() || !camareroId) {
+    if (!name.trim() || !cellphone.trim()) {
       return false;
     }
 
@@ -147,8 +164,14 @@ export default function Cart() {
       return false;
     }
 
+    // Camarero solo es obligatorio si conoce al camarero
+    if (knowsWaiter && !camareroId) {
+      return false;
+    }
+
     return true;
-  }, [name, cellphone, tableNumber, camareroId, pickup]);
+  }, [name, cellphone, tableNumber, camareroId, pickup, knowsWaiter]);
+
 
   const handleShowPaymentOptions = async (e) => {
     e.preventDefault();
@@ -157,12 +180,13 @@ export default function Cart() {
     // Solo mostrar el botón de pago si todos los campos son válidos
     if (formIsValid) {
       const selectedMesa = mesas.find(m => m.id.toString() === tableNumber);
-      const selectedCamarero = camareros.find(c => c.id.toString() === camareroId);
+      const selectedCamarero = knowsWaiter && camareroId ? 
+        camareros.find(c => c.id.toString() === camareroId) : null;
 
       const order = {
         tableNumber: selectedMesa ? selectedMesa.name : '',
         tableId: tableNumber,
-        waiterId: camareroId,
+        waiterId: knowsWaiter ? camareroId : '',
         waiterName: selectedCamarero ? selectedCamarero.name : '',
         name,
         cellphone,
@@ -270,34 +294,49 @@ export default function Cart() {
               }
             </div>
 
-            <div className={styles.formGroup}>
-              <label className={`${styles.label} ${showValidationErrors && !camareroId ? styles.errorLabel : ''}`}>
-                <FaUserTie className={styles.labelIcon} />
-                Camarero
+            <div className={styles.checkboxContainer}>
+              <input
+                type="checkbox"
+                id="knows-waiter-checkbox"
+                checked={knowsWaiter}
+                onChange={handleKnowsWaiterChange}
+                className={styles.checkbox}
+              />
+              <label htmlFor="knows-waiter-checkbox" className={styles.checkboxLabel}>
+                ¿Conoces quién te atenderá?
               </label>
-              {loadingCamareros ? (
-                <div className={styles.loadingIndicator}>
-                  <FaSpinner className={styles.spinner} /> Cargando camareros...
-                </div>
-              ) : (
-                <select
-                  value={camareroId}
-                  onChange={handleCamareroChange}
-                  className={`${styles.select} ${showValidationErrors && !camareroId ? styles.errorInput : ''}`}
-                  aria-label="Seleccionar camarero"
-                >
-                  <option value="">Seleccione un camarero</option>
-                  {camareros.map((camarero) => (
-                    <option key={camarero.id} value={camarero.id}>
-                      {camarero.name}
-                    </option>
-                  ))}
-                </select>
-              )}
-              {showValidationErrors && !camareroId &&
-                <span className={styles.errorMessage}>Seleccione un camarero</span>
-              }
             </div>
+
+            {knowsWaiter && (
+              <div className={styles.formGroup}>
+                <label className={`${styles.label} ${knowsWaiter && showValidationErrors && !camareroId ? styles.errorLabel : ''}`}>
+                  <FaUserTie className={styles.labelIcon} />
+                  Camarero
+                </label>
+                {loadingCamareros ? (
+                  <div className={styles.loadingIndicator}>
+                    <FaSpinner className={styles.spinner} /> Cargando camareros...
+                  </div>
+                ) : (
+                  <select
+                    value={camareroId}
+                    onChange={handleCamareroChange}
+                    className={`${styles.select} ${knowsWaiter && showValidationErrors && !camareroId ? styles.errorInput : ''}`}
+                    aria-label="Seleccionar camarero"
+                  >
+                    <option value="">Seleccione un camarero</option>
+                    {camareros.map((camarero) => (
+                      <option key={camarero.id} value={camarero.id}>
+                        {camarero.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {knowsWaiter && showValidationErrors && !camareroId &&
+                  <span className={styles.errorMessage}>Seleccione un camarero</span>
+                }
+              </div>
+            )}
 
             <div className={styles.checkboxContainer}>
               <input
