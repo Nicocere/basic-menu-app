@@ -1,0 +1,410 @@
+.confirmationPage {
+  min-height: 100vh;
+  background-color: var(--color-background, #f8f5f1);
+  color: var(--color-text-primary, #333);
+  padding: 2rem 1rem 4rem;
+  font-family: var(--font-primary, system-ui, sans-serif);
+  transition: background-color 0.3s ease;
+}
+
+.darkTheme {
+  background-color: var(--dark-background, #121212);
+  color: var(--dark-text-primary, #f0f0f0);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background, #f8f5f1);
+  color: var(--color-text-primary, #333);
+  transition: background-color 0.3s ease;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: var(--color-primary, #d2691e);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.darkTheme .spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--color-primary, #d2691e);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.confirmationCard {
+  background-color: var(--color-card, #fff);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.darkTheme .confirmationCard {
+  background-color: var(--dark-card, #222);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-success-light, rgba(47, 194, 91, 0.1));
+  color: var(--color-success, #2fc25b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 0 8px var(--color-success-lighter, rgba(47, 194, 91, 0.05));
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-primary, #d2691e);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--color-text-secondary, #555);
+}
+
+.darkTheme .subtitle {
+  color: var(--dark-text-secondary, #aaa);
+}
+
+.orderNumberContainer {
+  background-color: var(--color-primary-bg, rgba(210, 105, 30, 0.05));
+  border: 1px dashed var(--color-primary-light, #e58e4e);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.orderNumberLabel {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-secondary, #555);
+}
+
+.orderNumber {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  color: var(--color-primary, #d2691e);
+}
+
+.infoCard {
+  background-color: var(--color-surface-variant, #f9f5ef);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.darkTheme .infoCard {
+  background-color: var(--dark-surface-variant, #2a2a2a);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary, #d2691e);
+  font-weight: 600;
+}
+
+.sectionIcon {
+  margin-right: 0.75rem;
+}
+
+.paymentInstructions p {
+  margin-bottom: 1rem;
+}
+
+.instructionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructionsList li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.instructionNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primary, #d2691e);
+  color: white;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.orderSummary {
+  background-color: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, rgba(210, 105, 30, 0.1));
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.darkTheme .orderSummary {
+  background-color: var(--dark-surface, #272727);
+  border-color: var(--dark-border, #333);
+}
+
+.summaryDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summaryLabel {
+  color: var(--color-text-secondary, #666);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.darkTheme .summaryLabel {
+  color: var(--dark-text-secondary, #aaa);
+}
+
+.summaryValue {
+  font-weight: 500;
+}
+
+.highlight {
+  color: var(--color-primary, #d2691e);
+  font-weight: 600;
+}
+
+.inlineIcon {
+  margin-right: 0.5rem;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--color-border, rgba(210, 105, 30, 0.1));
+  margin: 0.75rem 0;
+}
+
+.darkTheme .divider {
+  background-color: var(--dark-border, #333);
+}
+
+.productsContainer {
+  margin: 0.75rem 0;
+}
+
+.productsTitle {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-secondary, #666);
+}
+
+.darkTheme .productsTitle {
+  color: var(--dark-text-secondary, #aaa);
+}
+
+.productsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.productItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+}
+
+.productName {
+  margin-right: 0.5rem;
+}
+
+.productQuantity {
+  background-color: var(--color-surface-variant, #f9f5ef);
+  color: var(--color-text-secondary, #666);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.darkTheme .productQuantity {
+  background-color: var(--dark-surface-variant, #2a2a2a);
+  color: var(--dark-text-secondary, #aaa);
+}
+
+.productPrice {
+  font-weight: 600;
+}
+
+.total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.totalAmount {
+  color: var(--color-primary, #d2691e);
+  font-size: 1.3rem;
+  font-family: var(--font-display, 'Syne', sans-serif);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.primaryButton, .secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.primaryButton {
+  background-color: var(--color-primary, #d2691e);
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  background-color: var(--color-primary-dark, #b85516);
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: var(--color-text-primary, #333);
+  border: 1px solid var(--color-border-strong, rgba(210, 105, 30, 0.2));
+}
+
+.darkTheme .secondaryButton {
+  color: var(--dark-text-primary, #f0f0f0);
+  border-color: var(--dark-border-strong, #444);
+}
+
+.secondaryButton:hover {
+  background-color: var(--color-surface-variant, #f9f5ef);
+  border-color: var(--color-primary, #d2691e);
+  transform: translateY(-2px);
+}
+
+.darkTheme .secondaryButton:hover {
+  background-color: var(--dark-surface-variant, #2a2a2a);
+}
+
+.buttonIcon {
+  font-size: 1.1rem;
+}
+
+.contactInfo {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary, #666);
+}
+
+.darkTheme .contactInfo {
+  color: var(--dark-text-secondary, #aaa);
+}
+
+.contactInfo a {
+  color: var(--color-primary, #d2691e);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contactInfo a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .confirmationCard {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .orderNumber {
+    font-size: 1.5rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+  
+  .instructionsList li {
+    align-items: center;
+  }
+}

@@ -608,6 +608,197 @@
   will-change: transform;
 }
 
+
+.paymentMethodSelector {
+  width: 100%;
+  margin-bottom: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.paymentMethodSelector h3 {
+  text-align: center;
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+}
+
+.paymentOptions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .paymentOptions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.paymentOptionButton {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: var(--space-xs) var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.paymentOptionButton:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.paymentOptionButton:active {
+  transform: translateY(0);
+}
+
+.paymentOptionIcon {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  grid-row: span 2;
+}
+
+.paymentOptionButton span {
+  font-weight: 600;
+  font-size: var(--text-md);
+}
+
+.paymentOptionDescription {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  margin: 0;
+  grid-column: 2;
+}
+
+.paymentArrow {
+  color: var(--color-primary);
+  grid-row: span 2;
+  font-size: 1.2rem;
+  transition: transform var(--transition-normal);
+}
+
+.paymentOptionButton:hover .paymentArrow {
+  transform: translateX(3px);
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  margin-top: var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-size: var(--text-sm);
+}
+
+.backButton:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-bg);
+}
+
+.paymentContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+
+/* Estilos específicos para el modo oscuro del selector de pago */
+.darkMode .paymentMethodSelector h3 {
+  color: var(--text-primary);
+}
+
+.darkMode .paymentOptionButton {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.darkMode .paymentOptionButton:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-color);
+  box-shadow: var(--shadow-md);
+}
+
+.darkMode .paymentOptionIcon {
+  color: var(--icon-color);
+}
+
+.darkMode .paymentOptionButton span {
+  color: var(--text-primary);
+}
+
+.darkMode .paymentOptionDescription {
+  color: var(--text-secondary);
+}
+
+.darkMode .paymentArrow {
+  color: var(--icon-color);
+}
+
+.darkMode .backButton {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.darkMode .backButton:hover {
+  background-color: rgba(243, 169, 80, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Efecto de hover mejorado para el modo oscuro */
+.darkMode .paymentOptionButton:hover .paymentOptionIcon,
+.darkMode .paymentOptionButton:hover .paymentArrow {
+  color: var(--icon-hover);
+}
+
+/* Efecto de selección del botón */
+.darkMode .paymentOptionButton:active {
+  background-color: var(--bg-secondary);
+  transform: translateY(1px);
+}
+
+/* Transición suave para modo oscuro */
+.darkMode .paymentOptionButton,
+.darkMode .backButton,
+.darkMode .paymentOptionIcon,
+.darkMode .paymentArrow {
+  transition: all 0.3s ease;
+}
+
+/* Mejorar contraste de texto en checkbox labels en modo oscuro */
+.darkMode .checkboxContainer {
+  border-color: var(--accent-color);
+  background-color: rgba(243, 169, 80, 0.05);
+}
+
+.darkMode .checkboxLabel {
+  color: var(--text-primary);
+}
 /* Estilo básico para los checkboxes */
 .checkbox {
   accent-color: var(--color-primary);

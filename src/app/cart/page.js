@@ -427,33 +427,97 @@ export default function Cart() {
           <CartMoreProducts />
 
           <div className={styles.buttons}>
-            {showPaymentButton ? (
-              <MercadoPagoButton
-                products={cart}
-                tableNumber={selectedMesaName}
-                customerName={name}
-                customerPhone={cellphone}
-                pickup={pickup}
-                total={cartTotal}
-                waiterId={camareroId}
-                waiterName={selectedCamareroName}
-              />
-            ) : (
+            {!showPaymentSelection ? (
               <button
                 className={styles.validationButton}
                 onClick={handleShowPaymentOptions}
               >
                 Continuar al pago
               </button>
+            ) : paymentMethod === 'cash' ? (
+              <div className={styles.paymentContainer}>
+                <PagoEnEfectivo
+                  products={cart}
+                  tableNumber={selectedMesaName}
+                  customerName={name}
+                  customerPhone={cellphone}
+                  pickup={pickup}
+                  total={cartTotal}
+                  waiterId={camareroId}
+                  waiterName={selectedCamareroName}
+                />
+                <button 
+                  className={styles.backButton}
+                  onClick={handleBackToPaymentSelection}
+                >
+                  <FaArrowLeft className={styles.buttonIcon} /> Elegir otro método
+                </button>
+              </div>
+            ) : paymentMethod === 'mercadopago' ? (
+              <div className={styles.paymentContainer}>
+                <MercadoPagoButton
+                  products={cart}
+                  tableNumber={selectedMesaName}
+                  customerName={name}
+                  customerPhone={cellphone}
+                  pickup={pickup}
+                  total={cartTotal}
+                  waiterId={camareroId}
+                  waiterName={selectedCamareroName}
+                />
+                <button 
+                  className={styles.backButton}
+                  onClick={handleBackToPaymentSelection}
+                >
+                  <FaArrowLeft className={styles.buttonIcon} /> Elegir otro método
+                </button>
+              </div>
+            ) : (
+              <div className={styles.paymentMethodSelector}>
+                <h3>Selecciona tu método de pago</h3>
+                <div className={styles.paymentOptions}>
+                  <button 
+                    className={styles.paymentOptionButton}
+                    onClick={() => handleSelectPaymentMethod('cash')}
+                  >
+                    <FaMoneyBillWave className={styles.paymentOptionIcon} />
+                    <span>Efectivo</span>
+                    <p className={styles.paymentOptionDescription}>
+                      Paga al recibir tu pedido
+                    </p>
+                    <FaArrowRight className={styles.paymentArrow} />
+                  </button>
+                  <button 
+                    className={styles.paymentOptionButton}
+                    onClick={() => handleSelectPaymentMethod('mercadopago')}
+                  >
+                    <FaCreditCard className={styles.paymentOptionIcon} />
+                    <span>Tarjeta / MercadoPago</span>
+                    <p className={styles.paymentOptionDescription}>
+                      Paga online de forma segura
+                    </p>
+                    <FaArrowRight className={styles.paymentArrow} />
+                  </button>
+                </div>
+                <button 
+                  className={styles.backButton}
+                  onClick={() => setShowPaymentSelection(false)}
+                >
+                  <FaArrowLeft className={styles.buttonIcon} /> Volver
+                </button>
+              </div>
             )}
-            <div className={styles.secondaryButtons}>
-              <button className={styles.emptyButton} onClick={emptyCart}>
-                <FaTrashAlt className={styles.buttonIcon} /> Vaciar Carrito
-              </button>
-              <button className={styles.continueButton} onClick={continueShopping}>
-                <FaArrowLeft className={styles.buttonIcon} /> Seguir Comprando
-              </button>
-            </div>
+            
+            {!showPaymentSelection && (
+              <div className={styles.secondaryButtons}>
+                <button className={styles.emptyButton} onClick={emptyCart}>
+                  <FaTrashAlt className={styles.buttonIcon} /> Vaciar Carrito
+                </button>
+                <button className={styles.continueButton} onClick={continueShopping}>
+                  <FaArrowLeft className={styles.buttonIcon} /> Seguir Comprando
+                </button>
+              </div>
+            )}
           </div>
         </div>
       ) : (
