@@ -24,12 +24,81 @@
   padding: 0.8rem 1.5rem;
   background-color: var(--background-light);
   box-shadow: var(--shadow-sm);
-  transition: all var(--transition-speed) ease;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0;
+  width: 100%;
 }
 
+/* Estilos para cuando se ha hecho scroll */
 .scrolled {
   padding: 0.5rem 1.5rem;
   box-shadow: var(--shadow-md);
+  margin: 0.6rem 1.2rem;
+  width: calc(100% - 2.4rem); /* Ajustar ancho para los márgenes */
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(0);
+  animation: slideDown 0.4s ease-out;
+}
+
+.darkMode.scrolled {
+  background-color: rgba(31, 31, 31, 0.9);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Transición más suave para el logo cuando se hace scroll */
+.scrolled .logoContainer {
+  transform: translateX(-50%) scale(0.95);
+}
+
+.scrolled .headerTitle {
+  font-size: 1.65rem;
+}
+
+.scrolled .headerSubtitle {
+  font-size: 0.85rem;
+}
+
+/* Efectos de hover mejorados para los botones cuando se hace scroll */
+.scrolled .menuButton:hover,
+.scrolled .iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.darkMode.scrolled .menuButton:hover,
+.darkMode.scrolled .iconButton:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Media queries adaptados para el nuevo diseño */
+@media (max-width: 768px) {
+  .scrolled {
+    margin: 0.5rem 1rem;
+    width: calc(100% - 2rem);
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrolled {
+    margin: 0.4rem 0.6rem;
+    width: calc(100% - 1.2rem);
+    border-radius: 14px;
+    padding: 0.5rem 0.8rem;
+  }
 }
 
 .darkMode {

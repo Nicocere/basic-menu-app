@@ -39,7 +39,7 @@ const AdminHome = () => {
                     </Link>
                 </motion.section>
                 <motion.section className={styles.section} whileHover={{ scale: 1.05 }}>
-                    <h2 className={styles.subtitle}><FaConciergeBell /> Servicios Autónomos para Clientes</h2>
+                    <h2 className={styles.subtitle}><FaConciergeBell />Gestión de Mesas</h2>
                     <p className={styles.description}>Configura opciones de autoservicio para tus clientes, como pedidos desde la mesa o reservas online, mejorando su experiencia y optimizando tus operaciones.</p>
                     <Link href="/admin/self-service">
                         <button className={styles.button}>Servicios Autónomos</button>
