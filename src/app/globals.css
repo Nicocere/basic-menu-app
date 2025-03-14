@@ -4,7 +4,7 @@
 
 :root {
   /* Colores principales (manteniendo la colorimetría original) */
-  --primary-color: #4e342e; /* Brown */
+  --primary-color: #ff4757; /* Brown */
   --primary-light: #7b5e57;
   --primary-dark: #321911;
   --secondary-color: #d7ccc8; /* Light Brown */
@@ -17,7 +17,7 @@
   --black: #000000;
   
   /* Colores semánticos */
-  --success: #4caf50;
+  --success: #ff4757;
   --error: #f44336;
   --warning: #ff9800;
   --info: #2196f3;
@@ -104,7 +104,7 @@ html::-webkit-scrollbar-thumb {
   cursor: grab;
 }
 html::-webkit-scrollbar-thumb:hover {
-  background-color: #D4AF37 ; /* Color de la barra de desplazamiento al pasar el ratón */
+  background-color: #ff4757 ; /* Color de la barra de desplazamiento al pasar el ratón */
 }
 
 html::-webkit-scrollbar-thumb:active {
@@ -291,7 +291,7 @@ a {
 }
 
 .tip-container p{
-  color: #4e342e;
+  color: #ff4757;
 }
 
 .tip-buttons {
@@ -312,14 +312,14 @@ a {
 }
 
 .tip-button:hover {
-  border-color: #D4AF37;
+  border-color: #ff4757;
   background-color: #fffbf0;
 }
 
 .tip-button.active {
-  background-color: #D4AF37;
+  background-color: #ff4757;
   color: white;
-  border-color: #D4AF37;
+  border-color: #ff4757;
 }
 
 .tip-summary {
@@ -370,12 +370,12 @@ a {
 
 .custom-tip-input input:focus {
   outline: none;
-  border-color: #D4AF37;
+  border-color: #ff4757;
   box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
 .apply-tip-button {
-  background-color: #D4AF37;
+  background-color: #ff4757;
   color: white;
   border: none;
   border-radius: 8px;

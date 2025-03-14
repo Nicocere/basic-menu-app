@@ -9,9 +9,6 @@ import { useThemeContext } from '@/context/ThemeSwitchContext';
 import ProductsHome from '@/ClientSide/ProductsHome/ProductsHome';
 import CartHome from '@/ClientSide/CartHome/CartHome';
 import GuideHome from '@/ClientSide/GuideHome/GuideHome';
-import CategoryCarousel from '@/ClientSide/CategoryCarousel/CategoryCarousel';
-import PropinasButton from '@/components/PropinasButton/PropinasButton';
-import CarouselHeader from '@/components/CarouselHeader/CarouselHeader';
 import Header from '@/components/Header/Header';
 
 
@@ -24,8 +21,6 @@ export default function Home() {
     <div className={`${styles.page} ${isDarkMode ? styles.darkMode : ''}`}>
       <Header />
       <CartHome />
-      <PropinasButton />
-      <CarouselHeader title="Nuestros Destacados" />
       <ProductsHome />
       <GuideHome />
       {

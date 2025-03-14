@@ -2,7 +2,7 @@
 .header {
   --header-height: 85vh;
   --primary-color: #424242;
-  --accent-color: #d4af37;
+  --accent-color: #ff4757;
   --background-light: #ffffff;
   --text-light: #ffffff;
   --text-dark: #333333;
@@ -11,6 +11,7 @@
   --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
   position: relative;
+  padding-top: 50px;
   width: 100%;
   height: var(--header-height);
   color: var(--text-light);
@@ -207,7 +208,7 @@
 }
 
 .darkMode .headerShape svg {
-  fill: #000000 !important;
+  fill: #1a1a1a !important;
 }
 
 
@@ -253,7 +254,7 @@
 /* Media queries */
 @media screen and (max-width: 768px) {
   .header {
-    --header-height: 90vh;
+    --header-height: 65vh;
   }
   .headerBottom{
     margin-top: 1rem;

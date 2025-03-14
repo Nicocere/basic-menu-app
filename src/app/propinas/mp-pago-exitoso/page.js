@@ -92,7 +92,7 @@ export default function TipThanks() {
               level="M"
               marginSize={10}
               bgColor="#ffffff"
-              fgColor="#8D4E31"
+              fgColor="#ff4757"
             />
           </div>
 

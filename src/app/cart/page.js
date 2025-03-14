@@ -9,9 +9,63 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { supabase } from '@/config/supabaseClient';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
-import { FaSpinner, FaChair, FaUserTie, FaShoppingBasket, FaTrashAlt, FaArrowLeft, FaCreditCard, FaMoneyBillWave, FaArrowRight } from 'react-icons/fa';
+import { FaSpinner, FaChair, FaShoppingBasket, FaTrashAlt, FaArrowLeft, 
+         FaCreditCard, FaMoneyBillWave, FaArrowRight, FaPizzaSlice, FaHamburger, 
+         FaCoffee, FaWineGlassAlt, FaGlassMartini, FaCocktail, FaBreadSlice, 
+         FaIceCream, FaWineBottle, FaGlassWhiskey, FaUtensils, FaCheese, 
+         FaCarrot } from 'react-icons/fa';
+import { BiDrink, BiCake } from 'react-icons/bi';
+import { GiNoodles, GiCupcake, GiWrappedSweet, GiChocolateBar, GiSodaCan, 
+         GiWaterBottle } from 'react-icons/gi';
 
 import PagoEnEfectivo from '@/components/PagoEnEfectivo/PagoEnEfectivo';
+
+// Función para obtener el icono según la categoría y nombre del producto
+const getProductIcon = (product) => {
+  // Primero verificamos por nombre específico
+  const productName = product.nombre.toLowerCase();
+  
+  if (productName.includes('pizza')) return <FaPizzaSlice />;
+  if (productName.includes('empanada')) return <FaHamburger />;
+  if (productName.includes('cerveza')) return <FaWineBottle />;
+  if (productName.includes('vino')) return <FaWineGlassAlt />;
+  if (productName.includes('fernet')) return <FaGlassWhiskey />;
+  if (productName.includes('agua')) return <GiWaterBottle />;
+  if (productName.includes('jugo')) return <BiDrink />;
+  if (productName.includes('limonada')) return <BiDrink />;
+  if (productName.includes('tostado')) return <FaBreadSlice />;
+  if (productName.includes('croissant')) return <FaBreadSlice />;
+  if (productName.includes('tarta')) return <FaUtensils />;
+  if (productName.includes('medialuna')) return <FaBreadSlice />;
+  if (productName.includes('torta')) return <BiCake />;
+  if (productName.includes('churro')) return <GiWrappedSweet />;
+  if (productName.includes('helado')) return <FaIceCream />;
+  if (productName.includes('brownie')) return <GiChocolateBar />;
+  if (productName.includes('cheesecake')) return <BiCake />;
+  if (productName.includes('ravioles')) return <GiNoodles />;
+  if (productName.includes('bife')) return <FaUtensils />;
+  if (productName.includes('pechuga')) return <FaUtensils />;
+  
+  // Si no hay match específico por nombre, buscamos por categoría
+  if (!product.categorias) return <FaUtensils />;
+  
+  const categories = product.categorias.map(cat => cat.toLowerCase());
+  
+  if (categories.includes('comidas')) return <FaUtensils />;
+  if (categories.includes('pizzas')) return <FaPizzaSlice />;
+  if (categories.includes('empanadas')) return <FaHamburger />;
+  if (categories.includes('menu cena')) return <FaUtensils />;
+  if (categories.includes('con alcohol')) return <FaCocktail />;
+  if (categories.includes('sin alcohol')) return <BiDrink />;
+  if (categories.includes('salado')) return <FaCheese />;
+  if (categories.includes('dulce')) return <GiCupcake />;
+  if (categories.includes('postres')) return <FaIceCream />;
+  if (categories.includes('desayunos y meriendas')) return <FaCoffee />;
+  if (categories.includes('bebidas')) return <FaGlassMartini />;
+  
+  // Icono predeterminado si no hay coincidencia
+  return <FaUtensils />;
+};
 
 export default function Cart() {
   const { isDarkMode } = useThemeContext();
@@ -20,22 +74,15 @@ export default function Cart() {
   const [name, setName] = useState('');
   const [cellphone, setCellphone] = useState('');
   const [pickup, setPickup] = useState(false);
-  const [knowsWaiter, setKnowsWaiter] = useState(false);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
   const [showPaymentButton, setShowPaymentButton] = useState(false);
-
-    // Agregar después de los estados existentes
   const [showPaymentSelection, setShowPaymentSelection] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(''); // 'cash' o 'mercadopago'
 
   // Estados para Supabase
   const [mesas, setMesas] = useState([]);
-  const [camareros, setCamareros] = useState([]);
-  const [camareroId, setCamareroId] = useState('');
   const [loadingMesas, setLoadingMesas] = useState(true);
-  const [loadingCamareros, setLoadingCamareros] = useState(true);
   const [error, setError] = useState(null);
-
 
   const router = useRouter();
 
@@ -45,15 +92,11 @@ export default function Cart() {
     const savedName = localStorage.getItem('name') || '';
     const savedPickup = JSON.parse(localStorage.getItem('pickup')) || false;
     const savedTableNumber = localStorage.getItem('tableNumber') || '';
-    const savedCamareroId = localStorage.getItem('camareroId') || '';
-    const savedKnowsWaiter = JSON.parse(localStorage.getItem('knowsWaiter')) || false;
 
     setCart(savedCart);
     setName(savedName);
     setPickup(savedPickup);
     setTableNumber(savedTableNumber);
-    setCamareroId(savedCamareroId);
-    setKnowsWaiter(savedKnowsWaiter);
   }, []);
 
   // Cargar mesas desde Supabase
@@ -79,51 +122,9 @@ export default function Cart() {
     fetchMesas();
   }, []);
 
-  // Cargar camareros desde Supabase
-  useEffect(() => {
-    const fetchCamareros = async () => {
-      try {
-        setLoadingCamareros(true);
-        const { data, error } = await supabase
-          .from('waiters')
-          .select('*')
-          .eq('status', true) // Opcional: filtrar solo camareros activos
-          .order('name');
-
-        if (error) throw error;
-        setCamareros(data || []);
-      } catch (err) {
-        console.error('Error al cargar los camareros:', err);
-        setError('No se pudieron cargar los camareros');
-      } finally {
-        setLoadingCamareros(false);
-      }
-    };
-
-    fetchCamareros();
-  }, []);
-
-  const handleKnowsWaiterChange = () => {
-    const newKnowsWaiter = !knowsWaiter;
-    setKnowsWaiter(newKnowsWaiter);
-    localStorage.setItem('knowsWaiter', JSON.stringify(newKnowsWaiter));
-    
-    // Si ya no conoce al camarero, limpiar el camareroId
-    if (!newKnowsWaiter) {
-      setCamareroId('');
-      localStorage.removeItem('camareroId');
-    }
-  };
-
-
   const handleTableNumberChange = (event) => {
     setTableNumber(event.target.value);
     localStorage.setItem('tableNumber', event.target.value);
-  };
-
-  const handleCamareroChange = (event) => {
-    setCamareroId(event.target.value);
-    localStorage.setItem('camareroId', event.target.value);
   };
 
   const handleName = (event) => {
@@ -157,7 +158,7 @@ export default function Cart() {
   };
 
   // Calcular el total del carrito una vez para reutilizarlo
-  const cartTotal = cart.reduce((acc, product) => acc + product.precio, 0);
+  const cartTotal = cart.reduce((acc, product) => acc + product.precio * (product.quantity || 1), 0);
 
   // Validación de campos
   const formIsValid = useMemo(() => {
@@ -170,14 +171,8 @@ export default function Cart() {
       return false;
     }
 
-    // Camarero solo es obligatorio si conoce al camarero
-    if (knowsWaiter && !camareroId) {
-      return false;
-    }
-
     return true;
-  }, [name, cellphone, tableNumber, camareroId, pickup, knowsWaiter]);
-
+  }, [name, cellphone, tableNumber, pickup]);
 
   const handleShowPaymentOptions = (e) => {
     e.preventDefault();
@@ -186,14 +181,10 @@ export default function Cart() {
     // Solo mostrar las opciones de pago si todos los campos son válidos
     if (formIsValid) {
       const selectedMesa = mesas.find(m => m.id.toString() === tableNumber);
-      const selectedCamarero = knowsWaiter && camareroId ? 
-        camareros.find(c => c.id.toString() === camareroId) : null;
   
       const order = {
         tableNumber: selectedMesa ? selectedMesa.name : '',
         tableId: tableNumber,
-        waiterId: knowsWaiter ? camareroId : '',
-        waiterName: selectedCamarero ? selectedCamarero.name : '',
         name,
         cellphone,
         pickup,
@@ -230,13 +221,6 @@ export default function Cart() {
     return mesa ? mesa.name : '';
   }, [tableNumber, mesas]);
 
-  // Obtener el nombre del camarero seleccionado si existe
-  const selectedCamareroName = useMemo(() => {
-    if (!camareroId) return '';
-    const camarero = camareros.find(c => c.id.toString() === camareroId);
-    return camarero ? camarero.name : '';
-  }, [camareroId, camareros]);
-
   return (
     <div className={`${styles.cartPage} ${isDarkMode ? styles.darkMode : ''}`}>
       <h1 className={styles.title}>Tu pedido</h1>
@@ -244,14 +228,8 @@ export default function Cart() {
         <div className={styles.cartItems}>          
           {cart.map((product, idx) => (
             <div key={idx} className={styles.cartItem}>
-              <div className={styles.productImage}>
-                {/* {product.imagen ? (
-                  <img src={product.imagen} alt={product.nombre} className={styles.productImage} />
-                ) : (
-                  <img src="/fakeProduct.jpg" alt={product.nombre} className={styles.productImage} />
-                )} */}
-                  <img src="/fakeProduct.jpg" alt={product.nombre} className={styles.productImage} />
-
+              <div className={styles.productIconContainer}>
+                {getProductIcon(product)}
               </div>
               <div className={styles.productDetails}>
                 <h4 className={styles.productName}>{product.nombre}</h4>
@@ -276,7 +254,7 @@ export default function Cart() {
             </div>
           ))}
           <div className={styles.total}>
-            <h3>Total: <span>${cartTotal}</span></h3>
+            <h3>Total: <span>${cartTotal.toFixed(2)}</span></h3>
           </div>
 
           {error && <div className={styles.errorMessage}>{error}</div>}
@@ -311,50 +289,6 @@ export default function Cart() {
                 <span className={styles.errorMessage}>Seleccione una mesa</span>
               }
             </div>
-
-            <div className={styles.checkboxContainer}>
-              <input
-                type="checkbox"
-                id="knows-waiter-checkbox"
-                checked={knowsWaiter}
-                onChange={handleKnowsWaiterChange}
-                className={styles.checkbox}
-              />
-              <label htmlFor="knows-waiter-checkbox" className={styles.checkboxLabel}>
-                ¿Conoces quién te atenderá?
-              </label>
-            </div>
-
-            {knowsWaiter && (
-              <div className={styles.formGroup}>
-                <label className={`${styles.label} ${knowsWaiter && showValidationErrors && !camareroId ? styles.errorLabel : ''}`}>
-                  <FaUserTie className={styles.labelIcon} />
-                  Camarero
-                </label>
-                {loadingCamareros ? (
-                  <div className={styles.loadingIndicator}>
-                    <FaSpinner className={styles.spinner} /> Cargando camareros...
-                  </div>
-                ) : (
-                  <select
-                    value={camareroId}
-                    onChange={handleCamareroChange}
-                    className={`${styles.select} ${knowsWaiter && showValidationErrors && !camareroId ? styles.errorInput : ''}`}
-                    aria-label="Seleccionar camarero"
-                  >
-                    <option value="">Seleccione un camarero</option>
-                    {camareros.map((camarero) => (
-                      <option key={camarero.id} value={camarero.id}>
-                        {camarero.name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {knowsWaiter && showValidationErrors && !camareroId &&
-                  <span className={styles.errorMessage}>Seleccione un camarero</span>
-                }
-              </div>
-            )}
 
             <div className={styles.checkboxContainer}>
               <input
@@ -411,15 +345,9 @@ export default function Cart() {
                   <span className={styles.summaryValue}>{selectedMesaName}</span>
                 </div>
               )}
-              {selectedCamareroName && (
-                <div className={styles.summaryItem}>
-                  <span className={styles.summaryLabel}>Camarero:</span>
-                  <span className={styles.summaryValue}>{selectedCamareroName}</span>
-                </div>
-              )}
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>Total:</span>
-                <span className={styles.summaryValue}>${cartTotal}</span>
+                <span className={styles.summaryValue}>${cartTotal.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -443,8 +371,6 @@ export default function Cart() {
                   customerPhone={cellphone}
                   pickup={pickup}
                   total={cartTotal}
-                  waiterId={camareroId}
-                  waiterName={selectedCamareroName}
                 />
                 <button 
                   className={styles.backButton}
@@ -462,8 +388,6 @@ export default function Cart() {
                   customerPhone={cellphone}
                   pickup={pickup}
                   total={cartTotal}
-                  waiterId={camareroId}
-                  waiterName={selectedCamareroName}
                 />
                 <button 
                   className={styles.backButton}

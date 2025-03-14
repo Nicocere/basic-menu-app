@@ -7,13 +7,13 @@ import { FaMapMarkerAlt, FaClock, FaPhone, FaChevronDown } from 'react-icons/fa'
 import { useThemeContext } from '@/context/ThemeSwitchContext';
 
 const Header = ({
-  restaurantName = "Delicias Gourmet",
-  tagline = "Sabores que inspiran cada día",
+  restaurantName = "Urban Bites",
+  tagline = "Comida real para gente que no se complica",
   address = "Av. Libertador 1234, Buenos Aires",
   hours = "12:00 - 23:00, todos los días",
   phone = "+54 11 4567-8900",
-  cta = "Reservar Mesa",
-  ctaLink = "/reservas",
+  cta = "¡Pide ya!",
+  ctaLink = "/menu",
   bannerSrc = "/banner.jpg"
 }) => {
   const { isDarkMode } = useThemeContext();
@@ -89,7 +89,7 @@ const Header = ({
         </div>
         
         <div className={styles.scrollIndicator}>
-          <span>Descubre nuestro menú</span>
+          <span>Explora nuestra carta</span>
           <FaChevronDown className={styles.scrollIcon} />
         </div>
       </div>

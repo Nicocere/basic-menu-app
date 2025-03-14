@@ -1,6 +1,6 @@
 /* Variables de colores y estilos */
 .thanksPage {
-  --primary-color: #8D4E31;
+  --primary-color: #ff4757;
   --primary-light: #BF8D76;
   --primary-dark: #5E3522;
   --accent-color: #F6AD55;
@@ -17,10 +17,10 @@
 
 /* Variables para modo oscuro */
 .darkMode {
-  --primary-color: #F3A950;
+  --primary-color: #ff4757;
   --primary-light: #F6C589;
   --primary-dark: #D68B37;
-  --accent-color: #8D4E31;
+  --accent-color: #ff4757;
   --accent-light: #553723;
   --bg-light: #1A202C;
   --text-dark: #F7FAFC;

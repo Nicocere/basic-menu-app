@@ -1,7 +1,7 @@
 .confirmationPage {
   min-height: 100vh;
   background-color: var(--color-background, #f8f5f1);
-  color: var(--color-text-primary, #333);
+  color: var(--color-text-primary, #ff4757);
   padding: 2rem 1rem 4rem;
   font-family: var(--font-primary, system-ui, sans-serif);
   transition: background-color 0.3s ease;
@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-background, #f8f5f1);
-  color: var(--color-text-primary, #333);
+  color: var(--color-text-primary, #ff4757);
   transition: background-color 0.3s ease;
 }
 
@@ -33,7 +33,7 @@
   width: 50px;
   height: 50px;
   border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: var(--color-primary, #d2691e);
+  border-left-color: var(--color-primary, #ff4757);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -41,7 +41,7 @@
 
 .darkTheme .spinner {
   border: 4px solid rgba(255, 255, 255, 0.1);
-  border-left-color: var(--color-primary, #d2691e);
+  border-left-color: var(--color-primary, #ff4757);
 }
 
 @keyframes spin {
@@ -83,7 +83,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--color-primary, #d2691e);
+  color: var(--color-primary, #ff4757);
 }
 
 .subtitle {
@@ -118,7 +118,7 @@
   font-size: 1.75rem;
   font-weight: 700;
   font-family: var(--font-display, 'Syne', sans-serif);
-  color: var(--color-primary, #d2691e);
+  color: var(--color-primary, #ff4757);
 }
 
 .infoCard {
@@ -139,7 +139,7 @@
   align-items: center;
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: var(--color-primary, #d2691e);
+  color: var(--color-primary, #ff4757);
   font-weight: 600;
 }
 
@@ -170,7 +170,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background-color: var(--color-primary, #d2691e);
+  background-color: var(--color-primary, #ff4757);
   color: white;
   border-radius: 50%;
   margin-right: 0.75rem;
@@ -191,7 +191,7 @@
 
 .darkTheme .orderSummary {
   background-color: var(--dark-surface, #272727);
-  border-color: var(--dark-border, #333);
+  border-color: var(--dark-border, #ff4757);
 }
 
 .summaryDetails {
@@ -222,7 +222,7 @@
 }
 
 .highlight {
-  color: var(--color-primary, #d2691e);
+  color: var(--color-primary, #ff4757);
   font-weight: 600;
 }
 
@@ -237,7 +237,7 @@
 }
 
 .darkTheme .divider {
-  background-color: var(--dark-border, #333);
+  background-color: var(--dark-border, #ff4757);
 }
 
 .productsContainer {
@@ -300,7 +300,7 @@
 }
 
 .totalAmount {
-  color: var(--color-primary, #d2691e);
+  color: var(--color-primary, #ff4757);
   font-size: 1.3rem;
   font-family: var(--font-display, 'Syne', sans-serif);
 }
@@ -328,7 +328,7 @@
 }
 
 .primaryButton {
-  background-color: var(--color-primary, #d2691e);
+  background-color: var(--color-primary, #ff4757);
   color: white;
   border: none;
 }
@@ -340,7 +340,7 @@
 
 .secondaryButton {
   background-color: transparent;
-  color: var(--color-text-primary, #333);
+  color: var(--color-text-primary, #ff4757);
   border: 1px solid var(--color-border-strong, rgba(210, 105, 30, 0.2));
 }
 
@@ -351,7 +351,7 @@
 
 .secondaryButton:hover {
   background-color: var(--color-surface-variant, #f9f5ef);
-  border-color: var(--color-primary, #d2691e);
+  border-color: var(--color-primary, #ff4757);
   transform: translateY(-2px);
 }
 
@@ -374,7 +374,7 @@
 }
 
 .contactInfo a {
-  color: var(--color-primary, #d2691e);
+  color: var(--color-primary, #ff4757);
   text-decoration: none;
   font-weight: 500;
 }

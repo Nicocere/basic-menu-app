@@ -1,10 +1,10 @@
 /* Variables y configuración de tema */
 .container {
   /* Colores base */
-  --gold-primary: #D4AF37;
-  --gold-light: #E6C462;
-  --gold-dark: #B38E2E;
-  --brown-primary: #8D4E31;
+  --gold-primary: #ff4757;
+  --gold-light: #ff4757;
+  --gold-dark: #ff4757;
+  --brown-primary: #ff4757;
   --brown-light: #A05E3F;
   --brown-dark: #5E3522;
   
@@ -489,6 +489,67 @@
 
 .descrOpt:hover::after {
   opacity: 0;
+}
+
+
+/* Estilos para los contenedores de iconos */
+.productIconContainer {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold-primary) 0%, #ff6b81 100%);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+  box-shadow: var(--shadow-md);
+  color: white;
+  font-size: 4rem;
+}
+
+.productCard:hover .productIconContainer {
+  transform: scale(1.05);
+}
+
+.optionIconContainer {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold-primary) 0%, #ff6b81 100%);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  transition: transform var(--transition-standard);
+  box-shadow: var(--shadow-sm);
+  color: white;
+  font-size: 3.5rem;
+}
+
+.optionCard:hover .optionIconContainer {
+  transform: scale(1.03);
+}
+
+.darkMode .productIconContainer,
+.dark .productIconContainer,
+.darkMode .optionIconContainer,
+.dark .optionIconContainer {
+  background: linear-gradient(135deg, #ff4757 0%, #ff4757 100%);
+}
+
+/* Estilo para el nombre de opción */
+.optionName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+/* Eliminar los estilos de imagen que ya no se usan */
+.imageContainer, .productImage, .optionImage {
+  display: none;
 }
 
 /* Responsive design */

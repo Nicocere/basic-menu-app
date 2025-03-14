@@ -4,19 +4,68 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import style from './CartMoreProducts.module.css';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
-
+import { FaPizzaSlice, FaHamburger, FaCoffee, FaWineGlassAlt, 
+         FaGlassMartini, FaCocktail, FaBreadSlice, FaIceCream, 
+         FaWineBottle, FaGlassWhiskey, FaUtensils, FaCheese, 
+         FaCarrot } from 'react-icons/fa';
+import { BiDrink, BiCake } from 'react-icons/bi';
+import { GiNoodles, GiCupcake, GiWrappedSweet, GiChocolateBar, 
+         GiSodaCan, GiWaterBottle } from 'react-icons/gi';
 import Swal from 'sweetalert2';
-import Image from 'next/image';
 import { menú } from '@/app/fakeData';
 import { useMediaQuery } from '@mui/material';
 
+// Función para obtener el icono según la categoría y nombre del producto
+const getProductIcon = (product) => {
+    // Primero verificamos por nombre específico
+    const productName = product.nombre?.toLowerCase() || '';
+    
+    if (productName.includes('pizza')) return <FaPizzaSlice />;
+    if (productName.includes('empanada')) return <FaHamburger />;
+    if (productName.includes('cerveza')) return <FaWineBottle />;
+    if (productName.includes('vino')) return <FaWineGlassAlt />;
+    if (productName.includes('fernet')) return <FaGlassWhiskey />;
+    if (productName.includes('agua')) return <GiWaterBottle />;
+    if (productName.includes('jugo')) return <BiDrink />;
+    if (productName.includes('limonada')) return <BiDrink />;
+    if (productName.includes('tostado')) return <FaBreadSlice />;
+    if (productName.includes('croissant')) return <FaBreadSlice />;
+    if (productName.includes('tarta')) return <FaUtensils />;
+    if (productName.includes('medialuna')) return <FaBreadSlice />;
+    if (productName.includes('torta')) return <BiCake />;
+    if (productName.includes('churro')) return <GiWrappedSweet />;
+    if (productName.includes('helado')) return <FaIceCream />;
+    if (productName.includes('brownie')) return <GiChocolateBar />;
+    if (productName.includes('cheesecake')) return <BiCake />;
+    if (productName.includes('ravioles')) return <GiNoodles />;
+    if (productName.includes('bife')) return <FaUtensils />;
+    if (productName.includes('pechuga')) return <FaUtensils />;
+    
+    // Si no hay match específico por nombre, buscamos por categoría
+    if (!product.categorias) return <FaUtensils />;
+    
+    const categories = product.categorias.map(cat => cat.toLowerCase());
+    
+    if (categories.includes('comidas')) return <FaUtensils />;
+    if (categories.includes('pizzas')) return <FaPizzaSlice />;
+    if (categories.includes('empanadas')) return <FaHamburger />;
+    if (categories.includes('menu cena')) return <FaUtensils />;
+    if (categories.includes('con alcohol')) return <FaCocktail />;
+    if (categories.includes('sin alcohol')) return <BiDrink />;
+    if (categories.includes('salado')) return <FaCheese />;
+    if (categories.includes('dulce')) return <GiCupcake />;
+    if (categories.includes('postres')) return <FaIceCream />;
+    if (categories.includes('desayunos y meriendas')) return <FaCoffee />;
+    if (categories.includes('bebidas')) return <FaGlassMartini />;
+    
+    // Icono predeterminado si no hay coincidencia
+    return <FaUtensils />;
+};
 
 const CartMoreProducts = () => {
-
     // Validación y destructuración segura de todos los contextos
     const { isDarkMode } = useThemeContext();
     const isMobileScreen = useMediaQuery('(max-width: 768px)');
-
 
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -47,21 +96,20 @@ const CartMoreProducts = () => {
             const productsWithOptions = selectedProducts.map(product => ({
                 ...product,
                 id: Math.random().toString(36).substring(2, 9),
-                img: product.imagen,
+                nombre: product.nombre,
                 descr: product.descripcion,
+                categorias: product.categorias || [],
                 opciones: [
                     {
                         id: Math.random().toString(36).substring(2, 9),
                         nombre: "Regular",
                         precio: product.precio,
-                        img: product.imagen,
                         size: "Regular"
                     },
                     {
                         id: Math.random().toString(36).substring(2, 9),
                         nombre: "Grande",
                         precio: Math.floor(product.precio * 1.3),
-                        img: product.imagen,
                         size: "Grande"
                     }
                 ]
@@ -72,8 +120,6 @@ const CartMoreProducts = () => {
         
         extractProducts();
     }, []);
-
-    console.log(products)
     
     // Función para extraer productos de una categoría anidada
     const extractFromCategory = (category) => {
@@ -112,43 +158,35 @@ const CartMoreProducts = () => {
             const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
             
             const existingProductIndex = cartData.findIndex(p => 
-                p.id === product.id && p.size === (selectedOption.nombre || product.nombre)
+                p.nombre === product.nombre && p.size === selectedOption.nombre
             );
 
             if (existingProductIndex !== -1) {
                 cartData[existingProductIndex].quantity += 1;
             } else {
-                cartData.push({
-                    id: product.id,
-                    idOption: selectedOption.id || product.id,
-                    size: selectedOption.nombre || product.nombre,
-                    precio: selectedOption.precio || product.precio,
-                    name: product.nombre,
-                    img: selectedOption.img || product.img,
+                const newProduct = {
+                    nombre: product.nombre,
+                    descripcion: product.descr,
+                    precio: selectedOption.precio,
+                    size: selectedOption.nombre,
                     quantity: 1,
-                    CartID,
-                    UserID
-                });
+                    categorias: product.categorias
+                };
+                cartData.push(newProduct);
             }
 
-            setCart(cartData);
             localStorage.setItem('cart', JSON.stringify(cartData));
 
-            const priceInUsd = ((selectedOption.precio || product.precio) / dolar).toFixed(2);
-            const displayPrice = priceDolar ? 
-                `USD$${priceInUsd}` : 
-                `$${Number(selectedOption.precio || product.precio).toLocaleString('es-AR')}`;
-
-                Swal.fire({
+            Swal.fire({
                 toast: true,
                 title: `<strong style="font-weight: bold;">Producto Agregado</strong>`,
-                html: `<span style="font-weight: bold;">${product.nombre} (${selectedOption.nombre || product.nombre}) - ${displayPrice}</span>`,
+                html: `<span style="font-weight: bold;">${product.nombre} (${selectedOption.nombre}) - $${selectedOption.precio}</span>`,
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 2500,
                 position: 'bottom-end',
-                background: 'linear-gradient(180deg,#dbdbdb,#fcf5f0)',
-                iconColor: '#D4AF37',
+                background: isDarkMode ? '#1a1a1a' : 'linear-gradient(180deg,#dbdbdb,#fcf5f0)',
+                iconColor: '#ff4757',
             });
 
             setShowOptions(false);
@@ -207,7 +245,7 @@ const CartMoreProducts = () => {
                 <motion.h4
                     ref={subtitleRef}
                     className={style.subtitle}
-                    style={{  maxWidth:'40ch', placeSelf:'center', textAlign:'center' }}
+                    style={{ maxWidth:'40ch', placeSelf:'center', textAlign:'center' }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={isSubtitleInView ? 
                         { opacity: 1, x: 0 } : 
@@ -240,14 +278,8 @@ const CartMoreProducts = () => {
                                     setShowOptions(true);
                                 }}
                             >
-                                <div className={style.imageContainer}>
-                                    <img 
-                                        width={45} 
-                                        height={45}
-                                          src="/fakeProduct.jpg"
-                                        alt={product.nombre}
-                                        className={style.productImage}
-                                    />
+                                <div className={style.productIconContainer}>
+                                    {getProductIcon(product)}
                                 </div>
                                 <div className={style.productInfo}>
                                     <h3>{product.nombre}</h3>
@@ -287,15 +319,11 @@ const CartMoreProducts = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: idx * 0.1 }}
                                     >
-                                        <img 
-                                            width={45} 
-                                            height={45}
-                                            src="/fakeProduct.jpg"
-                                            alt={opcion.nombre}
-                                            className={style.optionImage}
-                                        />
+                                        <div className={style.optionIconContainer}>
+                                            {getProductIcon(selectedProduct)}
+                                        </div>
                                         <div className={style.optionInfo}>
-                                            <p className={style.price}>{opcion.nombre}</p>
+                                            <p className={style.optionName}>{opcion.nombre}</p>
                                             <p className={style.price}>
                                                 ${opcion.precio?.toLocaleString('es-AR')}
                                             </p>

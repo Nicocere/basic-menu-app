@@ -3,9 +3,62 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './CartHome.module.css';
-import { FaTrash, FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaTrash, FaShoppingCart, FaMinus, FaPlus, FaPizzaSlice, FaHamburger, 
+         FaCoffee, FaWineGlassAlt, FaGlassMartini, FaCocktail, FaBreadSlice, 
+         FaIceCream, FaWineBottle, FaGlassWhiskey, FaUtensils, FaCheese, 
+         FaCarrot } from 'react-icons/fa';
+import { BiDrink, BiCake } from 'react-icons/bi';
+import { GiNoodles, GiCupcake, GiWrappedSweet, GiChocolateBar, GiSodaCan, 
+         GiWaterBottle } from 'react-icons/gi';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
 import { useCart } from '@/context/CartContext';
+
+// Función para obtener el icono según la categoría y nombre del producto
+const getProductIcon = (product) => {
+  // Primero verificamos por nombre específico
+  const productName = product.nombre.toLowerCase();
+  
+  if (productName.includes('pizza')) return <FaPizzaSlice />;
+  if (productName.includes('empanada')) return <FaHamburger />;
+  if (productName.includes('cerveza')) return <FaWineBottle />;
+  if (productName.includes('vino')) return <FaWineGlassAlt />;
+  if (productName.includes('fernet')) return <FaGlassWhiskey />;
+  if (productName.includes('agua')) return <GiWaterBottle />;
+  if (productName.includes('jugo')) return <BiDrink />;
+  if (productName.includes('limonada')) return <BiDrink />;
+  if (productName.includes('tostado')) return <FaBreadSlice />;
+  if (productName.includes('croissant')) return <FaBreadSlice />;
+  if (productName.includes('tarta')) return <FaUtensils />;
+  if (productName.includes('medialuna')) return <FaBreadSlice />;
+  if (productName.includes('torta')) return <BiCake />;
+  if (productName.includes('churro')) return <GiWrappedSweet />;
+  if (productName.includes('helado')) return <FaIceCream />;
+  if (productName.includes('brownie')) return <GiChocolateBar />;
+  if (productName.includes('cheesecake')) return <BiCake />;
+  if (productName.includes('ravioles')) return <GiNoodles />;
+  if (productName.includes('bife')) return <FaUtensils />;
+  if (productName.includes('pechuga')) return <FaUtensils />;
+  
+  // Si no hay match específico por nombre, buscamos por categoría
+  if (!product.categorias) return <FaUtensils />;
+  
+  const categories = product.categorias.map(cat => cat.toLowerCase());
+  
+  if (categories.includes('comidas')) return <FaUtensils />;
+  if (categories.includes('pizzas')) return <FaPizzaSlice />;
+  if (categories.includes('empanadas')) return <FaHamburger />;
+  if (categories.includes('menu cena')) return <FaUtensils />;
+  if (categories.includes('con alcohol')) return <FaCocktail />;
+  if (categories.includes('sin alcohol')) return <BiDrink />;
+  if (categories.includes('salado')) return <FaCheese />;
+  if (categories.includes('dulce')) return <GiCupcake />;
+  if (categories.includes('postres')) return <FaIceCream />;
+  if (categories.includes('desayunos y meriendas')) return <FaCoffee />;
+  if (categories.includes('bebidas')) return <FaGlassMartini />;
+  
+  // Icono predeterminado si no hay coincidencia
+  return <FaUtensils />;
+};
 
 export default function CartHome() {
   const { isDarkMode } = useThemeContext();
@@ -93,11 +146,9 @@ export default function CartHome() {
           <div className={styles.productsList}>
             {cart.map((product, index) => (
               <div className={styles.productItem} key={`${product.nombre}-${index}`}>
-                <img
-                  src="/fakeProduct.jpg"
-                  alt={product.nombre}
-                  className={styles.productImage}
-                />
+                <div className={styles.productIcon}>
+                  {getProductIcon(product)}
+                </div>
                 <div className={styles.productInfo}>
                   <h4 className={styles.productName}>{product.nombre}</h4>
                   <p className={styles.productPrice}>

@@ -3,11 +3,11 @@
   /* Colores en modo claro */
   --bg-primary: #f8f9fa;
   --bg-secondary: #f1f3f5;
-  --bg-accent: #8D4E31;
+  --bg-accent: #ff4757;
   --text-primary: #333;
   --text-secondary: #666;
   --text-muted: #888;
-  --accent-primary: #8D4E31;
+  --accent-primary: #ff4757;
   --accent-hover: #6b3b25;
   --accent-light: #F3D9C8;
   --input-bg: #fff;
@@ -28,10 +28,10 @@
   /* Colores del footer específicos */
   --footer-bg: #f8f9fa;
   --footer-text: #333;
-  --footer-link: #8D4E31;
+  --footer-link: #ff4757;
   --footer-link-hover: #6b3b25;
   --footer-border: rgba(0,0,0,0.1);
-  --footer-button: #8D4E31;
+  --footer-button: #ff4757;
   --footer-button-text: #fff;
   --footer-button-hover: #6b3b25;
   --footer-input-bg: #fff;
@@ -43,11 +43,11 @@
 .darkMode {
   --bg-primary: #121212;
   --bg-secondary: #1a1a1a;
-  --bg-accent: #F3A950;
+  --bg-accent: #ff4757;
   --text-primary: #f5f5f5;
   --text-secondary: #bbb;
   --text-muted: #999;
-  --accent-primary: #F3A950;
+  --accent-primary: #ff4757;
   --accent-hover: #f8c181;
   --accent-light: #553723;
   --input-bg: #2a2a2a;
@@ -56,10 +56,10 @@
   /* Colores del footer específicos en modo oscuro */
   --footer-bg: #1a1a1a;
   --footer-text: #f5f5f5;
-  --footer-link: #F3A950;
+  --footer-link: #ff4757;
   --footer-link-hover: #f8c181;
   --footer-border: rgba(255,255,255,0.1);
-  --footer-button: #F3A950;
+  --footer-button: #ff4757;
   --footer-button-text: #121212;
   --footer-button-hover: #f8c181;
   --footer-input-bg: #2a2a2a;
@@ -276,7 +276,7 @@
 }
 
 .subscribed {
-  background-color: #4CAF50 !important;
+  background-color: #ff4757 !important;
 }
 
 /* Estilos para la parte inferior del footer */

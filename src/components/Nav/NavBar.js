@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import styles from './navBar.module.css';
 import { 
-  FaBars, 
   FaMoon,
   FaSun,
   FaGlobe,
@@ -15,6 +14,9 @@ import {
   FaInfoCircle,
   FaEnvelope
 } from 'react-icons/fa';
+import { HiMenuAlt4 } from 'react-icons/hi';
+import { CgMenuLeftAlt } from "react-icons/cg";
+
 import { useThemeContext } from '@/context/ThemeSwitchContext';
 
 export default function NavBar() {
@@ -58,7 +60,7 @@ export default function NavBar() {
             onClick={toggleSidebar}
             aria-label="Menú principal"
           >
-            <FaBars />
+            <CgMenuLeftAlt size={25} />
           </button>
           
           <div 
@@ -69,8 +71,7 @@ export default function NavBar() {
             aria-label="Ir a inicio"
             onKeyDown={(e) => e.key === 'Enter' && navigateTo('/')}
           >
-            <h1 className={styles.headerTitle}>ANTONIO</h1>
-            <h3 className={styles.headerSubtitle}>resto</h3>
+            <h1 className={styles.headerTitle}>Urban Bites</h1>
           </div>
           
           <div className={styles.headerIcons}>

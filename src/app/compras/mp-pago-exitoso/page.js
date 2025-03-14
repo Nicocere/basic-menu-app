@@ -186,7 +186,7 @@ export default function Payment() {
           title: 'QR Guardado',
           text: 'El código QR se ha descargado correctamente.',
           icon: 'success',
-          iconColor: isDarkMode ? '#81c784' : '#4caf50',
+          iconColor: isDarkMode ? '#81c784' : '#ff4757',
           confirmButtonColor: isDarkMode ? '#7b5e57' : '#4e342e',
           toast: true,
           position: 'bottom-end',
@@ -293,7 +293,7 @@ export default function Payment() {
         title: 'Recibo generado',
         text: 'El recibo se ha descargado correctamente.',
         icon: 'success',
-        iconColor: isDarkMode ? '#81c784' : '#4caf50',
+        iconColor: isDarkMode ? '#81c784' : '#ff4757',
         confirmButtonColor: isDarkMode ? '#7b5e57' : '#4e342e',
       });
     } catch (error) {

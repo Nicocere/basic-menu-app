@@ -4,22 +4,71 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styles from './ProductsHome.module.css';
 import { menú } from '@/app/fakeData';
-import { FaMinus, FaPlus } from 'react-icons/fa';
+import { FaMinus, FaPlus, FaPizzaSlice, FaHamburger, FaCoffee, FaWineGlassAlt, 
+        FaGlassMartini, FaCocktail, FaBreadSlice, FaIceCream, FaWineBottle, 
+        FaGlassWhiskey, FaUtensils, FaCheese, FaCarrot } from 'react-icons/fa';
+import { BiDrink, BiCake } from 'react-icons/bi';
+import { GiNoodles, GiCupcake, GiWrappedSweet, GiChocolateBar, GiSodaCan, GiWaterBottle } from 'react-icons/gi';
 import { supabase } from '@/config/supabaseClient';
 import { useCart } from '@/context/CartContext';
 import CategoryCarousel from '../CategoryCarousel/CategoryCarousel';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
+
+// Función para obtener el icono según la categoría y nombre del producto
+const getProductIcon = (product) => {
+    // Primero verificamos por nombre específico
+    const productName = product.nombre.toLowerCase();
+    
+    if (productName.includes('pizza')) return <FaPizzaSlice />;
+    if (productName.includes('empanada')) return <FaHamburger />;
+    if (productName.includes('cerveza')) return <FaWineBottle />;
+    if (productName.includes('vino')) return <FaWineGlassAlt />;
+    if (productName.includes('fernet')) return <FaGlassWhiskey />;
+    if (productName.includes('agua')) return <GiWaterBottle />;
+    if (productName.includes('jugo')) return <BiDrink />;
+    if (productName.includes('limonada')) return <BiDrink />;
+    if (productName.includes('tostado')) return <FaBreadSlice />;
+    if (productName.includes('croissant')) return <FaBreadSlice />;
+    if (productName.includes('tarta')) return <FaUtensils />;
+    if (productName.includes('medialuna')) return <FaBreadSlice />;
+    if (productName.includes('torta')) return <BiCake />;
+    if (productName.includes('churro')) return <GiWrappedSweet />;
+    if (productName.includes('helado')) return <FaIceCream />;
+    if (productName.includes('brownie')) return <GiChocolateBar />;
+    if (productName.includes('cheesecake')) return <BiCake />;
+    if (productName.includes('ravioles')) return <GiNoodles />;
+    if (productName.includes('bife')) return <FaUtensils />;
+    if (productName.includes('pechuga')) return <FaUtensils />;
+    
+    // Si no hay match específico por nombre, buscamos por categoría
+    if (!product.categorias) return <FaUtensils />;
+    
+    const categories = product.categorias.map(cat => cat.toLowerCase());
+    
+    if (categories.includes('comidas')) return <FaUtensils />;
+    if (categories.includes('pizzas')) return <FaPizzaSlice />;
+    if (categories.includes('empanadas')) return <FaHamburger />;
+    if (categories.includes('menu cena')) return <FaUtensils />;
+    if (categories.includes('con alcohol')) return <FaCocktail />;
+    if (categories.includes('sin alcohol')) return <BiDrink />;
+    if (categories.includes('salado')) return <FaCheese />;
+    if (categories.includes('dulce')) return <GiCupcake />;
+    if (categories.includes('postres')) return <FaIceCream />;
+    if (categories.includes('desayunos y meriendas')) return <FaCoffee />;
+    if (categories.includes('bebidas')) return <FaGlassMartini />;
+    
+    // Icono predeterminado si no hay coincidencia
+    return <FaUtensils />;
+};
 
 // Componente para mostrar resultados de búsqueda
 const SearchResults = ({ results, addToCart, removeFromCart }) => (
     <motion.div className={styles['search-results']} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         {results.map((product) => (
             <motion.div key={product.nombre} className={styles['product-card-search']} whileHover={{ scale: 1.05 }}>
-                <img
-                    src="/fakeProduct.jpg"
-                    alt={product.nombre}
-                    className={styles['product-image']}
-                />
+                <div className={styles['product-icon']}>
+                    {getProductIcon(product)}
+                </div>
                 <h4 className={styles['product-name']}>{product.nombre}</h4>
                 <p className={styles['product-description']}>{product.descripcion}</p>
                 <p className={styles['product-price']}>${product.precio}</p>
@@ -38,15 +87,15 @@ const ProductCard = ({ product, quantity, onQuantityChange, onAddToCart }) => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
     >
-        <div className={styles['product-image-container']}>
-            <img
-                src="/fakeProduct.jpg"
-                alt={product.nombre}
-                className={styles['product-image']}
-            />
-            <h4 className={styles['product-name']}>{product.nombre}</h4>
-            <p className={styles['product-description']}>{product.descripcion}</p>
-            <p className={styles['product-price']}>${product.precio}</p>
+        <div className={styles['product-content']}>
+            <div className={styles['product-icon']}>
+                {getProductIcon(product)}
+            </div>
+            <div className={styles['product-details']}>
+                <h4 className={styles['product-name']}>{product.nombre}</h4>
+                <p className={styles['product-description']}>{product.descripcion}</p>
+                <p className={styles['product-price']}>${product.precio}</p>
+            </div>
         </div>
 
         <div className={styles['product-buttons']}>
@@ -82,20 +131,17 @@ export default function ProductsHome() {
     const [productos, setProductos] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedSubcategory, setSelectedSubcategory] = useState(null);
-  const { isDarkMode } = useThemeContext();
+    const { isDarkMode } = useThemeContext();
 
     // Usar el contexto del carrito
     const { cart, addToCart, removeFromCart } = useCart();
 
-    // Función para normalizar los nombres de categorías para comparación
+    // Resto del código permanece igual...
     const formatForComparison = (name) => {
-        // Si name no existe, devolver cadena vacía
         if (!name) return '';
-
-        // Transformar formato bonito a formato de base de datos
         return name.toLowerCase()
-            .replace(/\s+/g, '_')     // Espacios a guiones bajos
-            .replace(/[áàäâã]/g, 'a')  // Normalizar acentos
+            .replace(/\s+/g, '_')
+            .replace(/[áàäâã]/g, 'a')
             .replace(/[éèëê]/g, 'e')
             .replace(/[íìïî]/g, 'i')
             .replace(/[óòöôõ]/g, 'o')
@@ -103,7 +149,6 @@ export default function ProductsHome() {
             .replace(/ñ/g, 'n');
     };
 
-    // Cargar productos desde Supabase
     useEffect(() => {
         const fetchProductos = async () => {
             const { data, error } = await supabase
@@ -120,23 +165,16 @@ export default function ProductsHome() {
         fetchProductos();
     }, []);
 
-    // Manejador para cuando se selecciona una categoría
     const handleCategorySelect = (category, parentCategory = null) => {
-        console.log("Categoría seleccionada:", category);
-        console.log("Categoría padre:", parentCategory);
-
         if (parentCategory) {
-            // Es una subcategoría
             setSelectedCategory(parentCategory);
             setSelectedSubcategory(category);
         } else {
-            // Es una categoría principal
             setSelectedCategory(category);
             setSelectedSubcategory(null);
         }
     };
 
-    // Manejadores de eventos
     const handleQuantityChange = (productId, change) => {
         setQuantities(prev => ({
             ...prev,
@@ -146,7 +184,6 @@ export default function ProductsHome() {
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
-        // Limpiar categoría seleccionada cuando se busca
         if (event.target.value) {
             setSelectedCategory(null);
             setSelectedSubcategory(null);
@@ -159,12 +196,10 @@ export default function ProductsHome() {
     };
 
     const handleRemoveFromCart = (product) => {
-        removeFromCart(product, product.quantity); // Eliminar todas las unidades
+        removeFromCart(product, product.quantity);
     };
 
-    // Filtrar menú basado en búsqueda Y categoría seleccionada
     const filteredMenu = Object.keys(menú.menu).reduce((acc, category) => {
-        // Si hay una categoría seleccionada y no es esta, la saltamos
         if (selectedCategory && selectedCategory.nombre) {
             const formattedMenuCategory = formatForComparison(category);
             const formattedSelectedCategory = formatForComparison(selectedCategory.nombre);
@@ -175,7 +210,6 @@ export default function ProductsHome() {
         }
 
         const subcategories = Object.keys(menú.menu[category]).reduce((subAcc, subcategory) => {
-            // Si hay una subcategoría seleccionada y no es esta, la saltamos
             if (selectedSubcategory && selectedSubcategory.nombre) {
                 const formattedMenuSubcategory = formatForComparison(subcategory);
                 const formattedSelectedSubcategory = formatForComparison(selectedSubcategory.nombre);
@@ -185,7 +219,6 @@ export default function ProductsHome() {
                 }
             }
 
-            // Filtrar productos que coincidan con el término de búsqueda
             const products = Array.isArray(menú.menu[category][subcategory])
                 ? menú.menu[category][subcategory].filter((product) =>
                     product.nombre.toLowerCase().includes(searchTerm.toLowerCase())
@@ -204,19 +237,10 @@ export default function ProductsHome() {
         return acc;
     }, {});
 
-
     const searchResults = Object.values(filteredMenu).flatMap((subcategories) =>
         Object.values(subcategories).flat()
     );
 
-    // Para depuración - muestra en consola qué categorías se están filtrando
-    useEffect(() => {
-        console.log("Menú filtrado:", filteredMenu);
-        console.log("Categoría seleccionada:", selectedCategory);
-        console.log("Subcategoría seleccionada:", selectedSubcategory);
-    }, [filteredMenu, selectedCategory, selectedSubcategory]);
-
-    // Animación para secciones
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -232,18 +256,14 @@ export default function ProductsHome() {
         visible: { opacity: 1, y: 0 }
     };
 
-    // Función para generar IDs compatibles con scroll
     const generateScrollId = (name) => {
-        // Convertir de formato "sin_alcohol" a "sin-alcohol" para IDs HTML
         return name.toLowerCase()
             .replace(/_+/g, '-')
             .replace(/\s+/g, '-');
     };
 
-
     return (
         <main className={`${styles.main} ${isDarkMode ? styles.darkMode : ''}`}>
-
             <div className={styles.menu}>
                 <header className={styles.header}>
                     <h2 className={styles.mainTitle}>Buscar Productos</h2>
@@ -266,7 +286,6 @@ export default function ProductsHome() {
                 <h2 className={styles.mainTitle}>Categorías</h2>
                 <CategoryCarousel onCategorySelect={handleCategorySelect} />
 
-                {/* Mostrar qué categoría está seleccionada */}
                 {selectedCategory && (
                     <div className={styles.filterInfo}>
                         Mostrando productos de: <strong>{selectedCategory.nombre}</strong>
@@ -285,7 +304,6 @@ export default function ProductsHome() {
                     </div>
                 )}
 
-                {/* Mostrar mensaje si no hay productos */}
                 {Object.keys(filteredMenu).length === 0 && (
                     <div className={styles.noProducts}>
                         <p>No se encontraron productos
@@ -293,7 +311,6 @@ export default function ProductsHome() {
                         </p>
                     </div>
                 )}
-
 
                 <motion.div
                     variants={containerVariants}

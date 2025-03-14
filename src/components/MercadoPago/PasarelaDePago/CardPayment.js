@@ -55,11 +55,11 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
           textSecondaryColor: "#4b4b4b",
           inputBackgroundColor: "#2f1a0f2e", 
           formBackgroundColor: "transparent", //
-          baseColor: "#D4AF37 ", 
+          baseColor: "#ff4757 ", 
           baseColorFirstVariant: "#2f1a0f", 
           baseColorSecondVariant: "#2f1a0f",  
-          successColor: "#D4AF37", // rosa
-          outlinePrimaryColor: "#D4AF37 ",
+          successColor: "#ff4757", // rosa
+          outlinePrimaryColor: "#ff4757 ",
           formPadding: "",
           errorColor: "darkred", // Rosa
           inputFocusedBorderWidth: "1px solid #2f1a0f", // violeta oscuro cuando enfocado
@@ -175,7 +175,7 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
             title: '¡Compra exitosa!',
             text: 'Terminando de procesar su pedido...',
             icon: 'success',
-            iconColor: '#D4AF37',
+            iconColor: '#ff4757',
             color: '#2f1a0f',
             position: 'center',
             toast: true,
@@ -190,7 +190,7 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
             title: '¡Pago en proceso!',
             text: 'El pago está en proceso. Por favor, espere a que se complete la revisión.',
             icon: 'info',
-            iconColor: '#D4AF37',
+            iconColor: '#ff4757',
             color: '#2f1a0f',
             position: 'center',
             toast: true,
@@ -235,8 +235,8 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
           title: '¡Error!',
           text: 'Hubo un error al procesar la compra, inténtelo de nuevo.',
           icon: 'error',
-          iconColor: '#D4AF37',
-          color: '#D4AF37',
+          iconColor: '#ff4757',
+          color: '#ff4757',
           position: 'center',
           toast: true,
           timer: 2000,
@@ -273,14 +273,14 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
       {isLoading && (
         <div className="spinner-container">
           <p className="loadMP">Cargando...</p>
-          <PulseLoader loading={isLoading} className="PulseLoader " color="#D4AF37 " />
+          <PulseLoader loading={isLoading} className="PulseLoader " color="#ff4757 " />
         </div>
       )}
 
       {isProcessingBackend && (
         <div className="spinner-container">
           <p className="loadMP">{processingMessage}</p>
-          <PulseLoader loading={isProcessingBackend} className="PulseLoader " color="#D4AF37 " />
+          <PulseLoader loading={isProcessingBackend} className="PulseLoader " color="#ff4757 " />
         </div>
       )}
 

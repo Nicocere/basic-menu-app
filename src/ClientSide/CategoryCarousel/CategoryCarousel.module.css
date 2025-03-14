@@ -1,7 +1,7 @@
 /* Variables principales - Tema claro */
 .categoryCarouselContainer {
-  --primary-color: #8D4E31;
-  --accent-color: #d4af37;
+  --primary-color: #ff4757;
+  --accent-color: #ff4757;
   --accent-light: #FFD599;
   --text-dark: #2D2926;
   --text-light: #777;
@@ -16,17 +16,17 @@
   --error-color: #E53935;
   --error-border: rgba(229, 57, 53, 0.3);
   --spinner-border: #f3f3f3;
-  --spinner-accent: #d4af37;
+  --spinner-accent: #ff4757;
 }
 
 /* Variables para tema oscuro */
 .darkMode {
-  --primary-color: #F3A950;
-  --accent-color: #d4af37;
+  --primary-color: #ff4757;
+  --accent-color: #ff4757;
   --accent-light: #FFD599;
   --text-dark: #F5F5F5;
   --text-light: #CCC;
-  --background-light: #333;
+  --background-light: #ff4757;
   --background-hover: #444;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -34,8 +34,8 @@
   --error-bg: #3B0D0D;
   --error-color: #FFCDD2;
   --error-border: rgba(255, 193, 210, 0.3);
-  --spinner-border: #333;
-  --spinner-accent: #F3A950;
+  --spinner-border: #ff4757;
+  --spinner-accent: #ff4757;
 }
 
 /* Contenedor principal - limitado a 400px o ancho de pantalla */

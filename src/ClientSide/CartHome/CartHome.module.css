@@ -56,7 +56,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #d4af37;
+  background-color: #ff4757;
   color: white;
   border: none;
   border-radius: 6px;
@@ -193,7 +193,7 @@
 .checkoutButton {
   width: 100%;
   padding: 12px;
-  background-color: #4CAF50;
+  background-color: #ff4757;
   color: white;
   border: none;
   border-radius: 6px;
@@ -204,8 +204,45 @@
 }
 
 .checkoutButton:hover {
-  background-color: #3d9140;
+  background-color: #ff4757;
 }
+
+
+/* Estilos para los iconos de productos */
+.productIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  margin-right: 15px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+}
+
+.darkMode .productIcon {
+  background: linear-gradient(135deg, #ff4757 0%, #ff4757 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Ajustes para el contenedor de productos */
+.productItem {
+  display: flex;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.darkMode .productItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Resto de los estilos pueden mantenerse igual */
 
 /* Estilos responsivos */
 @media (max-width: 600px) {

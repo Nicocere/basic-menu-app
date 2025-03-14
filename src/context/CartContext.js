@@ -141,7 +141,7 @@ export function CartProvider({ children }) {
         </div>
       `,
       showCancelButton: true,
-      confirmButtonColor: '#d4af37',
+      confirmButtonColor: '#ff4757',
       cancelButtonColor: '#6c757d',
       confirmButtonText: 'Eliminar',
       cancelButtonText: 'Cancelar',

@@ -8,9 +8,9 @@
   --text-primary: #212529;
   --text-secondary: #6c757d;
   --text-muted: #adb5bd;
-  --brand-color: #8D4E31;
+  --brand-color: #ff4757;
   --brand-hover: #734026;
-  --accent-color: #F3A950;
+  --accent-color: #ff4757;
   --accent-hover: #e59539;
   --accent-light: rgba(243, 169, 80, 0.1);
   --border-color: #dee2e6;
@@ -23,7 +23,7 @@
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
   --heart-color: #e74c3c;
   --info-bg: rgba(243, 169, 80, 0.1);
-  --info-border: #F3A950;
+  --info-border: #ff4757;
   --error-bg: #fff1f0;
   --error-border: #ffe1e0;
   --error-text: #cf1322;
@@ -38,9 +38,9 @@
   --text-primary: #f8f9fa;
   --text-secondary: #ced4da;
   --text-muted: #6c757d;
-  --brand-color: #F3A950;
+  --brand-color: #ff4757;
   --brand-hover: #f8c181;
-  --accent-color: #F3A950;
+  --accent-color: #ff4757;
   --accent-hover: #f8c181;
   --accent-light: rgba(243, 169, 80, 0.15);
   --border-color: #343a40;
@@ -53,7 +53,7 @@
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.35);
   --heart-color: #ff6b6b;
   --info-bg: rgba(243, 169, 80, 0.15);
-  --info-border: #F3A950;
+  --info-border: #ff4757;
   --error-bg: #2a0d0c;
   --error-border: #5c2223;
   --error-text: #ff7875;
@@ -380,7 +380,7 @@
   gap: 0.5rem;
   background: none;
   border: none;
-  color: var(--accent-primary, #8D4E31);
+  color: var(--accent-primary, #ff4757);
   cursor: pointer;
   font-weight: 500;
   padding: 0.5rem;
@@ -394,7 +394,7 @@
 }
 
 .darkMode .backToFormButton {
-  color: var(--accent-primary-dark, #F3A950);
+  color: var(--accent-primary-dark, #ff4757);
 }
 
 .darkMode .backToFormButton:hover {
@@ -406,24 +406,24 @@
   padding: 1rem;
   background-color: #f9f9f9;
   border-radius: 8px;
-  border-left: 4px solid var(--accent-primary, #8D4E31);
+  border-left: 4px solid var(--accent-primary, #ff4757);
 }
 
 .darkMode .paymentSummary {
   background-color: #1a202c;
-  border-left: 4px solid var(--accent-primary-dark, #F3A950);
+  border-left: 4px solid var(--accent-primary-dark, #ff4757);
 }
 
 .paymentSummary h2 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: var(--accent-primary, #8D4E31);
+  color: var(--accent-primary, #ff4757);
   border-bottom: 1px solid rgba(0,0,0,0.1);
   padding-bottom: 0.5rem;
 }
 
 .darkMode .paymentSummary h2 {
-  color: var(--accent-primary-dark, #F3A950);
+  color: var(--accent-primary-dark, #ff4757);
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 

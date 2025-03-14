@@ -120,7 +120,7 @@ export default function Footer() {
             whileTap={{ scale: 0.98 }}
           >
             <FaCalendarAlt className={styles.buttonIcon} />
-            Hacer una reserva
+            Pide ahora para retirar después
           </motion.button>
         </motion.div>
 
@@ -155,25 +155,6 @@ export default function Footer() {
               <FaEnvelope />
             </motion.a>
           </div>
-          <form className={styles.newsletter} onSubmit={handleSubscribe}>
-            <input 
-              type="email" 
-              placeholder="Suscribite al newsletter" 
-              className={styles.emailInput}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required 
-            />
-            <motion.button 
-              type="submit" 
-              className={`${styles.subscribeButton} ${isSubscribed ? styles.subscribed : ''}`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              disabled={isSubscribed}
-            >
-              {isSubscribed ? '¡Suscrito!' : 'Suscribirse'}
-            </motion.button>
-          </form>
         </motion.div>
       </motion.div>
 

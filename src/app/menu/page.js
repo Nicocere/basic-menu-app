@@ -22,7 +22,6 @@ export default function Propinas() {
 
       <CartHome />
       <PropinasButton />
-      <CarouselHeader title="Nuestros Destacados" />
       <ProductsHome />
       <GuideHome />
 

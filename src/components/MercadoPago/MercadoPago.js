@@ -114,8 +114,8 @@ const MercadoPagoButton = ({
     },
     checkout: {
       theme: {
-        elementsColor: '#D4AF37',
-        headerColor: '#D4AF37',
+        elementsColor: '#ff4757',
+        headerColor: '#ff4757',
       },
     },
   };
@@ -168,7 +168,7 @@ const MercadoPagoButton = ({
         title: 'Error al procesar el pago',
         text: error.message || 'Hubo un problema con Mercado Pago',
         icon: 'error',
-        confirmButtonColor: '#D4AF37',
+        confirmButtonColor: '#ff4757',
       });
       setIsLoading(false);
     }
@@ -181,7 +181,7 @@ const MercadoPagoButton = ({
       title: 'Error',
       text: 'Hubo un problema al procesar el pago',
       icon: 'error',
-      confirmButtonColor: '#D4AF37',
+      confirmButtonColor: '#ff4757',
     });
   };
 
@@ -266,7 +266,7 @@ const MercadoPagoButton = ({
       {isLoading && (
         <div className="spinner-container">
           <p className="loadMP">Procesando pago...</p>
-          <PulseLoader loading={isLoading} className="PulseLoader" color="#D4AF37" />
+          <PulseLoader loading={isLoading} className="PulseLoader" color="#ff4757" />
         </div>
       )}
 

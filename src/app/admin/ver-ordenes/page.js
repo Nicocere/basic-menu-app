@@ -156,7 +156,7 @@ export default function OrdersView() {
         icon: 'success',
         timer: 2000,
         showConfirmButton: false,
-        iconColor: '#4caf50', // Color success
+        iconColor: '#ff4757', // Color success
         background: '#1c1c24', // Color surface-1
         color: '#ffffff', // Color text-primary
         customClass: {
@@ -357,6 +357,7 @@ export default function OrdersView() {
             <div className={styles.tableHeader}>
               <div className={styles.headerCell}>Orden #</div>
               <div className={styles.headerCell}>Cliente</div>
+              <div className={styles.headerCell}>Metodo Pago</div>
               <div className={styles.headerCell}>Fecha</div>
               <div className={styles.headerCell}>Mesa/Pickup</div>
               <div className={styles.headerCell}>Total</div>
@@ -369,6 +370,7 @@ export default function OrdersView() {
                 <div key={order.id} className={`${styles.tableRow} ${order.delivered ? styles.deliveredRow : ''}`}>
                   <div className={styles.cell}>{order.order_id}</div>
                   <div className={styles.cell}>{order.customer_name}</div>
+                  <div className={styles.cell}>{order.payment_method}</div>
                   <div className={styles.cell}>
                     {format(new Date(order.created_at), 'dd/MM/yyyy HH:mm', { locale: es })}
                   </div>
