@@ -72,8 +72,8 @@ export default function NavBar() {
             aria-label="Ir a inicio"
             onKeyDown={(e) => e.key === 'Enter' && navigateTo('/')}
           >
-            <h1 className={styles.headerTitle}>ANTONIO</h1>
-            <h3 className={styles.headerSubtitle}>resto</h3>
+            <h1 className={styles.headerTitle}>Bar & Grill</h1>
+            <h3 className={styles.headerSubtitle}>Since 2002</h3>
           </div>
           
           <div className={styles.headerIcons}>
