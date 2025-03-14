@@ -4,11 +4,20 @@
   --primary-color: #424242;
   --accent-color: #ff4757;
   --background-light: #ffffff;
-  --text-light: #ffffff;
   --text-dark: #333333;
-  --text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --background-dark: #000000;
+  --text-light: #ffffff;
+  --text-dark: #2d3436;
+  --text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 8px 32px 0 #413308;
+  --glass-blur: 8px;
+  --transparent-light: rgba(255, 193, 113, 0.507);
+  --transparent-dark: rgba(170, 91, 45, 0.575);
+
 
   position: relative;
   padding-top: 50px;
@@ -16,6 +25,7 @@
   height: var(--header-height);
   color: var(--text-light);
   overflow: hidden;
+  padding-top: 50px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity var(--transition-slow), transform var(--transition-slow);
@@ -40,30 +50,39 @@
 .bannerImage {
   position: absolute;
   top: -50px;
-  /* Extra espacio para el efecto parallax */
   left: 0;
   width: 100%;
   height: calc(100% + 100px);
-  /* Extra altura para el efecto parallax */
   background-size: cover;
   background-position: center center;
   transition: transform 0.05s ease-out;
-  /* Suavizado para efecto parallax */
   will-change: transform;
-  /* Optimización de rendimiento */
+  filter: saturate(1.1) contrast(1.1);
 }
 
-/* Overlay con gradiente dinámico */
+/* Overlay moderno con gradiente */
 .bannerOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.632), rgba(0, 0, 0, 0.516));
+  background: linear-gradient(
+    135deg, 
+    rgba(0, 0, 0, 0.8) 0%, 
+    rgba(0, 0, 0, 0.6) 40%,
+    var(--transparent-light) 100%
+  );
   z-index: 1;
 }
-
+.darkMode .bannerOverlay {
+  background: linear-gradient(
+    135deg, 
+    rgba(0, 0, 0, 0.8) 0%, 
+    rgba(0, 0, 0, 0.6) 40%,
+    var(--transparent-dark) 100%
+  );
+}
 /* Contenido principal del header */
 .headerContent {
   position: relative;
@@ -72,8 +91,8 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 4rem 2rem;
-  max-width: -webkit-fill-available;
+  padding: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -87,30 +106,55 @@
 
 .headerTop {
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brandContainer {
+  margin-bottom: 2rem;
 }
 
 .restaurantName {
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1;
   letter-spacing: -1px;
   text-transform: uppercase;
   text-shadow: var(--text-shadow);
   animation: fadeSlideUp 0.8s 0.4s forwards;
   opacity: 0;
   transform: translateY(20px);
+  background: linear-gradient(90deg, var(--secondary-color) 20%, var(--accent-color) 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.tagline {
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  font-weight: 400;
-  margin: 1rem 0 2rem;
-  max-width: 600px;
-  text-shadow: var(--text-shadow);
+.taglineWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
   animation: fadeSlideUp 0.8s 0.6s forwards;
   opacity: 0;
   transform: translateY(20px);
+}
+
+.taglineLine {
+  flex-grow: 0;
+  height: 2px;
+  width: 2rem;
+  background-color: var(--accent-color);
+}
+
+.tagline {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 400;
+  margin: 0;
+  max-width: 600px;
+  text-shadow: var(--text-shadow);
 }
 
 /* Contenedor del botón CTA */
@@ -122,21 +166,47 @@
 }
 
 .ctaButton {
-  display: inline-block;
-  background-color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-color);
   color: #fff;
-  padding: 0.9rem 2.5rem;
-  border-radius: 3px;
-  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
   letter-spacing: 0.5px;
   text-decoration: none;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 25px rgba(255, 71, 87, 0.4);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ctaButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.7s;
+  z-index: -1;
 }
 
 .ctaButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(255, 71, 87, 0.5);
+}
+
+.ctaButton:hover::before {
+  left: 100%;
+}
+
+.ctaIcon {
+  font-size: 1.2rem;
 }
 
 /* Parte inferior del header */
@@ -145,12 +215,19 @@
   animation: fadeSlideUp 0.8s 1s forwards;
   opacity: 0;
   transform: translateY(20px);
+  backdrop-filter: blur(var(--glass-blur));
+  background: var(--glass-background);
+  border-radius: 10px;
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  padding: 1.5rem;
 }
 
 .infoContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  justify-content: space-around;
 }
 
 .infoItem {
@@ -158,19 +235,29 @@
   align-items: center;
   font-size: 1rem;
   text-shadow: var(--text-shadow);
-
   margin-bottom: 0.75rem;
 }
 
+.infoIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
 .infoIcon {
-  margin-right: 0.75rem;
-  color: var(--accent-color);
+  color: var(--text-dark);
+  font-size: 1.2rem;
 }
 
 /* Indicador de scroll */
 .scrollIndicator {
   position: absolute;
-  bottom: 120px;
+  bottom: 135px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -181,20 +268,32 @@
 }
 
 .scrollIndicator span {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
   font-weight: 500;
   text-shadow: var(--text-shadow);
 }
 
+.scrollIconContainer {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(255, 222, 89, 0.4);
+}
+
 .scrollIcon {
   animation: bounce 2s infinite;
+  color: var(--text-dark);
 }
 
 /* Forma decorativa en la parte inferior */
 .headerShape {
   position: absolute;
-  bottom: -10px;
+  bottom: -5px;
   left: 0;
   width: 100%;
   z-index: 100;
@@ -203,8 +302,20 @@
 
 .headerShape svg {
   width: 100%;
-  height: 180px;
-  fill: #f8f9fa !important;
+  height: 120px;
+}
+
+.wavePath1 {
+  fill: var(--background-light);
+  opacity: 1;
+  transform: translateY(5px);
+
+}
+
+.wavePath2 {
+  fill: var(--background-light);
+  opacity: 0.6;
+  transform: translateY(-25px);
 }
 
 .darkMode .headerShape svg {
@@ -228,27 +339,15 @@
 }
 
 @keyframes bounce {
-
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
+  0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
-
   40% {
     transform: translateY(-10px);
   }
-
   60% {
     transform: translateY(-5px);
   }
-}
-
-/* Modo oscuro */
-.darkMode .headerShape svg {
-  fill: #121212;
 }
 
 /* Media queries */
@@ -256,19 +355,18 @@
   .header {
     --header-height: 65vh;
   }
-  .headerBottom{
+
+  .headerBottom {
     margin-top: 1rem;
+    padding: 1rem;
   }
 
   .contentWrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
     justify-content: flex-start;
   }
 
   .headerContent {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
   }
 
   .infoContainer {
@@ -281,6 +379,23 @@
   }
 
   .scrollIndicator {
-    bottom: 100px;
+    bottom: 120px;
+  }
+  
+  .taglineWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .taglineLine:first-child {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .infoContainer {
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }
