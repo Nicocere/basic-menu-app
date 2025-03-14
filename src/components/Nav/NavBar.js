@@ -28,11 +28,8 @@ export default function NavBar() {
   const { isDarkMode, handleThemeChange } = useThemeContext();
 
   // Detectar scroll para cambiar apariencia del header
-  // Detectar scroll para cambiar apariencia del header
   useEffect(() => {
     const handleScroll = () => {
-      // Cambiar de forma basada en el scroll
-      // Cuando scrollY > 20, el navbar tendrá border-radius y otros efectos
       setScrolled(window.scrollY > 20);
     };
     

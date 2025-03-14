@@ -3,14 +3,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
-import { FaMapMarkerAlt, FaClock, FaPhone, FaChevronDown, FaShoppingCart } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaClock, FaPhone, FaChevronDown } from 'react-icons/fa';
 import { useThemeContext } from '@/context/ThemeSwitchContext';
 
 const Header = ({
   restaurantName = "Urban Bites",
   tagline = "Comida real para gente que no se complica",
   address = "Av. Libertador 1234, Buenos Aires",
-  hours = "18:00 - 01:00, Martes a Domingo",
+  hours = "12:00 - 23:00, todos los días",
   phone = "+54 11 4567-8900",
   cta = "¡Pide ya!",
   ctaLink = "/menu",
@@ -21,12 +21,16 @@ const Header = ({
   const [scrollPosition, setScrollPosition] = useState(0);
   const headerRef = useRef(null);
 
+  // Efecto para animación de entrada
   useEffect(() => {
     setIsVisible(true);
-    
+  }, []);
+
+  // Efecto para detección de scroll y efecto parallax
+  useEffect(() => {
     const handleScroll = () => {
       const position = window.scrollY;
-      setScrollPosition(position * 0.5);
+      setScrollPosition(position * 0.5); // Valor para efecto parallax
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -56,19 +60,12 @@ const Header = ({
       <div className={styles.headerContent}>
         <div className={styles.contentWrapper}>
           <div className={styles.headerTop}>
-            <div className={styles.brandContainer}>
-              <h1 className={styles.restaurantName}>{restaurantName}</h1>
-              <div className={styles.taglineWrapper}>
-                <span className={styles.taglineLine}></span>
-                <p className={styles.tagline}>{tagline}</p>
-                <span className={styles.taglineLine}></span>
-              </div>
-            </div>
+            <h1 className={styles.restaurantName}>{restaurantName}</h1>
+            <p className={styles.tagline}>{tagline}</p>
             
             <div className={styles.ctaContainer}>
               <Link href={ctaLink} className={styles.ctaButton}>
-                <FaShoppingCart className={styles.ctaIcon} />
-                <span>{cta}</span>
+                {cta}
               </Link>
             </div>
           </div>
@@ -76,21 +73,15 @@ const Header = ({
           <div className={styles.headerBottom}>
             <div className={styles.infoContainer}>
               <div className={styles.infoItem}>
-                <div className={styles.infoIconWrapper}>
-                  <FaMapMarkerAlt className={styles.infoIcon} aria-hidden="true" />
-                </div>
+                <FaMapMarkerAlt className={styles.infoIcon} aria-hidden="true" />
                 <span>{address}</span>
               </div>
               <div className={styles.infoItem}>
-                <div className={styles.infoIconWrapper}>
-                  <FaClock className={styles.infoIcon} aria-hidden="true" />
-                </div>
+                <FaClock className={styles.infoIcon} aria-hidden="true" />
                 <span>{hours}</span>
               </div>
               <div className={styles.infoItem}>
-                <div className={styles.infoIconWrapper}>
-                  <FaPhone className={styles.infoIcon} aria-hidden="true" />
-                </div>
+                <FaPhone className={styles.infoIcon} aria-hidden="true" />
                 <span>{phone}</span>
               </div>
             </div>
@@ -104,9 +95,8 @@ const Header = ({
       </div>
       
       <div className={styles.headerShape}>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path className={styles.wavePath1} d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,32C840,32,960,64,1080,69.3C1200,75,1320,53,1380,42.7L1440,32L1440,120L0,120Z"></path>
-          <path className={styles.wavePath2} d="M0,64L60,69.3C120,75,240,85,360,80C480,75,600,53,720,48C840,43,960,53,1080,53.3C1200,53,1320,43,1380,37.3L1440,32L1440,120L0,120Z"></path>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
+          <path d="M0,64L80,58.7C160,53,320,43,480,48C640,53,800,55,960,55C1120,55,1280,53,1360,52L1440,51L1440,80L0,80Z"></path>
         </svg>
       </div>
     </header>
