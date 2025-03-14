@@ -1,9 +1,7 @@
 "use client";
 
 import CartHome from "@/ClientSide/CartHome/CartHome";
-import Home from "../page";
 import PropinasButton from "@/components/PropinasButton/PropinasButton";
-import CarouselHeader from "@/components/CarouselHeader/CarouselHeader";
 import ProductsHome from "@/ClientSide/ProductsHome/ProductsHome";
 import GuideHome from "@/ClientSide/GuideHome/GuideHome";
 import styles from '../page.module.css'
