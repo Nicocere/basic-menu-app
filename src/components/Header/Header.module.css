@@ -254,7 +254,7 @@
 /* Media queries */
 @media screen and (max-width: 768px) {
   .header {
-    --header-height: 65vh;
+    --header-height: 85vh;
   }
   .headerBottom{
     margin-top: 1rem;
